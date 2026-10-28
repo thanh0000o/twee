@@ -1,0 +1,347 @@
+/* Move the image, its rim and its shadow together, inside stationary masks.
+   Never animate the SVG's mirrored transform or the frame/curve geometry. */
+.home-page .home-oval-drift {
+  transform-box: view-box;
+  transform-origin: 620px 315px;
+  animation: home-oval-drift 12s ease-in-out infinite;
+}
+
+/* Reflections brighten gently on the existing shapes, without a new glow,
+   streak or duplicate pattern. Their geometry stays attached to the ovals. */
+.home-page .home-oval-reflection {
+  animation: home-oval-reflection 12s ease-in-out infinite;
+}
+
+.home-page .home-ambient-light {
+  animation: home-light-flow 22s ease-in-out infinite;
+}
+
+@keyframes home-oval-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(15px, -9px) scale(1.012); }
+  55% { transform: translate(3px, -3px) scale(1.004); }
+  78% { transform: translate(-10px, 6px) scale(.994); }
+}
+
+@keyframes home-oval-reflection {
+  0%, 100% { opacity: .68; }
+  30% { opacity: .82; }
+  75% { opacity: .6; }
+}
+
+@keyframes home-light-flow {
+  0%, 100% { transform: translate(-12px, 0); opacity: .8; }
+  50% { transform: translate(18px, 8px); opacity: 1; }
+}
+
+/* One choreography: the arc is inked first (tail, central curve, upper curve),
+   the frame follows while it is still travelling, then header and bracket settle.
+   Reveal masks follow the ink centerlines; fills and gradients are never masked.
+   Everything ends by 2.6s; "forwards" keeps the mask complete until the flag ends. */
+.home-page[data-opening="true"] .home-ink-arc {
+  animation: home-ink-draw 1500ms cubic-bezier(.3,.55,.2,1) 0ms both;
+}
+.home-page[data-opening="true"] .home-ink-frame {
+  animation: home-ink-draw 1600ms cubic-bezier(.3,.55,.2,1) 550ms both;
+}
+.home-page[data-opening="true"] .home-ink-header {
+  animation: home-ink-draw 1300ms cubic-bezier(.3,.55,.2,1) 800ms both;
+}
+.home-page[data-opening="true"] .home-ink-bracket {
+  animation: home-ink-draw 1000ms cubic-bezier(.3,.55,.2,1) 1500ms both;
+}
+.home-page[data-opening="true"] .home-frame-reveal {
+  stroke-dasharray: 1;
+  animation: home-frame-corner-draw 1600ms cubic-bezier(.3,.55,.2,1) 550ms both;
+}
+.home-page[data-opening="true"] .home-frame-return {
+  animation-delay: 650ms;
+}
+@keyframes home-ink-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+.home-page[data-opening="true"] .home-marker-reveal {
+  animation: home-marker-appear 680ms ease-in-out 560ms backwards;
+}
+
+.home-page[data-opening="true"] .home-marker-ink {
+  animation-delay: 730ms;
+}
+
+
+/* Feathered left-to-right wipe: a stationary mask inside the stationary panel clip. */
+.home-page[data-opening="true"] .home-entry-wipe {
+  animation: home-entry-wipe 1550ms cubic-bezier(.45,.05,.3,1) 80ms both;
+}
+
+.home-page[data-opening="true"] .home-panel-shadow {
+  animation: home-entry-bubble 1550ms ease-out 80ms backwards;
+}
+
+.home-page[data-opening="true"] .home-entry-bubble {
+  animation: home-entry-bubble 260ms cubic-bezier(.2,.7,.3,1) backwards;
+}
+
+.home-page[data-opening="true"] .home-entry-remainder {
+  animation: home-arrive 450ms ease-in-out 2350ms backwards;
+}
+
+@keyframes home-entry-wipe {
+  from { transform: translateX(0); }
+  to { transform: translateX(1010px); }
+}
+
+@keyframes home-entry-bubble {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.home-page[data-opening="true"] .flash-text {
+  animation: home-caption-appear 780ms ease-in-out 150ms backwards;
+}
+
+.home-page[data-opening="true"] .flash-text:nth-child(2) {
+  animation-delay: 260ms;
+}
+
+.home-page[data-opening="true"] .welcome-motion {
+  animation: home-welcome-arrive 1250ms cubic-bezier(.2,.65,.25,1) 300ms backwards;
+}
+
+/* The existing leftward smear follows the word into place.
+   No scan line, shine or added glowing layer. */
+.home-page[data-opening="true"] .welcome-trail {
+  transform-origin: left center;
+  animation: home-welcome-trail-arrive 1450ms cubic-bezier(.2,.65,.25,1) 300ms backwards;
+}
+
+.home-page[data-opening="true"] .home-copy-body > p {
+  animation: home-line-appear 820ms cubic-bezier(.26,.48,.3,1) 620ms backwards;
+}
+
+.home-page[data-opening="true"] .home-copy-body > p:nth-child(2) {
+  animation-delay: 820ms;
+}
+
+.home-page[data-opening="true"] .home-copy-body > p:nth-child(3) {
+  animation-delay: 1020ms;
+}
+
+.home-page .home-copy-body > p:nth-child(3) {
+  --home-copy-final-opacity: .9;
+}
+
+.home-page[data-opening="true"] .home-nav-link > div {
+  animation: home-nav-appear 670ms ease-in-out var(--nav-cue-delay, 870ms) backwards;
+}
+
+.home-page[data-opening="true"] .home-nav-link > :is(.home-nav-sphere, .nav-orb) {
+  animation: home-orb-appear 620ms ease-in-out var(--nav-cue-delay, 870ms) backwards;
+}
+
+/* A short wave of each link's own palette colour, after its label appears.
+   The halo sits behind the letters; it never blocks the link hit area. */
+.home-page .home-nav-title {
+  position: relative;
+  z-index: 0;
+}
+
+.home-page[data-opening="true"] .home-nav-title {
+  animation: home-title-ink-light 1000ms ease-in-out var(--nav-light-delay, 1100ms);
+}
+
+.home-page[data-opening="true"] .home-nav-title::before {
+  content: "";
+  position: absolute;
+  inset: calc(-2 * var(--u)) calc(-4 * var(--u));
+  z-index: -1;
+  border-radius: calc(7 * var(--u));
+  background: var(--home-nav-glow);
+  filter: blur(calc(5 * var(--u)));
+  opacity: 0;
+  pointer-events: none;
+  animation: home-title-halo-light 1000ms ease-in-out var(--nav-light-delay, 1100ms);
+}
+
+.home-page[data-opening="true"] .home-controls {
+  animation: home-arrive 680ms ease-in-out 750ms backwards;
+}
+
+@keyframes home-frame-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes home-frame-corner-draw {
+  0% { stroke-dashoffset: 1; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
+}
+
+@keyframes home-arrive {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes home-caption-appear {
+  from { opacity: .2; filter: blur(1px); }
+  to { opacity: 1; filter: blur(0); }
+}
+
+@keyframes home-welcome-arrive {
+  0% {
+    opacity: 0;
+    transform: scaleX(1.53) translateX(calc(-24 * var(--u)));
+    filter: blur(calc(5 * var(--u)));
+  }
+  65% {
+    opacity: 1;
+    filter: blur(calc(.6 * var(--u)));
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1.53) translateX(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes home-welcome-trail-arrive {
+  from {
+    opacity: 0;
+    transform: translateX(calc(-16 * var(--u))) scaleX(1.12);
+    filter: blur(calc(3 * var(--u)));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scaleX(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes home-line-appear {
+  from {
+    opacity: 0;
+    transform: translateY(calc(4 * var(--u)));
+  }
+  to {
+    opacity: var(--home-copy-final-opacity, 1);
+    transform: translateY(0);
+  }
+}
+
+@keyframes home-nav-appear {
+  0% { opacity: 0; filter: drop-shadow(0 0 0 transparent); }
+  60% {
+    opacity: 1;
+    filter: drop-shadow(0 0 calc(3 * var(--u)) var(--home-nav-glow));
+  }
+  100% { opacity: 1; filter: drop-shadow(0 0 0 transparent); }
+}
+
+@keyframes home-orb-appear {
+  0% { opacity: 0; transform: scale(.9); }
+  68% { opacity: 1; transform: scale(1.035); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes home-title-ink-light {
+  0%, 100% {
+    color: var(--home-nav-accent);
+    text-shadow: calc(.5 * var(--u)) calc(.5 * var(--u)) 0 rgba(0, 15, 40, .55);
+  }
+  42% {
+    color: var(--home-nav-hover-ink);
+    text-shadow: 0 0 calc(4 * var(--u)) var(--home-nav-glow);
+  }
+}
+
+@keyframes home-title-halo-light {
+  0%, 100% { opacity: 0; transform: scale(.96, .85); }
+  42% { opacity: .9; transform: scale(1.04, 1.1); }
+}
+
+@keyframes home-marker-appear {
+  0% { opacity: 0; filter: blur(1px) drop-shadow(0 0 0 transparent); }
+  55% { opacity: 1; filter: blur(0) drop-shadow(0 0 3px var(--color-accent-red)); }
+  100% { opacity: 1; filter: blur(0) drop-shadow(0 0 0 transparent); }
+}
+
+/* Scope these refinements to the landing page: blog links stay unchanged. */
+.home-page .home-nav-link-about { --nav-cue-delay: 760ms; --nav-light-delay: 1100ms; }
+.home-page .home-nav-link-works { --nav-cue-delay: 850ms; --nav-light-delay: 1260ms; }
+.home-page .home-nav-link-artwork { --nav-cue-delay: 940ms; --nav-light-delay: 1420ms; }
+.home-page .home-nav-link-visualisations { --nav-cue-delay: 1030ms; --nav-light-delay: 1580ms; }
+.home-page .home-nav-link-blog-links { --nav-cue-delay: 1120ms; --nav-light-delay: 1740ms; }
+.home-page .home-nav-link-music { --nav-cue-delay: 1210ms; --nav-light-delay: 1900ms; }
+.home-page .home-nav-link-guestbook { --nav-cue-delay: 1300ms; --nav-light-delay: 2060ms; }
+
+.home-page .home-nav-link .home-nav-title {
+  transition: background-color 70ms ease-out, box-shadow 90ms ease-out, color 70ms ease-out;
+}
+
+.home-page .home-nav-link:is(:hover, :focus-visible) .home-nav-title {
+  box-shadow: 0 0 calc(7 * var(--u)) calc(1 * var(--u)) var(--home-nav-glow);
+}
+
+/* Keep the glow circular while fading out, not only while hovered. */
+.home-page .nav-orb { border-radius: 50%; }
+
+.home-page .home-nav-link .home-nav-sphere,
+.home-page .home-nav-link .nav-orb {
+  transition: transform 260ms ease-out, box-shadow 260ms ease-out;
+}
+
+.home-page .home-nav-link:is(:hover, :focus-visible) .home-nav-sphere {
+  transform: translateY(calc(-1.5 * var(--u))) scale(1.12);
+  box-shadow:
+    inset calc(-1 * var(--u)) calc(-2 * var(--u)) calc(2 * var(--u)) rgba(0, 10, 35, .3),
+    calc(1 * var(--u)) calc(3 * var(--u)) calc(3 * var(--u)) rgba(0, 15, 35, .4),
+    0 0 calc(11 * var(--u)) var(--home-nav-glow);
+}
+
+.home-page .home-nav-link:is(:hover, :focus-visible) .nav-orb {
+  transform: translateY(calc(-1.5 * var(--u))) scale(1.12);
+  border-radius: 50%;
+  box-shadow: 0 0 calc(11 * var(--u)) var(--home-nav-glow);
+}
+
+.home-page .home-nav-link:active :is(.home-nav-sphere, .nav-orb) {
+  transform: scale(.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page :is(
+    .home-oval-drift, .home-oval-reflection, .home-ambient-light, .home-frame-reveal,
+    .home-panel-reveal, .home-copy-reveal, .home-nav-reveal, .home-controls
+  ),
+  .home-page[data-opening] :is(
+    .home-frame-reveal, .home-frame-return, .home-frame-foundation, .home-curve-reveal, .home-marker-reveal,
+    .home-panel-reveal, .home-gradient-arrival, .home-ink-arc, .home-ink-frame, .home-ink-header, .home-ink-bracket, .flash-text, .welcome-motion, .welcome-trail,
+    .home-nav-reveal, .home-controls, .home-entry-wipe, .home-entry-bubble, .home-entry-remainder
+  ),
+  .home-page[data-opening] .flash-text:nth-child(2),
+  .home-page[data-opening] .home-copy-body > p,
+  .home-page[data-opening] .home-copy-body > p:nth-child(2),
+  .home-page[data-opening] .home-copy-body > p:nth-child(3),
+  .home-page[data-opening] .home-nav-link > :is(div, .home-nav-sphere, .nav-orb),
+  .home-page[data-opening] .home-nav-title,
+  .home-page[data-opening] .home-nav-title::before {
+    animation: none;
+  }
+
+  .home-page[data-opening] .home-entry-wipe {
+    transform: translateX(1010px);
+  }
+
+  .home-page .home-nav-link .home-nav-title,
+  .home-page .home-nav-link:is(:hover, :focus-visible) .home-nav-title {
+    transition: none;
+  }
+
+  .home-page .home-nav-link :is(.home-nav-sphere, .nav-orb),
+  .home-page .home-nav-link:is(:hover, :focus-visible, :active) :is(.home-nav-sphere, .nav-orb) {
+    transition: none;
+    transform: none;
+  }
+}

@@ -1,0 +1,22 @@
+.subpage-return-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+  min-width: 0;
+}
+
+.subpage-return-links > .subpage-return {
+  position: static;
+  white-space: nowrap;
+}
+
+.subpage-return-links--fixed {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 50;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+}

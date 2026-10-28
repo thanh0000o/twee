@@ -1,0 +1,242 @@
+[
+  {
+    "id": "desktop-details",
+    "title": "Desktop details",
+    "figures": [
+      {
+        "file": "first-portfolio/archive/desktop-details-51.png",
+        "previewFile": "first-portfolio/archive/desktop-details-51-preview.webp",
+        "caption": "Portfolio icon",
+        "alt": "Portfolio icon — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/desktop-details-55.png",
+        "previewFile": "first-portfolio/archive/desktop-details-55-preview.webp",
+        "caption": "Work folders",
+        "alt": "Work folders — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/desktop-details-56.png",
+        "previewFile": "first-portfolio/archive/desktop-details-56-preview.webp",
+        "caption": "Personal files",
+        "alt": "Personal files — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/desktop-details-57.jpeg",
+        "previewFile": "first-portfolio/archive/desktop-details-57-preview.webp",
+        "caption": "Desktop footer",
+        "alt": "Desktop footer — image from the first portfolio PDF"
+      }
+    ]
+  },
+  {
+    "id": "personal-information",
+    "title": "Personal information",
+    "figures": [
+      {
+        "file": "first-portfolio/archive/personal-information-63.png",
+        "previewFile": "first-portfolio/archive/personal-information-63-preview.webp",
+        "caption": "About me",
+        "alt": "About me — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/personal-information-66.png",
+        "previewFile": "first-portfolio/archive/personal-information-66-preview.webp",
+        "caption": "Education",
+        "alt": "Education — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/personal-information-69.png",
+        "previewFile": "first-portfolio/archive/personal-information-69-preview.webp",
+        "caption": "Experience",
+        "alt": "Experience — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/personal-information-72.png",
+        "previewFile": "first-portfolio/archive/personal-information-72-preview.webp",
+        "caption": "Languages",
+        "alt": "Languages — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/personal-information-75.png",
+        "previewFile": "first-portfolio/archive/personal-information-75-preview.webp",
+        "caption": "Software",
+        "alt": "Software — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/personal-information-78.png",
+        "previewFile": "first-portfolio/archive/personal-information-78-preview.webp",
+        "caption": "Soft skills",
+        "alt": "Soft skills — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/personal-information-79.png",
+        "previewFile": "first-portfolio/archive/personal-information-79-preview.webp",
+        "caption": "Values",
+        "alt": "Values — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/personal-information-106.png",
+        "previewFile": "first-portfolio/archive/personal-information-106-preview.webp",
+        "caption": "Resume",
+        "alt": "Resume — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/personal-information-109.png",
+        "previewFile": "first-portfolio/archive/personal-information-109-preview.webp",
+        "caption": "2026 logo",
+        "alt": "2026 logo — image from the first portfolio PDF"
+      }
+    ]
+  },
+  {
+    "id": "gallery-windows",
+    "title": "Gallery windows",
+    "figures": [
+      {
+        "file": "first-portfolio/archive/gallery-windows-88.png",
+        "previewFile": "first-portfolio/archive/gallery-windows-88-preview.webp",
+        "caption": "3D art gallery",
+        "alt": "3D art gallery — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/gallery-windows-94.png",
+        "previewFile": "first-portfolio/archive/gallery-windows-94-preview.webp",
+        "caption": "Poster gallery",
+        "alt": "Poster gallery — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/gallery-windows-97.png",
+        "previewFile": "first-portfolio/archive/gallery-windows-97-preview.webp",
+        "caption": "Motion gallery",
+        "alt": "Motion gallery — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/gallery-windows-100.png",
+        "previewFile": "first-portfolio/archive/gallery-windows-100-preview.webp",
+        "caption": "Video viewer",
+        "alt": "Video viewer — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/gallery-windows-103.png",
+        "previewFile": "first-portfolio/archive/gallery-windows-103-preview.webp",
+        "caption": "Logo gallery",
+        "alt": "Logo gallery — image from the first portfolio PDF"
+      }
+    ]
+  },
+  {
+    "id": "website-archive",
+    "title": "Earlier website concepts",
+    "figures": [
+      {
+        "file": "first-portfolio/archive/website-archive-112.png",
+        "previewFile": "first-portfolio/archive/website-archive-112-preview.webp",
+        "caption": "Website archive",
+        "alt": "Website archive — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/website-archive-115.png",
+        "previewFile": "first-portfolio/archive/website-archive-115-preview.webp",
+        "caption": "Grow Effect I",
+        "alt": "Grow Effect I — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/website-archive-118.png",
+        "previewFile": "first-portfolio/archive/website-archive-118-preview.webp",
+        "caption": "Grow Effect II",
+        "alt": "Grow Effect II — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/website-archive-121.png",
+        "previewFile": "first-portfolio/archive/website-archive-121-preview.webp",
+        "caption": "Cloud Gallery",
+        "alt": "Cloud Gallery — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/website-archive-124.png",
+        "previewFile": "first-portfolio/archive/website-archive-124-preview.webp",
+        "caption": "Photo albums",
+        "alt": "Photo albums — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/website-archive-127.png",
+        "previewFile": "first-portfolio/archive/website-archive-127-preview.webp",
+        "caption": "Under construction",
+        "alt": "Under construction — image from the first portfolio PDF"
+      }
+    ]
+  },
+  {
+    "id": "desktop-widgets",
+    "title": "Music and visitors",
+    "figures": [
+      {
+        "file": "first-portfolio/archive/desktop-widgets-130.png",
+        "previewFile": "first-portfolio/archive/desktop-widgets-130-preview.webp",
+        "caption": "Music player",
+        "alt": "Music player — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/desktop-widgets-133.png",
+        "previewFile": "first-portfolio/archive/desktop-widgets-133-preview.webp",
+        "caption": "Playlist",
+        "alt": "Playlist — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/desktop-widgets-136.png",
+        "previewFile": "first-portfolio/archive/desktop-widgets-136-preview.webp",
+        "caption": "Guestbook",
+        "alt": "Guestbook — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/desktop-widgets-139.png",
+        "previewFile": "first-portfolio/archive/desktop-widgets-139-preview.webp",
+        "caption": "Emoticons",
+        "alt": "Emoticons — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/desktop-widgets-142.png",
+        "previewFile": "first-portfolio/archive/desktop-widgets-142-preview.webp",
+        "caption": "Message window",
+        "alt": "Message window — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/desktop-widgets-143.png",
+        "previewFile": "first-portfolio/archive/desktop-widgets-143-preview.webp",
+        "caption": "Visitor counter",
+        "alt": "Visitor counter — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/desktop-widgets-146.png",
+        "previewFile": "first-portfolio/archive/desktop-widgets-146-preview.webp",
+        "caption": "Notifications",
+        "alt": "Notifications — image from the first portfolio PDF"
+      }
+    ]
+  },
+  {
+    "id": "interface-details",
+    "title": "Interface details",
+    "figures": [
+      {
+        "file": "first-portfolio/archive/interface-details-149.png",
+        "previewFile": "first-portfolio/archive/interface-details-149-preview.webp",
+        "caption": "Title bar",
+        "alt": "Title bar — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/interface-details-150.png",
+        "previewFile": "first-portfolio/archive/interface-details-150-preview.webp",
+        "caption": "Menu bar",
+        "alt": "Menu bar — image from the first portfolio PDF"
+      },
+      {
+        "file": "first-portfolio/archive/interface-details-151.png",
+        "previewFile": "first-portfolio/archive/interface-details-151-preview.webp",
+        "caption": "Toolbar",
+        "alt": "Toolbar — image from the first portfolio PDF"
+      }
+    ]
+  }
+]

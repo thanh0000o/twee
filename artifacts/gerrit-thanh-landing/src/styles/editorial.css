@@ -1,0 +1,237 @@
+/* Shared editorial layout for work detail pages and About. Scoped to main.ed. */
+main.ed {
+  --ed-ink: #161616; --ed-mute: #6f6f6c; --ed-line: #d9d9d6;
+  --ed-font: 'Helvetica Neue', 'HelveticaNeue-Light', Helvetica, Arial, sans-serif;
+  min-height: 100dvh; padding: 14px var(--ed-pad) 70px; background: #fff; color: var(--ed-ink);
+  font-family: var(--ed-font); font-weight: 300; font-size: var(--ed-fs); line-height: 1.32;
+  letter-spacing: 0; text-transform: none; -webkit-font-smoothing: antialiased;
+}
+main.ed *, main.ed *::before { font-family: var(--ed-font); font-weight: 300 !important; }
+main.ed::before { display: none; }
+main.ed.ed-about { --return-glow: var(--nav-about-glow); }
+main.ed .ed-top { position: static; width: auto; display: flex; justify-content: space-between; gap: calc(16 * var(--ui-px)); margin: 0 0 calc(22 * var(--ui-px)); background: transparent; font-size: var(--ed-fs); }
+main.ed .ed-top h1 { margin: 0; font-size: inherit; color: #000; }
+main.ed .ed-top .subpage-return { position: static; color: var(--ed-ink); font-size: inherit; text-decoration: none; padding: 0 1px; }
+main.ed .ed-top .subpage-return:hover,
+main.ed .ed-top .subpage-return:focus-visible,
+main.ed .ed-links a:hover,
+main.ed .ed-links a:focus-visible {
+  background: var(--return-glow, var(--nav-works-glow));
+  box-shadow: 0 0 4px var(--return-glow, var(--nav-works-glow));
+  outline: none;
+}
+main.ed .ed-cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 calc(18 * var(--ui-px)); align-items: start; }
+/* About and work introductions share a centred, left-aligned text container.
+   Galleries and screen-edge navigation are independent. */
+main.ed > .ed-cols {
+  width: 100%;
+  max-width: var(--ed-w);
+  margin-inline: auto;
+  text-align: left;
+}
+main.ed .ed-col { min-width: 0; margin: 0 0 calc(26 * var(--ui-px)); padding: 0; width: auto; border: 0; background: none; }
+main.ed .ed-col h2, main.ed .ed-col h3 { margin: 0; font-size: var(--ed-fs); line-height: 1.32; color: var(--ed-ink); text-transform: uppercase; letter-spacing: .02em; }
+main.ed .ed-col h2 { text-transform: none; letter-spacing: 0; }
+main.ed .ed-col p { margin: 0; font-size: var(--ed-fs); line-height: 1.32; max-width: 44ch; color: var(--ed-ink); }
+main.ed .ed-col h2 + p, main.ed .ed-col h3 + p { margin-top: 0; }
+main.ed .ed-col p + p, main.ed .ed-col section { margin-top: 1em; }
+main.ed .ed-col section h3 { margin: 0; }
+main.ed .ed-col p.ed-note { color: var(--ed-mute); }
+main.ed .about-dot { display: inline-block; width: 5px; height: 5px; margin: 0 .3em 1px .15em; border-radius: 50%; border: .35px solid rgba(15,28,50,.42);
+  background: radial-gradient(ellipse at 30% 22%, rgba(255,255,255,.95), rgba(255,255,255,.5) 12%, transparent 38%), radial-gradient(circle at 35% 30%, var(--sphere-light), var(--sphere-color) 53%, var(--sphere-shade) 100%);
+  box-shadow: inset -.5px -1px 1px rgba(0,10,35,.28), .5px 1px 1.25px rgba(0,15,35,.24); }
+main.ed .ed-list { list-style: none; margin: 0; padding: 0; }
+main.ed .ed-list li { display: grid; grid-template-columns: calc(14 * var(--ui-px)) 1fr; gap: 0 calc(8 * var(--ui-px)); align-items: start; margin-top: calc(4 * var(--ui-px)); }
+main.ed .ed-swatch { display: block; width: calc(14 * var(--ui-px)); height: calc(14 * var(--ui-px)); margin-top: 1px; border: 1px solid var(--ed-line); border-radius: 0; }
+main.ed .ed-list code { color: var(--ed-mute); font-size: inherit; background: none; padding: 0; }
+main.ed .ed-logo { margin: 0 0 calc(26 * var(--ui-px)); max-width: calc(320 * var(--ui-px)); }
+main.ed .ed-logo .ed-stage { aspect-ratio: auto; padding: calc(18 * var(--ui-px)); background: #fff; }
+main.ed .ed-logo .ed-stage img { height: auto; }
+main.ed .ed-links { display: flex; flex-direction: column; align-items: flex-start; gap: calc(2 * var(--ui-px)); margin-top: 1em; }
+main.ed .ed-links a, main.ed .ed-resume-link { color: var(--ed-ink); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; padding: 0 1px; }
+main.ed .ed-resume { position: relative; isolation: isolate; display: block; margin-top: calc(8 * var(--ui-px)); margin-bottom: calc(14 * var(--ui-px)); border: 1px solid #1a1a1a; background: #fafafa; max-width: calc(360 * var(--ui-px)); }
+main.ed .ed-resume img { display: block; width: 100%; height: auto; border: 0; box-shadow: none; filter: none; transform: none; }
+main.ed .ed-resume:focus-visible { outline: 1px solid var(--ed-ink); outline-offset: 2px; }
+
+main.ed .ed-gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px 20px; width: 100%; max-width: var(--ed-w); margin: 36px 0 0; counter-reset: edfig; align-items: start; }
+main.ed .ed-fig { display: flex; flex-direction: column; margin: 0; counter-increment: edfig; min-width: 0; }
+main.ed .ed-gallery--shots { align-items: stretch; }
+main.ed .ed-gallery--shots .ed-primary { grid-column: span 2; grid-row: span 2; }
+main.ed .ed-gallery--shots .ed-primary .ed-stage { flex: 1; aspect-ratio: auto; }
+main.ed .ed-stage { position: relative; isolation: isolate; display: grid; overflow: visible; aspect-ratio: 1366 / 946; background: #fafafa; border: 1px solid #1a1a1a; }
+main.ed .ed-stage::before,
+main.ed .ed-resume::before {
+  content: "";
+  position: absolute;
+  inset: 7px -7px -7px 7px;
+  background: rgba(0, 0, 0, .82);
+  filter: blur(5px);
+  opacity: .72;
+  z-index: -1;
+  pointer-events: none;
+}
+main.ed .ed-stage::after,
+main.ed .ed-resume::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  z-index: 0;
+  pointer-events: none;
+}
+main.ed .ed-resume img { position: relative; z-index: 1; }
+main.ed .ed-gallery--free .ed-stage, main.ed .ed-gallery--covers .ed-stage { aspect-ratio: auto; }
+main.ed .ed-gallery--free .ed-stage img, main.ed .ed-gallery--covers .ed-stage img { height: auto; max-height: 82vh; }
+main.ed .ed-gallery--covers { grid-template-columns: repeat(2, minmax(0, 380px)); justify-content: start; gap: 24px 20px; margin-left: 0; }
+main.ed .ed-gallery--pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+main.ed .ed-gallery--free { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+main.ed .ed-gallery--crop { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 860px; }
+main.ed .ed-gallery--crop .ed-stage { aspect-ratio: 9 / 8; }
+/* Use the available page width here, like Make It Work, without enlarging
+   the other project galleries. Leave room for the existing backplate. */
+main.ed.ed-growing-portfolio .ed-gallery--crop { max-width: none; width: calc(100% - 12px); }
+main.ed .works-cover-button { position: relative; z-index: 1; display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; color: inherit; }
+main.ed .ed-stage .works-cover-button { position: absolute; inset: 0; }
+main.ed .ed-gallery--free .works-cover-button,
+main.ed .ed-gallery--covers .works-cover-button,
+main.ed .ed-logo .works-cover-button { position: relative; height: auto; }
+main.ed .works-cover-button:focus-visible { outline: 1px solid var(--ed-ink); outline-offset: -3px; }
+main.ed .ed-stage img { display: block; width: 100%; height: 100%; object-fit: contain; border: 0; box-shadow: none; border-radius: 0; filter: none; transform: none; opacity: 1; }
+main.ed .ed-fig figcaption { display: grid; grid-template-columns: 2.2em 1fr; margin-top: calc(14 * var(--ui-px)); min-height: 2.64em; font-size: var(--ed-fs); color: var(--ed-ink); }
+main.ed .ed-fig figcaption::before { content: counter(edfig, decimal-leading-zero); color: var(--ed-mute); }
+
+/* Centre compact project groups, not their lettering or the full-width header.
+   Keep the existing preview sizes instead of stretching them to fill the page. */
+main.ed.ed-compact-work > .ed-gallery {
+  max-width: var(--ed-w);
+  margin-inline: auto;
+}
+main.ed.ed-compact-work > .ed-gallery { width: calc(100% - 12px); }
+main.ed.ed-compact-brand > .ed-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+main.ed.ed-compact-covers > .ed-gallery { max-width: 780px; }
+
+@media (max-width: 1000px) {
+  main.ed .ed-cols, main.ed .ed-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  main.ed .ed-gallery--shots .ed-primary { grid-row: auto; }
+  main.ed .ed-gallery--shots .ed-primary .ed-stage { flex: none; aspect-ratio: 1366 / 946; }
+  main.ed .ed-gallery--covers { grid-template-columns: repeat(2, minmax(0, 380px)); }
+  main.ed.ed-compact-brand > .ed-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  main.ed .ed-cols { grid-template-columns: minmax(0, 1fr); }
+  main.ed .ed-col p { max-width: none; font-size: var(--ed-fs); line-height: 1.38; }
+  main.ed .ed-gallery { gap: 22px 12px; }
+  main.ed .ed-gallery--covers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  main.ed .ed-gallery--free, main.ed .ed-gallery--pair { grid-template-columns: minmax(0, 1fr); }
+  main.ed.ed-growing-portfolio .ed-gallery--crop { grid-template-columns: minmax(0, 1fr); }
+  main.ed.ed-compact-brand > .ed-cols { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ------------------------------------------------------------------
+   Proportional fit. Type, margins, column width and gallery scale follow
+   viewport width AND height (1280x720 .. 2560x1440). Below 1001px the normal
+   flowing layout is kept.
+   ------------------------------------------------------------------ */
+main.ed {
+  --ed-fs: clamp(12px, calc(6px + .3vw + .3vh), 18px);
+  --ed-pad: clamp(8px, 1.1vw, 28px);
+  --ed-w: min(100%, calc(var(--ed-fs) * 107));
+  --ed-gap: clamp(14px, 1.6vw, 34px);
+  --ed-cap: calc(10px + 2.7 * var(--ed-fs));
+}
+main.ed.ed-about { --ed-fs: clamp(12.5px, calc(6.5px + .36vw + .36vh), 22px); }
+@media (max-width: 1000px) { main.ed, main.ed.ed-about { --ed-fs: 12px; } }
+
+@media (min-width: 1001px) {
+  main.ed .ed-cols { column-gap: var(--ed-gap); }
+  main.ed.ed-fit {
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr);
+    row-gap: clamp(16px, 3vh, 44px);
+    min-height: 100svh;
+    padding-bottom: clamp(18px, 3vh, 44px);
+  }
+  main.ed.ed-fit > .ed-top { margin: 0; }
+  main.ed.ed-fit > .ed-cols { margin-block: 0; }
+  main.ed.ed-fit .ed-col { margin-bottom: 0; }
+  main.ed.ed-fit > .ed-gallery,
+  main.ed.ed-fit > .ed-fit-zone {
+    container-type: size;
+    min-height: clamp(260px, 38svh, 760px);
+    margin: 0 auto;
+  }
+  main.ed.ed-fit > .ed-gallery {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--ed-gap);
+    width: calc(100% - 12px);
+    max-width: var(--ed-w);
+  }
+  main.ed.ed-fit > .ed-fit-zone { width: 100%; padding-inline: 6px; }
+  main.ed.ed-fit .ed-fig { flex: 0 1 auto; }
+  main.ed.ed-fit .ed-fig figcaption { margin-top: 10px; min-height: 2.64em; }
+
+  /* Portrait covers (Flex Delivery, Drone Strategy): two covers as one centred group. */
+  main.ed.ed-fit .ed-gallery--covers .ed-stage { aspect-ratio: auto; width: fit-content; max-width: 100%; }
+  main.ed.ed-fit .ed-gallery--covers .ed-stage img {
+    width: auto;
+    max-width: 100%;
+    height: max(200px, min(calc(100cqh - var(--ed-cap)), calc((100cqw - var(--ed-gap)) * .7)));
+  }
+  /* Same two covers: introduction flows in balanced editorial columns, not a ragged grid. */
+  main.ed.ed-compact-covers > .ed-cols { display: block; column-count: 4; column-gap: var(--ed-gap); }
+  main.ed.ed-compact-covers .ed-col { margin: 0 0 1em; }
+  main.ed.ed-compact-covers .ed-col:last-child { margin-bottom: 0; }
+  main.ed.ed-compact-covers .ed-col p { max-width: none; }
+  main.ed.ed-compact-covers .ed-col h2,
+  main.ed.ed-compact-covers .ed-col h3 { break-after: avoid; }
+  main.ed.ed-compact-covers .ed-col p { orphans: 2; widows: 2; }
+
+  /* Make It Work: four tall flyers share one row, as tall as the space allows. */
+  main.ed.ed-fit .ed-gallery--free .ed-stage { width: fit-content; max-width: 100%; aspect-ratio: auto; }
+  main.ed.ed-fit .ed-gallery--free .ed-stage img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: max(200px, calc(100cqh - var(--ed-cap)));
+  }
+
+  /* Landscape screenshots (Desktop Portfolio pair, Growing Portfolio trio). */
+  main.ed.ed-fit .ed-gallery--pair { --fit-n: 2; --fit-r: 1.444; }
+  main.ed.ed-fit .ed-gallery--crop { --fit-n: 3; --fit-r: 1.125; }
+  main.ed.ed-fit .ed-gallery--pair .ed-fig,
+  main.ed.ed-fit .ed-gallery--crop .ed-fig { flex: none; }
+  main.ed.ed-fit .ed-gallery--pair .ed-stage,
+  main.ed.ed-fit .ed-gallery--crop .ed-stage {
+    width: max(140px, min(calc((100cqw - 12px - (var(--fit-n) - 1) * var(--ed-gap)) / var(--fit-n)), calc((100cqh - var(--ed-cap)) * var(--fit-r))));
+  }
+
+  /* Mokkatoff: hero plus three, sized from the room under the text. */
+  main.ed.ed-fit .ed-fit-zone > .ed-gallery--shots {
+    --c: max(120px, min(calc((100cqw - 3 * var(--ed-gap)) / 4), calc(((100cqh - 2 * var(--ed-cap) - var(--ed-gap)) / 2) * 1.444)));
+    grid-template-columns: repeat(4, var(--c));
+    gap: var(--ed-gap);
+    width: fit-content;
+    max-width: none;
+    margin: 0 auto;
+  }
+  main.ed.ed-compact-brand > .ed-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  main.ed .ed-logo { max-width: calc(var(--ed-fs) * 26); }
+}
+@media (min-width: 1200px) {
+  main.ed.ed-compact-covers > .ed-cols { column-count: 5; }
+}
+@media (max-width: 1000px) {
+  main.ed .ed-fit-zone { padding-inline: 6px; }
+}
+
+/* About: centred horizontally, with content starting beneath the page header. */
+main.ed.ed-about { display: flex; flex-direction: column; min-height: 100svh; }
+@media (min-width: 1001px) {
+  main.ed.ed-about { padding-bottom: clamp(18px, 3vh, 44px); }
+  main.ed.ed-about > .ed-top { margin-bottom: 0; }
+  main.ed.ed-about > .ed-cols { margin-top: calc(var(--ed-fs) * 1.4); column-gap: var(--ed-gap); }
+  main.ed.ed-about > .about-details { margin-bottom: 0; margin-top: calc(var(--ed-fs) * 1.2); column-gap: var(--ed-gap); padding-top: calc(var(--ed-fs) * 1.1); }
+  main.ed.ed-about .about-biography { column-gap: var(--ed-gap); }
+}

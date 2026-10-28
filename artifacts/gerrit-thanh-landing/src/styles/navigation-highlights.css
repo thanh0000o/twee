@@ -1,0 +1,61 @@
+/* One square, softly glowing highlight for homepage navigation and every
+   return link. Palette colours stay local to each section. */
+:root {
+  --navigation-highlight-blur: 7px;
+  --navigation-highlight-spread: 1px;
+}
+
+:root body .home-nav-link .home-nav-title,
+:root body .subpage-return:not(.viz-return):not(.gb-home-control),
+:root body .subpage-return:is(.viz-return, .gb-home-control) > span,
+:root body main.ed .blog-post a.home-nav-link {
+  --navigation-highlight-color: var(--home-nav-glow, var(--return-glow, var(--nav-about-glow)));
+  border-radius: 0;
+  transition: background-color 240ms ease-out, box-shadow 280ms ease-out, color 240ms ease-out;
+}
+
+/* The coloured line box must be slimmer, not just fitted to the label width.
+   Font sizes and the palette/glow rules below remain unchanged. */
+:root body .subpage-return:not(.viz-return):not(.gb-home-control) {
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0 1px;
+  line-height: .9;
+}
+
+:root body .subpage-return:is(.viz-return, .gb-home-control) > span {
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0 1px;
+  line-height: .9;
+}
+
+/* Homepage labels react quickly; return links retain their existing timing. */
+:root body .home-nav-link .home-nav-title {
+  transition: background-color 70ms ease-out, box-shadow 90ms ease-out, color 70ms ease-out;
+}
+
+:root body .subpage-return.gb-home-control > span {
+  --navigation-highlight-color: var(--nav-guestbook-glow);
+}
+
+:root body .home-nav-link:is(:hover, :focus-visible) .home-nav-title,
+:root body .subpage-return:not(.viz-return):not(.gb-home-control):is(:hover, :focus-visible),
+:root body .subpage-return:is(.viz-return, .gb-home-control):is(:hover, :focus-visible) > span,
+:root body main.ed .blog-post a.home-nav-link:is(:hover, :focus-visible) {
+  color: #000;
+  background-color: var(--navigation-highlight-color);
+  box-shadow: 0 0 var(--navigation-highlight-blur) var(--navigation-highlight-spread) var(--navigation-highlight-color);
+  text-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root body .home-nav-link .home-nav-title,
+  :root body .subpage-return:not(.viz-return):not(.gb-home-control),
+  :root body .subpage-return:is(.viz-return, .gb-home-control) > span,
+  :root body main.ed .blog-post a.home-nav-link {
+    transition: none;
+  }
+}

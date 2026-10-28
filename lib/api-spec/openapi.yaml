@@ -1,0 +1,230 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: guestbook
+    description: Guestbook messages
+  - name: visitors
+    description: Anonymous unique-browser count
+paths:
+  /music/collection:
+    get:
+      operationId: getMusicCollection
+      tags: [music]
+      summary: Read the site owner's Discogs collection
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - in: query
+          name: sort
+          schema:
+            type: string
+            enum: [artist, added]
+            default: artist
+        - in: query
+          name: sort_order
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 100
+      responses:
+        "200":
+          description: A page of records, without private collection metadata
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MusicCollection"
+        "503":
+          description: Discogs is temporarily unavailable
+  /visitors:
+    get:
+      operationId: getVisitorCount
+      tags: [visitors]
+      summary: Get the shared unique-browser count
+      responses:
+        "200":
+          description: Visitor count
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VisitorCount"
+        "503":
+          description: Visitor count temporarily unavailable
+    post:
+      operationId: recordVisitor
+      tags: [visitors]
+      summary: Count an anonymous browser once
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VisitorInput"
+      responses:
+        "200":
+          description: Updated visitor count
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VisitorCount"
+        "400":
+          description: Invalid browser identifier
+        "503":
+          description: Visitor count temporarily unavailable
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /guestbook:
+    get:
+      operationId: listGuestbookEntries
+      tags: [guestbook]
+      summary: List guestbook entries
+      responses:
+        "200":
+          description: Guestbook entries, newest first
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GuestbookEntry"
+    post:
+      operationId: createGuestbookEntry
+      tags: [guestbook]
+      summary: Sign the guestbook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GuestbookEntryInput"
+      responses:
+        "201":
+          description: Guestbook entry created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GuestbookEntry"
+        "400":
+          description: Invalid guestbook entry
+components:
+  schemas:
+    MusicCollection:
+      type: object
+      required: [total, page, pages, collectionUrl, records]
+      properties:
+        total:
+          type: integer
+        page:
+          type: integer
+        pages:
+          type: integer
+        collectionUrl:
+          type: string
+        records:
+          type: array
+          items:
+            $ref: "#/components/schemas/MusicRecord"
+    MusicRecord:
+      type: object
+      required: [id, title, artist, year, image, format, url, styles, labels]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        artist:
+          type: string
+        year:
+          type: integer
+        image:
+          type: string
+        format:
+          type: string
+        url:
+          type: string
+        styles:
+          type: array
+          items:
+            type: string
+        labels:
+          type: array
+          items:
+            type: string
+    VisitorCount:
+      type: object
+      required: [count]
+      properties:
+        count:
+          type: integer
+          minimum: 0
+    VisitorInput:
+      type: object
+      required: [visitorId]
+      properties:
+        visitorId:
+          type: string
+          format: uuid
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    GuestbookEntry:
+      type: object
+      required: [id, name, message, createdAt]
+      properties:
+        id:
+          type: number
+          multipleOf: 1
+        name:
+          type: string
+        message:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+    GuestbookEntryInput:
+      type: object
+      required: [name, message]
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 30
+        message:
+          type: string
+          minLength: 1
+          maxLength: 500
+

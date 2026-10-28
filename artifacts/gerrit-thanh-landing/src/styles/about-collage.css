@@ -1,0 +1,3 @@
+main.ed-about .about-collage { width: min(100%, 250px); margin: 22px auto 0; }
+main.ed-about .about-collage > svg { display: block; width: 100%; height: auto; }
+@media (max-width: 640px) { main.ed-about .about-collage { margin-top: 16px; } }

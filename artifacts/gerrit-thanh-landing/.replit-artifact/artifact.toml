@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Gerrit Thành Lambeets"
+description = "Een responsive, pixelgerichte persoonlijke landingpagina die de aangeleverde Illustrator-compositie nabouwt met echte HTML-tekst, SVG-curves, CSS-gradients en de originele grafische assets."
+version = "1.0.0"
+id = "artifacts/gerrit-thanh-landing"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18771
+
+[services.development]
+run = "pnpm --filter @workspace/gerrit-thanh-landing run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/gerrit-thanh-landing", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/gerrit-thanh-landing/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18771"
+BASE_PATH = "/"

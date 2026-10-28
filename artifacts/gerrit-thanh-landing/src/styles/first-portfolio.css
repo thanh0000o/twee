@@ -1,0 +1,24 @@
+/* Keep the return navigation visible while browsing the screenshots. */
+main.ed-first-portfolio .ed-top {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  margin: -14px calc(-1 * var(--ed-pad)) 8px;
+  padding: 14px var(--ed-pad);
+  background: #fff;
+}
+
+/* Fill the page with a regular overview instead of a capped strip.
+   Wider screens gain columns rather than oversized individual previews. */
+main.ed-first-portfolio .ed-gallery {
+  width: calc(100% - 12px);
+  max-width: calc(var(--ed-w) * 1.1);
+  margin-inline: auto;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, calc(var(--ed-fs) * 22)), 1fr));
+  gap: 24px 20px;
+}
+
+main.ed-first-portfolio .ed-fig figcaption {
+  margin-top: 10px;
+  min-height: 0;
+}

@@ -1,0 +1,8 @@
+.work-return-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 16px;
+  min-width: 0;
+}
+.work-return-nav a { white-space: nowrap; }

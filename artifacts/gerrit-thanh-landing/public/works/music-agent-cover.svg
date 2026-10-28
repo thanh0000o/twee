@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1272" role="img" aria-labelledby="title description">
+  <title id="title">Music Agent — AI Agents, in testing</title>
+  <desc id="description">White project cover matching the other works, with a low-set black title, one glossy purple sphere and subtitle.</desc>
+  <style>
+    text { font-family: 'Helvetica Neue', 'HelveticaNeue-Light', Helvetica, Arial, sans-serif; font-weight: 300; stroke: none; }
+  </style>
+  <rect width="900" height="1272" fill="#fff"/>
+  <g fill="#101010">
+    <text x="88" y="608" font-size="64" textLength="420" lengthAdjust="spacing">MUSIC AGENT</text>
+    <text x="88" y="715" font-size="32">AI AGENTS · IN TESTING</text>
+  </g>
+  <defs>
+    <radialGradient id="sphere-body" cx="35%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#dac6eb"/>
+      <stop offset="53%" stop-color="#A569BD"/>
+      <stop offset="100%" stop-color="#5a386b"/>
+    </radialGradient>
+    <radialGradient id="sphere-gloss" cx="30%" cy="22%" r="38%" gradientTransform="translate(0 .055) scale(1 .75)">
+      <stop offset="0%" stop-color="#fff" stop-opacity=".95"/>
+      <stop offset="32%" stop-color="#fff" stop-opacity=".5"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="sphere-shadow" x="-50%" y="-50%" width="220%" height="220%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="1" dy="2" stdDeviation="1.25" flood-color="#000f23" flood-opacity=".4"/>
+    </filter>
+  </defs>
+  <circle cx="534" cy="566" r="7.5" fill="url(#sphere-body)" filter="url(#sphere-shadow)" stroke="#0f1c32" stroke-opacity=".6" stroke-width=".6"/>
+  <circle cx="534" cy="566" r="7.5" fill="url(#sphere-gloss)"/>
+</svg>

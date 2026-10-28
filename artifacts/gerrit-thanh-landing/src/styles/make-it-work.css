@@ -1,0 +1,5 @@
+/* Make It Work: layout is handled by the shared .ed-fit rules in editorial.css. */
+main.ed.ed-make-it-work .ed-fig figcaption {
+  grid-template-columns: 1.7em minmax(0, 1fr);
+  overflow-wrap: anywhere;
+}

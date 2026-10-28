@@ -1,0 +1,96 @@
+/* About only: editorial portrait and résumé details. */
+main.ed.ed-about { padding-bottom: calc(18 * var(--ui-px)); }
+main.ed-about .ed-top { margin-bottom: calc(16 * var(--ui-px)); }
+main.ed-about .ed-col { margin-bottom: calc(14 * var(--ui-px)); }
+main.ed-about .about-biography {
+  grid-column: span 3;
+  column-count: 3;
+  column-gap: calc(18 * var(--ui-px));
+  column-fill: balance;
+}
+main.ed-about .about-biography p {
+  max-width: none;
+  orphans: 3;
+  widows: 3;
+}
+main.ed-about .about-portrait { position: relative; display: block; width: calc(100% - 18px); max-width: clamp(180px, 32svh, 280px); margin: 6px 0 10px; color: inherit; }
+main.ed-about .about-paper-print {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+main.ed-about .about-paper-print img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(.7px 1px 1.6px rgba(0,0,0,.16));
+}
+@media (min-width: 1001px) {
+  main.ed-about > .ed-cols { row-gap: calc(10 * var(--ui-px)); }
+  main.ed-about .about-biography { grid-row: 1; margin-bottom: 0; }
+  main.ed-about .about-portrait-column {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+  }
+  main.ed-about .about-portrait {
+    width: 100%;
+    max-width: none;
+    min-height: 0;
+    margin: 0;
+    align-self: stretch;
+  }
+  main.ed-about .about-paper-print { position: relative; height: 100%; }
+  main.ed-about .about-paper-print img {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: auto;
+    max-width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: top left;
+  }
+  main.ed-about .about-portrait-column .ed-links { margin: 0; }
+}
+/* Match the biography's four tracks so Languages starts beneath the portrait. */
+main.ed-about .about-details { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 0 calc(18 * var(--ui-px)); width: 100%; max-width: var(--ed-w); margin: 0 auto; padding-top: calc(12 * var(--ui-px)); border-top: 1px solid var(--ed-line); }
+main.ed-about .about-details h3 { margin: 0 0 calc(8 * var(--ui-px)); font-size: var(--ed-fs); text-transform: uppercase; letter-spacing: .02em; }
+main.ed-about .about-details h3.about-sub { margin-top: calc(16 * var(--ui-px)); }
+main.ed-about .about-details p { margin: 0; line-height: 1.32; }
+main.ed-about .about-details dl { margin: 0; }
+main.ed-about .about-details dl > div { display: grid; grid-template-columns: 5.4em 1fr; gap: 0 calc(8 * var(--ui-px)); margin-bottom: calc(7 * var(--ui-px)); }
+main.ed-about .about-details dt { color: var(--ed-ink); white-space: nowrap; }
+main.ed-about .about-details dd { margin: 0; }
+main.ed-about .about-details .about-lang > div { grid-template-columns: 1fr auto; gap: calc(6 * var(--ui-px)); margin-bottom: 2px; }
+main.ed-about .about-details > * { margin-bottom: 0; min-width: 0; }
+main.ed-about .about-details > .about-languages { width: min(100%, var(--about-portrait-width, 100%)); }
+@media (min-width: 1001px) {
+  main.ed-about .about-details { position: relative; border-top: 0; }
+  main.ed-about .about-details::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: min(100%, var(--about-content-width, 100%));
+    border-top: 1px solid var(--ed-line);
+  }
+}
+@media (min-width: 1001px) and (max-height: 700px) {
+  main.ed-about .ed-top { margin-bottom: calc(12 * var(--ui-px)); }
+  main.ed-about .about-biography p { line-height: 1.25; }
+  main.ed-about .about-details dl > div { margin-bottom: calc(5 * var(--ui-px)); }
+}
+@media (max-width: 1000px) {
+  main.ed-about .about-biography { grid-column: 1 / -1; column-count: 2; }
+  main.ed-about .about-details { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  main.ed-about .about-details > section:nth-child(n) { grid-column: auto; }
+  main.ed-about .about-details { row-gap: calc(20 * var(--ui-px)); }
+}
+@media (max-width: 640px) {
+  main.ed-about .about-biography { column-count: 1; }
+  main.ed-about .about-details { grid-template-columns: minmax(0,1fr); }
+  main.ed-about .about-details > section:nth-child(2) { grid-row: auto; }
+  main.ed-about .about-details, main.ed-about .about-details p { font-size: calc(13 * var(--ui-px)); line-height: 1.38; }
+  main.ed-about .about-portrait { max-width: calc(230 * var(--ui-px)); }
+}

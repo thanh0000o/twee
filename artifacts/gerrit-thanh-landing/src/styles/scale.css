@@ -1,0 +1,70 @@
+/* Shared responsive scale. Imported last in main.tsx and written with a
+   `:root body` prefix so it wins over route stylesheets regardless of order.
+   One rate for every page: 12px mobile, ~12.4px at 1366x768, 18px at 2560x1440. */
+:root {
+  --ui-fs: clamp(12px, calc(6px + .3vw + .3vh), 18px);
+  --ui-body: calc(var(--ui-fs) * 1.08);
+  --ui-edge: clamp(16px, calc(10px + .45vw), 28px);
+  --ui-px: calc(var(--ui-fs) / 12);
+  --ui-pad: var(--ui-edge);
+  --ui-top: calc(var(--ui-fs) * 3.6);
+}
+@media (max-width: 1000px) { :root { --ui-fs: 12px; --ui-edge: 16px; } }
+
+/* Editorial pages (About, blog, music, 8 work details) and Allergen checker */
+:root body main.ed, :root body main.ed.ed-about { --ed-fs: var(--ui-fs); --ed-pad: var(--ui-pad); }
+:root body main.amc { --amc-fs: var(--ui-fs); --amc-pad: var(--ui-edge); }
+:root body main.ed, :root body main.amc { padding-top: var(--ui-edge); }
+
+/* Fixed-header pages: return link and title share the same size and edge offset */
+:root body .subpage-return,
+:root body .subpage-header,
+:root body .viz-page-title { font-size: var(--ui-fs); }
+:root body .subpage-return-links--fixed { font-size: var(--ui-fs); }
+:root body .subpage-header .subpage-return { font-size: inherit; }
+:root body .subpage-return:not(.ed-top .subpage-return) { top: var(--ui-edge); left: var(--ui-edge); }
+:root body .subpage-header:not(.ed-top):not(.amc-top):not(.gb-topbar) { top: var(--ui-edge); left: var(--ui-edge); width: calc(100vw - 2 * var(--ui-edge)); }
+:root body .subpage-header.gb-topbar { top: var(--ui-edge); left: var(--ui-edge); }
+:root body .subpage-header.gb-topbar { width: min(calc(var(--ui-fs) * 40), calc(100vw - 2 * var(--ui-edge))); }
+:root body .viz-page > .viz-page-title { top: var(--ui-edge); right: var(--ui-edge); }
+:root body .about-page::before,
+:root body .gb-page::before,
+:root body .viz-page::before { height: calc(var(--ui-edge) + var(--ui-fs) * 2.2); }
+
+/* Page bodies */
+:root body .gb-chat-time {
+  display: block;
+  color: #555;
+  font-size: .8em;
+  margin-top: .65em;
+  font-variant-numeric: tabular-nums;
+}
+:root body .gb-page { padding-top: var(--ui-top); }
+:root body .gb-chat { width: min(calc(var(--ui-fs) * 38.5), calc(100vw - 16px)); font-size: var(--ui-body); }
+:root body .gb-chat-header { height: calc(var(--ui-fs) * 2); }
+:root body .gb-chat-stream {
+  height: auto;
+  min-height: calc(58 * var(--ui-px));
+  max-height: min(55vh, calc(320 * var(--ui-px)));
+}
+:root body .gb-controls { width: calc(360 * var(--ui-px)); padding: calc(3 * var(--ui-px)); }
+:root body .gb-name-row { height: calc(22 * var(--ui-px)); gap: calc(3 * var(--ui-px)); padding-bottom: calc(3 * var(--ui-px)); }
+:root body .gb-name-row label,
+:root body .gb-ascii-bar > span { width: calc(43 * var(--ui-px)); flex-basis: calc(43 * var(--ui-px)); font-size: calc(11 * var(--ui-px)); }
+:root body .gb-name-row input { height: calc(19 * var(--ui-px)); }
+:root body .gb-name-row button,
+:root body .gb-message-row button { min-width: calc(32 * var(--ui-px)); font-size: calc(11 * var(--ui-px)); }
+:root body .gb-name-row button { height: calc(19 * var(--ui-px)); }
+:root body .gb-ascii-bar { min-height: calc(20 * var(--ui-px)); gap: calc(5 * var(--ui-px)); margin-bottom: calc(3 * var(--ui-px)); }
+:root body .gb-ascii-bar button { font-size: calc(11 * var(--ui-px)); height: calc(17 * var(--ui-px)); line-height: calc(17 * var(--ui-px)); }
+:root body .gb-message-row,
+:root body .gb-message-row textarea,
+:root body .gb-message-row button { height: calc(45 * var(--ui-px)); min-height: calc(45 * var(--ui-px)); }
+:root body .gb-message-row button { width: calc(40 * var(--ui-px)); }
+:root body .gb-name-row input,
+:root body .gb-message-row textarea { font-size: var(--ui-body); }
+:root body .viz-page { font-size: var(--ui-body); padding: var(--ui-pad); }
+
+/* Works carousel and legacy works pages */
+:root body .works-page { font-size: var(--ui-body); }
+:root body .works-viewer-panel { font-size: var(--ui-fs); }

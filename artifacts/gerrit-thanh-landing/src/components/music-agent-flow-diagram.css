@@ -1,0 +1,11 @@
+.afd-music .afm-group{display:flex;flex-direction:column;gap:calc(var(--ed-fs)*.4)}
+.afd-music .afd-agent:nth-of-type(n)::before{--sl:var(--scene-light);--sc:var(--scene-color);--ss:var(--scene-shade)}
+.afd-music .afm-cap{max-width:78%}
+.afd-music .afm-plain li{padding-left:0}
+.afd-music .afm-plain li::before{display:none}
+.afd-music .afm-plain{margin-top:0}
+.afd-music .afm-mails{display:flex;flex-direction:column;gap:calc(var(--ed-fs)*.4)}
+.afd-music .afm-mail{padding-top:calc(var(--ed-fs)*.75);font-size:calc(var(--ed-fs)*.9);color:var(--ink)}
+.afd-music .afm-mail::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--bar);border-bottom:1px solid rgba(24,44,72,.25)}
+.afd-music .afd-col:nth-child(4) .afd-card:last-child li::before{--sl:#b1f5bc;--sc:#23aa55;--ss:#08732d}
+.afd-music .afd-col:nth-child(3) .afd-card li::before{--sl:#a6caff;--sc:#294caa;--ss:#172773}
