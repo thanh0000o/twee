@@ -20,6 +20,21 @@ const guestbook = (text: string): PostSegment => ({ text, href: '/guestbook?from
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: 'running-on-my-own',
+    title: 'running on my own',
+    category: 'site-update',
+    dateTime: '2026-10-28T20:50:00+01:00',
+    dateLabel: '28 October 2026, 20:50 CET',
+    author: 'Thành Lambeets',
+    body: [
+      [
+        'This site no longer runs on Replit. The code now lives on GitHub and the site is hosted on Vercel, with its own database for the guestbook and the visitor counter. Everything should look the same. If something broke along the way, leave a note in the ',
+        guestbook('guestbook'),
+        '.',
+      ],
+    ],
+  },
+  {
     slug: 'a-follow-up',
     title: 'a follow-up',
     category: 'opinion',
