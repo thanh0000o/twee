@@ -28,9 +28,7 @@ export const BLOG_POSTS: BlogPost[] = [
     author: 'Thành Lambeets',
     body: [
       [
-        'This site no longer runs on Replit. The code now lives on GitHub and the site is hosted on Vercel, with its own database for the guestbook and the visitor counter. Everything should look the same. If something broke along the way, leave a note in the ',
-        guestbook('guestbook'),
-        '.',
+        'Hi, this site now runs on Vercel.',
       ],
     ],
   },
