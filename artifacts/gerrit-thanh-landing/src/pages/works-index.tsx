@@ -7,7 +7,7 @@ import { works, workTitleParts } from '../lib/works-list';
 import '../styles/editorial.css';
 import '../styles/works-index.css';
 
-const number = (index: number) => String(index + 1).padStart(2, '0');
+const number = (index: number) => String(index + 1).padStart(4, '0');
 
 /** A text-only index of the works. Hovering a title shows a small glimpse of the project. */
 export const WorksIndex: FC = () => {
@@ -97,8 +97,8 @@ export const WorksIndex: FC = () => {
           <span>No.</span>
           <span>Project</span>
           <span>Year</span>
-          <span>Kind</span>
           <span>Context</span>
+          <span>Kind</span>
         </div>
         <ol className="wi-rows">
           {works.map((work, index) => {
@@ -112,8 +112,8 @@ export const WorksIndex: FC = () => {
                     <span className="wi-title">{name}</span>
                   </span>
                   <span className="wi-year">{work.year ?? '–'}</span>
-                  <span className="wi-kind">{work.kind}</span>
                   <span className="wi-context">{work.context}</span>
+                  <span className="wi-kind">{work.kind}</span>
                 </>, 'wi-row')}
               </li>
             );

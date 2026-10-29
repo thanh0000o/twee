@@ -7,7 +7,7 @@ export type Work = {
   href?: string;
   /** Text index: year (only where known), kind, a small hover preview and context. */
   year?: string;
-  kind: 'AI agents' | 'Websites and interfaces' | 'Research and strategy' | 'Visual communication';
+  kind: 'AI' | 'Web' | 'Research' | 'Visual';
   preview?: string;
   context?: string;
 };
@@ -20,7 +20,7 @@ export const works: Work[] = [
     cover: { file: 'vacature-agent-cover.svg', alt: 'White My Job-Search Agent cover with a black title and a small glossy blue sphere' },
     href: '/works/vacature-agent',
     year: '2026 – ongoing',
-    kind: 'AI agents',
+    kind: 'AI',
     context: "Personal project",
   },
   {
@@ -29,7 +29,7 @@ export const works: Work[] = [
     cover: { file: 'music-agent-cover.svg', alt: 'White Music Agent cover with a black title and one small glossy purple sphere' },
     href: '/works/music-agent',
     year: '2026 – ongoing',
-    kind: 'AI agents',
+    kind: 'AI',
     context: "Personal project",
   },
   {
@@ -38,7 +38,7 @@ export const works: Work[] = [
     cover: { file: 'allergen-menu-checker-cover.svg', alt: 'Allergen Menu Checker portfolio cover on a white background' },
     href: '/works/allergen-menu-checker',
     year: '2026',
-    kind: 'Websites and interfaces',
+    kind: 'Web',
     preview: 'allergen-menu-checker/service-mode.webp',
     context: "Student kitchen job, in progress",
   },
@@ -48,7 +48,7 @@ export const works: Work[] = [
     cover: internshipCover,
     href: '/works/make-it-work',
     year: '2023',
-    kind: 'Visual communication',
+    kind: 'Visual',
     preview: 'internship-make-it-work-front.webp',
     context: "Internship, Make It Work",
   },
@@ -58,7 +58,7 @@ export const works: Work[] = [
     cover: { file: 'drone-strategy-portfolio-cover.svg', alt: 'English Drone Strategy portfolio cover with low-set type, one small violet sphere and three black institutional logos' },
     href: '/works/drone-strategie',
     year: '2023 – 2024',
-    kind: 'Research and strategy',
+    kind: 'Research',
     preview: 'drone-strategy.webp',
     context: "Bachelor's thesis for Smart Dún Laoghaire",
   },
@@ -68,7 +68,7 @@ export const works: Work[] = [
     cover: { file: 'flex-delivery-spaced-cover.svg', alt: 'English Flex Delivery trend report cover with low-set type, one small green dot and matching-size black Erasmus Hogeschool Brussels logo beside a smaller black Flex Delivery wordmark, 2021–2022' },
     href: '/works/flex-delivery',
     year: '2021 – 2022',
-    kind: 'Research and strategy',
+    kind: 'Research',
     preview: 'trendrapport-flex-delivery.webp',
     context: "Trendwatching course, Erasmushogeschool",
   },
@@ -78,7 +78,7 @@ export const works: Work[] = [
     cover: { file: 'mokkatoff-portfolio-cover.svg', alt: 'Mokkatoff! portfolio cover with the navy overlapping wordmark and red exclamation mark on white' },
     href: '/works/mokkatoff',
     year: '2026',
-    kind: 'Websites and interfaces',
+    kind: 'Web',
     preview: 'mokkatoff/website-hero.png',
     context: "For a friend's family business",
   },
@@ -88,7 +88,7 @@ export const works: Work[] = [
     cover: { file: 'growing-portfolio-cover.svg', alt: 'Minimal white Growing Portfolio cover with a black title, one small burgundy dot and Scroll to reveal subtitle' },
     href: '/works/growing-portfolio',
     year: '2026',
-    kind: 'Websites and interfaces',
+    kind: 'Web',
     preview: 'growing-portfolio/growing-branches-growth.webp',
     context: "Portfolio concept",
   },
@@ -98,7 +98,7 @@ export const works: Work[] = [
     cover: { file: 'desktop-portfolio-cover.svg', alt: 'Minimal white Desktop Portfolio cover with a black title, glossy gold sphere and Interface and interaction subtitle' },
     href: '/works/desktop-portfolio',
     year: '2025',
-    kind: 'Websites and interfaces',
+    kind: 'Web',
     preview: 'desktop-portfolio/main-view.jpg',
     context: "Portfolio concept",
   },
@@ -108,7 +108,7 @@ export const works: Work[] = [
     cover: { file: 'first-portfolio-cover.svg', alt: 'Minimal white First Portfolio cover with a black title, one small olive sphere and Windows 95 desktop subtitle' },
     href: '/works/first-portfolio',
     year: '2025',
-    kind: 'Websites and interfaces',
+    kind: 'Web',
     preview: 'first-portfolio/desktop.jpeg',
     context: "First portfolio, still online",
   },

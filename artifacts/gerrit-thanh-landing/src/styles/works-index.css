@@ -201,7 +201,7 @@ main.ed .wi-preview-dot {
 
 @media (max-width: 1000px) {
   main.ed .wi-table { grid-template-columns: repeat(4, max-content); }
-  main.ed .wi-row > :nth-child(5) { display: none; }
+  main.ed .wi-row > :nth-child(4) { display: none; }
 }
 @media (max-width: 620px) {
   main.ed .wi-intro { flex-direction: column; gap: .6em; margin-bottom: calc(24 * var(--ui-px)); }
@@ -217,8 +217,9 @@ main.ed .wi-preview-dot {
   main.ed .wi-row > :nth-child(1) { grid-area: num; }
   main.ed .wi-row > :nth-child(2) { grid-area: name; }
   main.ed .wi-row > :nth-child(3) { grid-area: year; }
-  main.ed .wi-row > :nth-child(4) { grid-area: kind; }
-  main.ed .wi-head > :nth-child(4) { display: none; }
+  main.ed .wi-row > :nth-child(4) { display: none; }
+  main.ed .wi-row > :nth-child(5) { grid-area: kind; display: block; }
+  main.ed .wi-head > :nth-child(5) { display: none; }
 }
 /* No floating glimpse on touch screens; a tap opens the project. */
 @media (hover: none) {
