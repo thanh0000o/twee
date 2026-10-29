@@ -50,7 +50,7 @@ export const BLOG_POSTS: BlogPost[] = [
       [
         "I try to stand in the middle of discussions like this, recognising the pain on both sides and listening to what the other person actually says. That doesn't make every claim equally true. It just means hearing people out, because behind every argument in these threads there is a person.",
       ],
-      ['Thanks to @seppedemeulder and the commenters for starting the conversation. If you read it differently, leave a note in the ', guestbook('guestbook'), '.'],
+      ['If you read it differently, leave a note in the ', guestbook('guestbook'), '.'],
     ],
   },
   {
