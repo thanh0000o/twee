@@ -12,37 +12,37 @@ const portfolioLinks: FavouriteLink[] = [
     id: 'linky',
     label: 'linky2001.com',
     href: 'https://linky2001.com/',
-    description: "A friend's portfolio.",
+    description: 'A friend.',
   },
   {
     id: 'kato',
     label: 'katovanroy.com',
     href: 'https://katovanroy.com/',
-    description: "A friend's portfolio.",
+    description: 'A friend.',
   },
   {
     id: 'beanlette',
     label: 'beanlette.net',
     href: 'https://beanlette.net/',
-    description: 'A favourite portfolio found on Instagram.',
+    description: 'Found on Instagram.',
   },
   {
     id: 'sergebrison',
     label: 'sergebrison.com',
     href: 'https://www.sergebrison.com/patrimmoine.html',
-    description: 'A portfolio with beautiful photos.',
+    description: 'Beautiful photos.',
   },
   {
     id: 'lewimoors',
     label: 'lewimoors.com',
     href: 'https://lewimoors.com/',
-    description: 'A 3D artist whose work I really admire.',
+    description: '3D artist I admire.',
   },
   {
     id: 'thomsten',
     label: 'thomsten.com',
     href: 'https://thomsten.com/',
-    description: 'A portfolio website I like.',
+    description: 'A portfolio I like.',
   },
 ];
 
@@ -51,13 +51,13 @@ const otherFavouriteLinks: FavouriteLink[] = [
     id: 'solar',
     label: 'lowtechmagazine.com',
     href: 'https://solar.lowtechmagazine.com/power/',
-    description: 'A solar-powered website.',
+    description: 'Solar-powered.',
   },
   {
     id: 'winamp',
     label: 'Winamp Skin Museum',
     href: 'https://skins.webamp.org/',
-    description: 'Browse skins for Winamp.',
+    description: 'Old Winamp skins.',
   },
 ];
 
