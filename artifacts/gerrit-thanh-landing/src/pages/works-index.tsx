@@ -88,7 +88,7 @@ export const WorksIndex: FC = () => {
       </header>
 
       <section className="wi-intro" aria-label="About this index">
-        <p>Selected work by Thành Lambeets, Brussels. Research and strategy, websites and interfaces, and a few small AI tools.</p>
+        <p>Selected work by Thành Lambeets</p>
       </section>
 
       <section className="wi-table" aria-labelledby="wi-table-title">
