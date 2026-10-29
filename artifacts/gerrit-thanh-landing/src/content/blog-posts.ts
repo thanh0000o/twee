@@ -89,18 +89,18 @@ export const BLOG_POSTS: BlogPost[] = [
     wide: true,
     body: [
       [
-        "I read an ",
+        'I read an ',
         { text: 'opinion piece', href: 'https://www.instagram.com/p/DeuA7_TjRX8/?img_index=4', kind: 'external' },
-        " by @seppedemeulder on Instagram about the unrest in France. This post is longer than usual, but I wanted to give it the space.",
+        " by @seppedemeulder on Instagram about the unrest in France. It's a longer post than usual, because the piece needed the space.",
       ],
       [
-        'The piece starts with someone sharing a video of the riots and asking if this is still normal. The author says no, and then argues that this answer is where the thinking should start. Most people get involved in some way or look away. A small minority turns to looting and arson. According to the author, the public debate leaves almost no room for the wider context, and anger that has no political outlet will keep growing.',
+        "It opens with someone sharing a video of the riots and asking if this is still normal. The author says no, but says that's where the thinking should start, not end. Most people either get involved somehow or look away, and only a small group turns to looting and arson. He writes that the public debate leaves almost no room for context, and that anger without a political outlet will only grow.",
       ],
       [
-        'The author asks readers to do two things at once: condemn the violence and ask why it happens. The piece also looks at what comes after, when politicians and commentators use the violence to label their opponents or whole groups of people. That makes a real discussion a lot harder.',
+        'He asks readers to do two things at once: condemn the violence and ask why it happens. He also looks at what comes after, when politicians and commentators use the riots to label their opponents or entire groups of people. After that, a real conversation gets a lot harder.',
       ],
       [
-        "This connects to my last post about boxes. Count how many show up in this one story: peaceful protesters and rioters, left and right, the people who condemn and the people who excuse. You can explain the context and still reject the violence, and you can want firm policing and still want to understand what's going on.",
+        "Count how many boxes show up in this one story: peaceful protesters and rioters, left and right, the people who condemn and the people who excuse. You can explain the context and still reject the violence. You can want firm policing and still want to understand what's going on.",
       ],
       ['Thanks to the author for writing it. If you read it differently, leave a note in the ', guestbook('guestbook'), '.'],
     ],
