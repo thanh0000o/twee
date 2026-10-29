@@ -62,9 +62,6 @@ main.ed .wi-head {
 }
 main.ed .wi-number,
 main.ed .wi-year { font-variant-numeric: tabular-nums; }
-main.ed .wi-year,
-main.ed .wi-kind,
-main.ed .wi-context { color: var(--ed-mute); }
 /* Room around the sphere, so it can grow on hover without being cut off. */
 main.ed .wi-row > .wi-name {
   display: flex;
