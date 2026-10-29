@@ -59,7 +59,7 @@ export const works: Work[] = [
     year: '2023 – 2024',
     kind: 'Research and strategy',
     preview: 'drone-strategy.webp',
-    context: "Bachelor's thesis with Aramis Charlier and Hidde van den Brande, for Smart Dún Laoghaire",
+    context: "Bachelor's thesis for Smart Dún Laoghaire",
   },
   {
     title: 'Flex Delivery — Trend Report',
@@ -69,7 +69,7 @@ export const works: Work[] = [
     year: '2021 – 2022',
     kind: 'Research and strategy',
     preview: 'trendrapport-flex-delivery.webp',
-    context: "Trendwatching course, Erasmushogeschool Brussel",
+    context: "Trendwatching course, Erasmushogeschool",
   },
   {
     title: 'Mokkatoff! — Website and Visual Identity',
