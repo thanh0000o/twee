@@ -1,14 +1,29 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import {
-  EXTRA_TEXT_SMILEYS, GUESTBOOK_SMILEYS, MAX_GUESTBOOK_SMILEYS,
+  GUESTBOOK_SMILEYS, MAX_GUESTBOOK_SMILEYS,
   QUICK_SMILEYS, smileyToken,
 } from '@workspace/api-zod/guestbook-smileys';
 import { guestbookSmileyUrl } from './guestbook-message';
 
-// Only the character sets go in the picker. The plain yellow faces (pixel, XP,
-// jelly, 2007 classics) are left out, but old messages that use them still render.
-const PICKER_GROUPS: readonly string[] = ['gloss', 'messenger', 'retro'];
-const PICKER_SMILEYS = GUESTBOOK_SMILEYS.filter(({ group }) => PICKER_GROUPS.includes(group));
+// Only the character sets are offered, in colour order: pinks and reds, orange,
+// yellow, green, blue, purple, then white, grey and black. The plain yellow
+// face sets are left out, but old messages that use them still render.
+const COLOUR_ORDER = [
+  'messenger-berry', 'messenger-blush', 'messenger-rose', 'messenger-red', 'gloss-angry',
+  'retro-mushroom', 'retro-apple', 'messenger-sunset', 'messenger-peach', 'retro-shin-chan',
+  'retro-alarm-clock', 'retro-tulip', 'gloss-sleepy', 'messenger-gold', 'messenger-lemon',
+  'retro-peanut', 'retro-cheese', 'messenger-lime', 'retro-clown-caterpillar', 'retro-house',
+  'messenger-green', 'retro-christmas-tree', 'messenger-leaf', 'gloss-hopeful', 'retro-computer',
+  'retro-fishbowl', 'messenger-aqua', 'messenger-ocean', 'messenger-blue', 'retro-cloud',
+  'gloss-blue', 'messenger-lilac', 'messenger-ice', 'messenger-lavender', 'retro-space-caterpillar',
+  'gloss-dreamy', 'retro-snowman', 'retro-star', 'retro-tooth', 'gloss-surprised',
+  'messenger-silver', 'retro-candle', 'messenger-slate', 'messenger-black',
+];
+const smileysById = new Map(GUESTBOOK_SMILEYS.map((smiley) => [smiley.id, smiley]));
+const PICKER_SMILEYS = COLOUR_ORDER.flatMap((id) => {
+  const smiley = smileysById.get(id);
+  return smiley ? [smiley] : [];
+});
 
 type Props = {
   disabled: boolean;
@@ -17,25 +32,61 @@ type Props = {
 };
 
 export function GuestbookSmileyPicker({ disabled, count, onInsert }: Props) {
-  const [open, setOpen] = useState(false);
-  const moreRef = useRef<HTMLButtonElement>(null);
+  const windowRef = useRef<HTMLDivElement>(null);
+  const stripRef = useRef<HTMLDivElement>(null);
   const unavailable = disabled || count >= MAX_GUESTBOOK_SMILEYS;
+
+  // Size the strip to a whole number of smileys, so none is cut off at the edge.
+  useEffect(() => {
+    const frame = windowRef.current;
+    const strip = stripRef.current;
+    if (!frame || !strip) return;
+    const fit = () => {
+      const item = strip.querySelector<HTMLElement>('.gb-quick-emoji');
+      const step = item ? item.offsetWidth + 4 : 34;
+      const visible = Math.max(1, Math.floor((frame.clientWidth + 4) / step));
+      strip.style.width = `${visible * step - 4}px`;
+    };
+    fit();
+    const observer = new ResizeObserver(fit);
+    observer.observe(frame);
+    return () => observer.disconnect();
+  }, []);
+
+  // Show the next row of smileys; after the last one, start again from the first.
+  const showNext = () => {
+    const strip = stripRef.current;
+    if (!strip) return;
+    const atEnd = strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 2;
+    if (atEnd) {
+      strip.scrollTo({ left: 0, behavior: 'smooth' });
+      return;
+    }
+    const item = strip.querySelector<HTMLElement>('.gb-quick-emoji');
+    const step = item ? item.offsetWidth + 4 : 34;
+    const page = Math.max(step, Math.round((strip.clientWidth + 4) / step) * step);
+    strip.scrollTo({ left: strip.scrollLeft + page, behavior: 'smooth' });
+  };
 
   return <div className="gb-smileys">
     <div className="gb-picker-toolbar">
-      <div className="gb-quick-strip">
+      <div ref={windowRef} className="gb-quick-window">
+      <div ref={stripRef} className="gb-quick-strip" aria-label="Choose a smiley">
         {PICKER_SMILEYS.map((smiley) =>
           <button key={smiley.id} className="gb-quick-emoji" type="button" title={smiley.label}
             aria-label={`Insert ${smiley.label}`} disabled={unavailable}
             onClick={() => onInsert(smileyToken(smiley.id))}>
-            <img src={guestbookSmileyUrl(smiley.id)} alt="" width={26} height={26} loading="lazy" />
+            <img src={guestbookSmileyUrl(smiley.id)} alt="" width={26} height={26} />
           </button>,
         )}
       </div>
-      <button ref={moreRef} className="gb-smiley-toggle" type="button"
-        aria-label={open ? 'Hide emojis and smileys' : 'Open emoji and smiley picker'}
-        aria-expanded={open} aria-controls="guestbook-smiley-picker"
-        onClick={() => setOpen(!open)}>{open ? 'less' : 'more'}</button>
+      </div>
+      <button className="gb-smiley-next" type="button" aria-label="Show more smileys"
+        title="more smileys" onClick={showNext}>
+        <svg aria-hidden="true" width="5" height="8" viewBox="0 0 5 8">
+          <path d="M0 0 5 4 0 8Z" fill="currentColor" />
+        </svg>
+      </button>
       <span className="gb-smiley-count" aria-live="polite"
         aria-label={`${count} of ${MAX_GUESTBOOK_SMILEYS} smileys used`}
         title={`Maximum ${MAX_GUESTBOOK_SMILEYS} smileys per message`}>
@@ -48,28 +99,6 @@ export function GuestbookSmileyPicker({ disabled, count, onInsert }: Props) {
         <button key={smiley} type="button" disabled={unavailable}
           onClick={() => onInsert(smiley)}>{smiley}</button>,
       )}
-    </div>
-    <div id="guestbook-smiley-picker" className="gb-smiley-picker"
-      role="region" aria-label="Emoji and smiley picker" hidden={!open}
-      onKeyDown={(event) => {
-        if (event.key === 'Escape') {
-          event.stopPropagation();
-          setOpen(false);
-          moreRef.current?.focus();
-        }
-      }}>
-      <div className="gb-smiley-grid" aria-label="Choose a smiley">
-        {PICKER_SMILEYS.map((smiley) =>
-            <button key={smiley.id} type="button" title={smiley.label}
-              aria-label={`Insert ${smiley.label}`} disabled={unavailable}
-              onClick={() => onInsert(smileyToken(smiley.id))}>
-              <img src={guestbookSmileyUrl(smiley.id)} alt="" width={24} height={24} loading="lazy" />
-            </button>,
-        )}
-        {EXTRA_TEXT_SMILEYS.map((smiley) => <button key={smiley} type="button"
-          disabled={unavailable} onClick={() => onInsert(smiley)}>{smiley}</button>)}
-      </div>
-      <p>{disabled ? 'enter your name to use smileys.' : 'three smileys max — leave room for words.'}</p>
     </div>
   </div>;
 }
