@@ -134,7 +134,7 @@ export const GuestbookChat: FC = () => {
             return (
               <p className="gb-chat-line" key={entry.id}>
                 <time className="gb-chat-time" dateTime={entry.createdAt} title={entry.createdAt}>
-                  {guestbookTime.format(new Date(entry.createdAt))}
+                  {guestbookTime.format(new Date(entry.createdAt)).replace(",", "")}
                 </time>{' '}
                 <span className="gb-chat-text">
                   <span className="gb-chat-name" style={{ color }}>{entry.name.toLowerCase()}</span>
