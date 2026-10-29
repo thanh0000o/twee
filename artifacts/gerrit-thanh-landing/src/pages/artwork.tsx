@@ -78,6 +78,7 @@ import img72 from '@/assets/artwork/72.jpg';
 import img73 from '@/assets/artwork/73.jpg';
 import img74 from '@/assets/artwork/74.jpg';
 import img75 from '@/assets/artwork/75.jpg';
+import img76 from '@/assets/artwork/76.jpg';
 import video1 from '@/assets/artwork/videos/01.mp4';
 import video2 from '@/assets/artwork/videos/02.mp4';
 import video3 from '@/assets/artwork/videos/03.mp4';
@@ -132,7 +133,7 @@ const mixedArtwork = [...shuffledArtwork, ...videoArtwork]
 
 // Exclude these three pieces from both the gallery and its image viewer.
 const removedArtwork = new Set([img9, img56, img69]);
-const topArtwork = [img6, video1, video7, img15, video2, img16, video5, video4];
+const topArtwork = [img76, img6, video1, video7, img15, video2, img16, video5, video4];
 const topArtworkSet = new Set(topArtwork);
 const allArtwork = [
   ...topArtwork,
