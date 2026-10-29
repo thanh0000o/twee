@@ -66,7 +66,7 @@ export const BLOG_POSTS: BlogPost[] = [
         'The author asks readers to do two things at once: condemn the violence and ask why it happens. The piece also looks at what comes after, when politicians and commentators use the violence to label their opponents or whole groups of people. That makes a real discussion a lot harder.',
       ],
       [
-        "This connects to my last post about boxes. Count how many show up in this one story: peaceful protesters and rioters, left and right, the people who condemn and the people who excuse. Real people don't fit in them. You can explain the context and still reject the violence, and you can want firm policing and still want to understand what's going on. I don't have to pick a side to see that the labels are doing our thinking for us.",
+        "This connects to my last post about boxes. Count how many show up in this one story: peaceful protesters and rioters, left and right, the people who condemn and the people who excuse. You can explain the context and still reject the violence, and you can want firm policing and still want to understand what's going on. I don't have to pick a side to see that the labels are doing our thinking for us.",
       ],
       ['Thanks to the author for writing it. If you read it differently, leave a note in the ', guestbook('guestbook'), '.'],
     ],
