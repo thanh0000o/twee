@@ -32,6 +32,7 @@
   --nav-artwork-glow: #00ff00;
   --nav-visualisations-glow: #ff3333;
   --nav-guestbook-glow: #ff72b5;
+  --nav-radio-glow: var(--nav-guestbook-glow);
   --nav-blog-links-glow: #9b71ff;
   --nav-music-glow: #73ffd4;
   
@@ -397,6 +398,9 @@
 }
 .home-nav-link-guestbook {
   --home-nav-glow: var(--nav-guestbook-glow);
+}
+.home-nav-link-radio {
+  --home-nav-glow: var(--nav-radio-glow);
 }
 .home-nav-link-blog-links {
   --home-nav-glow: var(--nav-blog-links-glow);

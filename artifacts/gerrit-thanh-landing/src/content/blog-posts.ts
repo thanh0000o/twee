@@ -18,7 +18,7 @@ export interface BlogPost {
 
 const SEPPE_POST_URL = 'https://www.instagram.com/seppedemeulder/';
 
-const guestbook = (text: string): PostSegment => ({ text, href: '/guestbook?from=blog-links', kind: 'guestbook' });
+const guestbook = (text: string): PostSegment => ({ text, href: '#guestbook', kind: 'guestbook' });
 
 export const BLOG_POSTS: BlogPost[] = [
   {

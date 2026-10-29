@@ -169,8 +169,37 @@ main.ed .blog-column {
   min-width: 0;
   min-height: 0;
 }
-main.ed .blog-opinion-column {
+main.ed .blog-opinion-column,
+main.ed .blog-updates-column {
   grid-template-rows: minmax(0, 1.25fr) minmax(0, 1fr);
+}
+
+/* The guestbook keeps its own look; only the page frame around it is dropped. */
+main.ed .blog-guestbook-group { scroll-margin-top: 56px; }
+main.ed .gb-page.gb-embedded {
+  display: flex;
+  flex: 1 1 0;
+  min-height: 0;
+  padding: 0;
+  background: transparent;
+}
+main.ed .gb-page.gb-embedded::before { content: none; }
+:root body main.ed .gb-page.gb-embedded .gb-chat {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  min-height: 0;
+}
+:root body main.ed .gb-page.gb-embedded .gb-chat-scrollwrap {
+  display: flex;
+  flex: 1 1 0;
+  min-height: calc(72 * var(--ui-px));
+}
+:root body main.ed .gb-page.gb-embedded .gb-chat-stream {
+  flex: 1 1 0;
+  height: auto;
+  max-height: none;
+  min-height: 0;
 }
 main.ed .blog-bottom-extras {
   display: grid;

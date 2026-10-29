@@ -1,10 +1,11 @@
-import { useEffect, useRef, type FC, type CSSProperties, type ReactNode } from 'react';
+import { useEffect, useRef, type FC, type CSSProperties, type MouseEvent, type ReactNode } from 'react';
 import { Link } from 'wouter';
 import { withBlogOrigin } from '../components/blog-return-link';
 import { useSavedPalette } from '../hooks/use-saved-palette';
 import { getPaletteLinkColor } from '../palette';
 import { BlogFavourites } from '../components/blog-favourites';
 import { RecentlyAddedMusic } from '../components/recently-added-music';
+import { GuestbookChat } from '../components/guestbook-chat';
 import { sortedPosts, type BlogPost, type PostParagraph } from '../content/blog-posts';
 import '../styles/editorial.css';
 import '../styles/music.css';
@@ -59,6 +60,16 @@ const Paragraph: FC<{ p: PostParagraph }> = ({ p }) => (
       if (s.kind === 'emphasis') return <em key={i}>{s.text}</em>;
       if (s.kind === 'external') {
         return <a key={i} href={s.href} className="home-nav-link home-nav-link-blog-links" target="_blank" rel="noopener noreferrer">{s.text}</a>;
+      }
+      if (s.href.startsWith('#')) {
+        const scrollToTarget = (event: MouseEvent<HTMLAnchorElement>) => {
+          const target = document.getElementById(s.href.slice(1));
+          if (!target) return;
+          event.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, '', s.href);
+        };
+        return <a key={i} href={s.href} onClick={scrollToTarget} className={`home-nav-link home-nav-link-${s.kind}`}>{s.text}</a>;
       }
       return <Link key={i} href={s.href} className={`home-nav-link home-nav-link-${s.kind}`}>{s.text}</Link>;
     })}
@@ -138,6 +149,12 @@ const BlogPosts: FC<{ posts: BlogPost[] }> = ({ posts }) => {
             {renderPosts(siteUpdates)}
           </BlogScrollPanel>
         </section>
+        <section id="guestbook" className="blog-extra-group blog-guestbook-group" aria-labelledby="blog-guestbook-heading" data-testid="blog-guestbook">
+          <h2 id="blog-guestbook-heading">{'{guestbook}'}</h2>
+          <div className="gb-page gb-embedded">
+            <GuestbookChat />
+          </div>
+        </section>
       </section>
       <section className="blog-column blog-opinion-column" aria-label="Opinion pieces, favourite links, and recently added music">
         <section className="blog-post-group" aria-labelledby="opinion-pieces-heading">
@@ -173,6 +190,14 @@ const BlogPosts: FC<{ posts: BlogPost[] }> = ({ posts }) => {
 export const BlogLinks: FC = () => {
   const posts = sortedPosts();
   usePageMeta('blog+links — Thành Lambeets', DESCRIPTION);
+
+  useEffect(() => {
+    if (window.location.hash !== '#guestbook') return;
+    const frame = requestAnimationFrame(() => {
+      document.getElementById('guestbook')?.scrollIntoView({ block: 'start' });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   return (
     <Shell title="blog+links" left={<NavLink href="/" testid="link-return-home">return home</NavLink>}>

@@ -7,6 +7,7 @@ import NotFound from '@/pages/not-found';
 import { Home } from '@/pages/home';
 import { Guestbook } from '@/pages/guestbook';
 import { BlogLinks } from '@/pages/blog-links';
+import { Radio } from '@/pages/radio';
 import { Music } from '@/pages/music';
 import { Visualisations } from '@/pages/visualisations';
 import { Artwork } from '@/pages/artwork';
@@ -38,6 +39,7 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/guestbook" component={Guestbook} />
         <Route path="/blog-links" component={BlogLinks} />
+        <Route path="/radio" component={Radio} />
         <Route path="/music" component={Music} />
         <Route path="/artwork" component={Artwork} />
         <Route path="/works/make-it-work" component={MakeItWork} />

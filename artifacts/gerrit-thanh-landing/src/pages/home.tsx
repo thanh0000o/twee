@@ -426,11 +426,11 @@ export const Home: FC = () => {
                    }} alt="" />
             </Link>
 
-            {/* GUESTBOOK */}
-            <Link href="/guestbook" className="group home-nav-link home-nav-link-guestbook pointer-events-auto" aria-label="Guestbook">
+            {/* RADIO */}
+            <Link href="/radio" className="group home-nav-link home-nav-link-radio pointer-events-auto" aria-label="Radio">
               <div className="absolute whitespace-nowrap transition-none cursor-pointer" 
                    style={{ left: 'calc(80.21 * var(--u))', top: 'calc(424.65 * var(--u))', width: 'calc(140 * var(--u))', textAlign: 'right', transform: 'translateY(-75%) scaleX(1.55)', transformOrigin: 'right top', color: 'var(--color-border)', fontSize: 'calc(10.5 * var(--u))', letterSpacing: 'calc(.7 * var(--u))', fontFamily: 'var(--font-micro)' }}>
-                <span className="home-nav-title">{'{guestbook}'}</span>
+                <span className="home-nav-title">{'{radio}'}</span>
               </div>
               <img src={asset9} className="nav-orb absolute cursor-pointer transition-none group-hover:brightness-125"
                    style={{ 
