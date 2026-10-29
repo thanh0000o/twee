@@ -1,1 +1,1 @@
-export { WorksCarousel as Works } from './works-carousel';
+export { WorksIndex as Works } from './works-index';

@@ -1,0 +1,187 @@
+/* Text-only works index: four quiet columns, a glimpse that follows the pointer,
+   and a blurred field of the hovered project behind everything. */
+main.ed.works-text-index {
+  --return-glow: var(--nav-works-glow);
+  position: relative;
+  isolation: isolate;
+  overflow-x: hidden;
+}
+
+main.ed.works-text-index .visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+main.ed .wi-cols {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.15fr) minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: calc(28 * var(--ui-px)) calc(30 * var(--ui-px));
+  align-items: start;
+  margin-top: calc(10 * var(--ui-px));
+}
+
+main.ed .wi-col { min-width: 0; }
+main.ed .wi-col h2,
+main.ed .wi-col h3 {
+  margin: 0 0 calc(2 * var(--ui-px));
+  font-size: var(--ed-fs);
+  line-height: 1.32;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  color: var(--ed-ink);
+}
+main.ed .wi-col p {
+  margin: 0;
+  max-width: 40ch;
+  font-size: var(--ed-fs);
+  line-height: 1.32;
+}
+main.ed .wi-col p + p { margin-top: 1em; }
+main.ed .wi-mute,
+main.ed .wi-year { color: var(--ed-mute); }
+main.ed .wi-group + .wi-group { margin-top: 1.1em; }
+
+main.ed .wi-projects,
+main.ed .wi-context {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+main.ed .wi-link {
+  color: var(--ed-ink);
+  text-decoration: none;
+  transition: color 160ms ease-out, opacity 160ms ease-out;
+}
+main.ed .wi-projects .wi-link,
+main.ed .wi-context .wi-link {
+  display: grid;
+  grid-template-columns: 2.1em minmax(0, 1fr);
+  align-items: baseline;
+}
+main.ed .wi-number { color: var(--ed-ink); font-variant-numeric: tabular-nums; }
+
+/* While one project is hovered, the rest steps back. */
+main.ed.works-text-index[data-hovering] .wi-link { color: #b3b3ae; }
+main.ed.works-text-index[data-hovering] .wi-link .wi-number,
+main.ed.works-text-index[data-hovering] .wi-link .wi-year { color: inherit; }
+main.ed.works-text-index[data-hovering] .wi-link[data-active] { color: var(--ed-ink); }
+main.ed .wi-link[data-active] .wi-name,
+main.ed .wi-group .wi-link[data-active],
+main.ed .wi-context-link[data-active] > span:last-child {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .18em;
+}
+main.ed .wi-link:focus-visible { outline: 1px dotted var(--ed-ink); outline-offset: 2px; }
+
+/* Blurred backdrop, like light through frosted glass. */
+main.ed .wi-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+main.ed .wi-backdrop-layer {
+  position: absolute;
+  inset: 18% 8% 0 22%;
+  opacity: 0;
+  filter: blur(70px) saturate(1.1);
+  transform: scale(1.04);
+  transition: opacity 420ms ease-out, transform 900ms ease-out;
+  background: radial-gradient(closest-side, var(--wi-layer-accent), transparent);
+}
+main.ed .wi-backdrop-layer:has(img) { background: none; }
+main.ed .wi-backdrop-layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+main.ed .wi-backdrop-layer[data-show] {
+  opacity: .5;
+  transform: scale(1);
+}
+
+/* A faint haze of the project colours when nothing is hovered. */
+main.ed .wi-ambient {
+  position: absolute;
+  inset: 30% 0 -10% 10%;
+  opacity: .22;
+  filter: blur(80px);
+  background:
+    radial-gradient(closest-side at 22% 55%, #9aa6ad, transparent),
+    radial-gradient(closest-side at 62% 70%, #a9b39a, transparent),
+    radial-gradient(closest-side at 85% 40%, #b6a9c4, transparent);
+  transition: opacity 420ms ease-out;
+}
+main.ed.works-text-index[data-hovering] .wi-ambient { opacity: 0; }
+
+main.ed.works-text-index[data-hovering] .wi-sep { color: #b3b3ae; }
+main.ed .wi-hint-touch { display: none; }
+@media (hover: none) {
+  main.ed .wi-hint-hover { display: none; }
+  main.ed .wi-hint-touch { display: inline; }
+}
+
+/* The small glimpse next to the pointer. */
+main.ed .wi-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  pointer-events: none;
+  will-change: transform;
+}
+main.ed .wi-preview-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 140ms ease-out, transform 180ms ease-out;
+}
+main.ed .wi-preview-card[data-show] {
+  opacity: 1;
+  transform: none;
+}
+main.ed .wi-preview-card img {
+  display: block;
+  width: auto;
+  max-width: calc(150 * var(--ui-px));
+  max-height: calc(110 * var(--ui-px));
+  border: 1px solid #1a1a1a;
+  background: #fafafa;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, .45));
+}
+main.ed .wi-preview-dot {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: .35px solid rgba(15, 28, 50, .42);
+  background:
+    radial-gradient(ellipse at 30% 22%, rgba(255, 255, 255, .95), rgba(255, 255, 255, .5) 12%, transparent 38%),
+    var(--dot);
+  box-shadow: inset -.5px -1px 1px rgba(0, 10, 35, .28), .5px 1px 1.5px rgba(0, 15, 35, .3);
+}
+
+@media (max-width: 1000px) {
+  main.ed .wi-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  main.ed .wi-cols { grid-template-columns: minmax(0, 1fr); }
+}
+/* No floating glimpse on touch screens; a tap opens the project. */
+@media (hover: none) {
+  main.ed .wi-preview { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  main.ed .wi-link,
+  main.ed .wi-backdrop-layer,
+  main.ed .wi-preview-card { transition: none; }
+}
