@@ -1,6 +1,14 @@
 /** Shared guestbook display tokens and posting limits; no image HTML is stored. */
 export const MAX_GUESTBOOK_SMILEYS = 3;
 export const QUICK_SMILEYS = [':-)', ';-)', ':-D', ':-P', ':-(', ':-/', ':-O', '^_^', '<3'];
+export const KAOMOJI = [
+  '(^_^)', '(T_T)', '(o_o)', '(*_*)', '(>_<)', '(-_-)', '(^o^)', '\\(^-^)/', '(._.)', '~(^-^)~',
+  '(^_~)', '(=^.^=)', '(^_^)v', '(>w<)', '(o^^o)', '(*^-^*)', 'd(^_^)b', '(;_;)', '(x_x)', '(=_=)',
+  '(^3^)', 'm(_ _)m', '<(^_^)>', '(・ω・)', '(•_•)', 'ʕ•ᴥ•ʔ', '(ง •_•)ง', '(╯°□°)╯︵ ┻━┻',
+  '┬─┬ノ(º_ºノ)', '¯\\_(ツ)_/¯', '(づ｡◕‿‿◕｡)づ', '( ˘▽˘)っ♨', '(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧', '(っ˘ω˘ς )', '(=^･ω･^=)',
+];
+// Longest first, so a kaomoji is counted once even when it contains a shorter one.
+const kaomojiByLength = [...KAOMOJI].sort((a, b) => b.length - a.length);
 export const EXTRA_TEXT_SMILEYS = [':)', ';)', ':D', ':P', ':3', '8-)', 'B-)', ':-*', ":'(", 'o_O', 'O_o', '-_-', 'T_T', '>_<', 'XD'];
 
 const collections = [
@@ -36,12 +44,18 @@ const segmenter = new Intl.Segmenter('en', { granularity: 'grapheme' });
 
 export function countGuestbookSmileys(message: string): number {
   const imageTokens = [...message.matchAll(/:gb-[a-z0-9-]+:/g)].length;
-  const text = message.replace(/:gb-[a-z0-9-]+:/g, ' ');
+  let text = message.replace(/:gb-[a-z0-9-]+:/g, ' ');
+  let kaomojiCount = 0;
+  for (const face of kaomojiByLength) {
+    const parts = text.split(face);
+    kaomojiCount += parts.length - 1;
+    text = parts.join(' ');
+  }
   const asciiCount = [...text.replace(/\bhttps?:\/\/\S+/giu, ' ').matchAll(textFaces)].length;
   const unicodeCount = [...segmenter.segment(text)].filter(({ segment }) =>
     /[\p{Extended_Pictographic}\p{Regional_Indicator}\u20e3]/u.test(segment),
   ).length;
-  return imageTokens + asciiCount + unicodeCount;
+  return imageTokens + kaomojiCount + asciiCount + unicodeCount;
 }
 
 export function getGuestbookSmileyError(message: string): string | null {

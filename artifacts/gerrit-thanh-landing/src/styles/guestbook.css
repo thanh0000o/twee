@@ -155,10 +155,49 @@
 }
 
 .gb-page .gb-ascii-bar {
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   width: 100%;
   box-sizing: border-box;
+  overflow: hidden;
 }
+
+.gb-page .gb-text-window {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.gb-page .gb-text-strip {
+  display: flex;
+  gap: 3px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Each text face sits in its own small cell, like a keyboard key. */
+:root body .gb-page .gb-text-strip button {
+  flex: 0 0 auto;
+  min-width: 0;
+  height: 21px;
+  margin: 0;
+  padding: 1px 6px 0;
+  border: 1px solid;
+  border-color: #fff #9a9a9a #9a9a9a #fff;
+  border-radius: 0;
+  background: #ececec;
+  box-shadow: none;
+  color: #333;
+  font: 11px/1 Tahoma, Verdana, 'Segoe UI Symbol', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
+  white-space: nowrap;
+  cursor: pointer;
+}
+:root body .gb-page .gb-text-strip button:hover:not(:disabled) { background: #fff; color: #000; }
+:root body .gb-page .gb-text-strip button:active:not(:disabled) {
+  border-color: #9a9a9a #fff #fff #9a9a9a;
+}
+:root body .gb-page .gb-text-strip button:disabled { opacity: .55; cursor: default; }
+
+.gb-page .gb-ascii-bar .gb-smiley-next { height: 21px; }
 
 .gb-page .gb-picker-toolbar {
   display: flex;

@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import {
-  GUESTBOOK_SMILEYS, MAX_GUESTBOOK_SMILEYS,
-  QUICK_SMILEYS, smileyToken,
+  GUESTBOOK_SMILEYS, KAOMOJI, MAX_GUESTBOOK_SMILEYS, smileyToken,
 } from '@workspace/api-zod/guestbook-smileys';
 import { guestbookSmileyUrl } from './guestbook-message';
 
@@ -21,6 +20,28 @@ const PICKER_SMILEYS = COLOUR_ORDER.flatMap((id) => {
   return smiley ? [smiley] : [];
 });
 
+// Text faces: the classic ones first, then kaomoji.
+const TEXT_SMILEYS = [':-)', ';-)', ':-D', ':-P', ':-(', '<3', ...KAOMOJI];
+
+/** Fit as many whole buttons as the row allows, starting at `start`, and return the next start. */
+function showPage(strip: HTMLElement, start: number): number {
+  const items = Array.from(strip.children) as HTMLElement[];
+  const frame = strip.parentElement;
+  if (!frame || items.length === 0) return 0;
+  const gap = 3;
+  let width = 0;
+  let end = start;
+  while (end < items.length) {
+    const next = width + (end > start ? gap : 0) + items[end].offsetWidth;
+    if (next > frame.clientWidth && end > start) break;
+    width = next;
+    end += 1;
+  }
+  strip.style.width = `${width}px`;
+  strip.scrollLeft = items[start].offsetLeft - items[0].offsetLeft;
+  return end >= items.length ? 0 : end;
+}
+
 type Props = {
   disabled: boolean;
   count: number;
@@ -31,6 +52,27 @@ export function GuestbookSmileyPicker({ disabled, count, onInsert }: Props) {
   const windowRef = useRef<HTMLDivElement>(null);
   const stripRef = useRef<HTMLDivElement>(null);
   const unavailable = disabled || count >= MAX_GUESTBOOK_SMILEYS;
+  const textStripRef = useRef<HTMLDivElement>(null);
+  const textStart = useRef(0);
+  const textNext = useRef(0);
+
+  useEffect(() => {
+    const strip = textStripRef.current;
+    const frame = strip?.parentElement;
+    if (!strip || !frame) return;
+    const fit = () => { textNext.current = showPage(strip, textStart.current); };
+    fit();
+    const observer = new ResizeObserver(fit);
+    observer.observe(frame);
+    return () => observer.disconnect();
+  }, []);
+
+  const showNextText = () => {
+    const strip = textStripRef.current;
+    if (!strip) return;
+    textStart.current = textNext.current;
+    textNext.current = showPage(strip, textStart.current);
+  };
 
   // Size the strip to a whole number of smileys, so none is cut off at the edge.
   useEffect(() => {
@@ -89,12 +131,22 @@ export function GuestbookSmileyPicker({ disabled, count, onInsert }: Props) {
         {count}/{MAX_GUESTBOOK_SMILEYS} used
       </span>
     </div>
-    <div className="gb-ascii-bar" aria-label="Quick text smileys">
+    <div className="gb-ascii-bar" aria-label="Text smileys">
       <span>text:</span>
-      {QUICK_SMILEYS.map((smiley) =>
-        <button key={smiley} type="button" disabled={unavailable}
-          onClick={() => onInsert(smiley)}>{smiley}</button>,
-      )}
+      <div className="gb-text-window">
+        <div ref={textStripRef} className="gb-text-strip">
+          {TEXT_SMILEYS.map((smiley) =>
+            <button key={smiley} type="button" disabled={unavailable}
+              onClick={() => onInsert(smiley)}>{smiley}</button>,
+          )}
+        </div>
+      </div>
+      <button className="gb-smiley-next" type="button" aria-label="Show more text smileys"
+        title="more text smileys" onClick={showNextText}>
+        <svg aria-hidden="true" width="5" height="8" viewBox="0 0 5 8">
+          <path d="M0 0 5 4 0 8Z" fill="currentColor" />
+        </svg>
+      </button>
     </div>
   </div>;
 }
