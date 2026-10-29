@@ -7,8 +7,10 @@ import { InkDefs } from '../components/home-ink-masks';
 import { BubbleReveal, EntryDefs } from '../components/home-entry-masks';
 import { CopyParagraph } from '../components/copy-paragraph';
 import { VisitorCount } from '../components/visitor-count';
+import { AeroCopyright, AeroDefs, AeroHairlines, AeroNews, AeroOrb, AeroPanel, AeroRail, AeroSpill } from '../components/home-aero';
 import { PALETTES, getSavedPaletteIndex, savePaletteIndex, getPaletteLinkColor } from '../palette';
 import '../styles/home-motion.css';
+import '../styles/home-aero.css';
 
 // Only a fresh load on the landing page can start the intro.
 const enteredOnHome = window.location.pathname.replace(/\/+$/, '') === import.meta.env.BASE_URL.replace(/\/+$/, '');
@@ -79,6 +81,7 @@ export const Home: FC = () => {
                 <circle cx="2.5" cy="2.5" r="1.35" fill="#397eba" />
               </pattern>
               <DepthDotPattern />
+              <AeroDefs />
               {opening && <EntryDefs />}
               {opening && <InkDefs />}
               <linearGradient id="halftone-fade" x1="82" y1="0" x2="338" y2="0" gradientUnits="userSpaceOnUse">
@@ -207,6 +210,8 @@ export const Home: FC = () => {
               </clipPath>
             </defs>
 
+            <AeroSpill />
+
             {/* Soft cast shadow lifts the curved glass panel from the white page. */}
             <path
               className="home-panel-shadow"
@@ -297,6 +302,8 @@ export const Home: FC = () => {
 
             </g>
 
+            <AeroPanel />
+
             {/* Inner box shape base */}
             <path className="home-side-fill" d="M232.69,444.56H80.58V131.38h320.17c-26.34,17.95-78.2,58.81-118.34,134.81-38.71,73.28-47.38,143-49.72,178.36Z" fill="#ffffff" /> 
 
@@ -305,7 +312,6 @@ export const Home: FC = () => {
               <path d="M232.69,444.56c-.07-.03-152.23.16-152.17,0-.09-.11-.07-313.26-.14-313.38.02-.11,320.29.12,320.37.04,0,0,.52,0,.52,0,0,0-.43.29-.43.29-12.65,8.63-24.69,18.14-36.08,28.38-33.5,30.03-61.05,66.52-82.19,106.17-29.02,55.08-45.71,116.43-49.89,178.49h0ZM232.69,444.56c4.09-61.1,20.2-121.6,48.45-176.01,21.17-40.74,49.27-78.13,83.45-108.87,11.39-10.26,23.43-19.79,36.08-28.44l.09.29s-320.17.04-320.17.04c.36-1.34.03,313.31.07,312.98-.38-.18,152.11.06,152.04,0h0Z" stroke="none" mask={opening ? "url(#ink-body)" : undefined} />
               <line x1="81.82" y1="113.46" x2="823.85" y2="113.46" stroke="rgba(255,255,255,0.9)" strokeWidth="1" mask={opening ? "url(#ink-header)" : undefined} />
               <path d="M231.86,481.02c-2.02-116.53,41.51-236.04,127.36-316.45,25.01-23.78,54.23-42.37,83.6-60.24,58.71-35.9,118.33-70.31,178.14-104.34-47.85,27.23-95.51,54.8-142.75,83.06-35.11,21.59-71.52,41.64-103.34,68.05-26.53,21.91-49.62,47.88-69.01,76.27-50.4,74.02-75.45,164.33-74,253.64h0Z" stroke="none" mask={opening ? "url(#ink-arc)" : undefined} />
-              <polyline points="822.6 150.71 795.1 150.71 795.1 421.79 822.6 421.79" fill="none" stroke="rgba(255,255,255,0.9)" strokeWidth="1" mask={opening ? "url(#ink-bracket)" : undefined} />
             </g>
 
             {/* Box outlines & curves (Black) */}
@@ -313,15 +319,17 @@ export const Home: FC = () => {
             <line x1="81.82" y1="113.46" x2="823.85" y2="113.46" stroke="var(--color-border)" strokeWidth="0.8" mask={opening ? "url(#ink-header)" : undefined} />
             <path className="home-curve-reveal" mask={opening ? "url(#ink-arc)" : undefined} d="M400.75 131.38C414.3 122 428.2 113.62 442.82 104.33C501.53 68.43 561.15 34.12 620.96 0" fill="none" stroke="url(#curve-ink-fade)" strokeWidth="1" />
             <path d="M232.69 444.56L229.7 486.5" mask={opening ? "url(#ink-arc)" : undefined} fill="none" stroke="var(--color-border)" strokeWidth=".7" />
-            <polyline points="822.6 150.71 795.1 150.71 795.1 421.79 822.6 421.79" fill="none" stroke="#647785" strokeWidth=".65" mask={opening ? "url(#ink-bracket)" : undefined} />
+            <AeroRail />
             {/* Draw the outer frame last so its left and bottom rules stay continuous over the white panel. */}
             <g fill="none" stroke="var(--color-border)" strokeWidth=".8" strokeOpacity=".85" pointerEvents="none" aria-hidden="true">
               <path className="home-frame-reveal" pathLength="1" d="M451.59 131.38H80.58V444.56H451.59" />
               <path className="home-frame-reveal home-frame-return" pathLength="1" d="M451.59 131.38H822.6V444.56H451.59" />
             </g>
+            <AeroHairlines />
             {/* Embedded Dots with subtle glassy/vector highlights */}
              <ellipse className="home-marker-reveal home-marker-red" cx="334.81" cy="189.38" rx="7.16" ry="8.37" fill="var(--color-accent-red)" stroke="rgba(255,255,255,0.9)" strokeWidth="1" />
             <ellipse className="home-marker-reveal home-marker-ink" cx="287.23" cy="258.36" rx="7.16" ry="8.37" fill="var(--color-border)" stroke="rgba(255,255,255,0.9)" strokeWidth="1" />
+            <AeroOrb />
           </svg>
 
           {/* Text Layer */}
@@ -442,6 +450,11 @@ export const Home: FC = () => {
           </div>
 
         </div>
+        {/* Outside the palette filter, so the bronze heading keeps its colour. */}
+        <div className="absolute inset-0 pointer-events-none z-[5]" style={{ '--u': 'calc(100cqi / 1109.84)', transform: 'translate(9.3%, 3%)' } as React.CSSProperties}>
+          <AeroNews />
+        </div>
+        <AeroCopyright />
         <div className="home-controls">
           <button
             type="button"

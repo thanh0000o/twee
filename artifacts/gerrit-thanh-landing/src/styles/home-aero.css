@@ -1,0 +1,126 @@
+/* Old-school Frutiger Aero touches on the landing page. */
+
+.home-aero-news {
+  position: absolute;
+  left: calc(252 * var(--u));
+  top: calc(452 * var(--u));
+  pointer-events: auto;
+  color: #1a1a1a;
+}
+
+.home-aero-news-title {
+  position: relative;
+  margin: 0;
+  padding-bottom: calc(3 * var(--u));
+  font-family: Garamond, 'EB Garamond', 'Times New Roman', Times, serif;
+  font-size: calc(23 * var(--u));
+  line-height: 1;
+  letter-spacing: calc(.2 * var(--u));
+  color: #8a5a22;
+  text-shadow: 0 calc(.6 * var(--u)) 0 rgba(255, 255, 255, .8);
+}
+
+/* The hairline under the heading fades out to the right, like on the 2001 site. */
+.home-aero-news-title::after {
+  content: '';
+  position: absolute;
+  left: calc(-20 * var(--u));
+  bottom: 0;
+  width: calc(360 * var(--u));
+  height: 1px;
+  background: linear-gradient(to right, rgba(40, 40, 40, .55), rgba(40, 40, 40, .55) 55%, rgba(40, 40, 40, 0));
+}
+
+.home-aero-news ul {
+  margin: calc(6 * var(--u)) 0 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-body);
+  font-size: calc(10.5 * var(--u));
+  letter-spacing: calc(.25 * var(--u));
+  line-height: 1.6;
+}
+
+.home-aero-news li::before {
+  content: '●';
+  margin-right: calc(4 * var(--u));
+  color: #0d2f7a;
+  font-size: .85em;
+}
+
+.home-aero-news a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-aero-news a:is(:hover, :focus-visible) {
+  color: #0d2f7a;
+  text-decoration: underline;
+  text-underline-offset: .15em;
+}
+
+.home-aero-copyright {
+  position: absolute;
+  left: 50%;
+  bottom: 1.6%;
+  margin: 0;
+  transform: translateX(-50%);
+  font-family: var(--font-micro);
+  font-size: 10px;
+  letter-spacing: .02em;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* Bubbles drift a little; the frost slides very slowly. */
+.home-aero-bubble {
+  transform-box: fill-box;
+  animation: home-aero-float 7s ease-in-out infinite;
+}
+
+.home-aero-mist {
+  animation: home-aero-mist 28s ease-in-out infinite alternate;
+}
+
+@keyframes home-aero-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes home-aero-mist {
+  from { transform: translateX(0); }
+  to { transform: translateX(-22px); }
+}
+
+/* During the intro the new layers arrive after the frame and the copy. */
+.home-page[data-opening="true"] .home-aero-late {
+  animation: home-aero-in 900ms ease-out 2100ms backwards;
+}
+
+.home-page[data-opening="true"] .home-aero-orb {
+  animation: home-aero-drop 1100ms cubic-bezier(.2, .8, .3, 1) 1700ms backwards;
+}
+
+.home-page[data-opening="true"] .home-aero-bubble,
+.home-page[data-opening="true"] .home-aero-mist {
+  animation-play-state: paused;
+}
+
+@keyframes home-aero-in {
+  from { opacity: 0; }
+}
+
+@keyframes home-aero-drop {
+  from { opacity: 0; transform: translateY(-14px); }
+}
+
+@media (max-width: 850px) {
+  .home-aero-copyright { font-size: 9px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-aero-bubble,
+  .home-aero-mist,
+  .home-page[data-opening="true"] .home-aero-late,
+  .home-page[data-opening="true"] .home-aero-orb { animation: none; }
+}
