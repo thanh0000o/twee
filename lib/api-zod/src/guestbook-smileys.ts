@@ -18,6 +18,7 @@ const collections = [
   ['pixel', 'pixel faces', ['smile', 'unamused', 'tongue', 'blush', 'stunned', 'angry', 'pleased', 'horns', 'pirate', 'ears', 'thinking', 'grin', 'toothy', 'green-grin', 'lime-grin', 'skeptical', 'confused', 'sad', 'cursing', 'frown', 'facepalm', 'love', 'no', 'yes', 'whistle', 'laugh', 'angel', 'sick']],
   ['xp', 'XP avatars', ['hello', 'smirk', 'happy', 'grin', 'sad', 'cheeky', 'bright', 'relaxed', 'laugh', 'sunny', 'frown', 'dizzy', 'worried']],
   ['tango', '2007 classics', ['smile', 'wink', 'surprise', 'sad', 'cool']],
+  ['toy', 'toy characters', ['baseball', 'ufo', 'capsule', 'bee', 'cap', 'burger', 'balloons', 'butterfly', 'hood', 'star-gold', 'star-pink', 'notes']],
   ['retro', 'retro characters', ['clown-caterpillar', 'space-caterpillar', 'computer', 'alarm-clock', 'peanut', 'star', 'house', 'candle', 'cloud', 'christmas-tree', 'snowman', 'tooth', 'tulip', 'fishbowl', 'mushroom', 'cheese', 'shin-chan', 'apple']],
 ] as const;
 
