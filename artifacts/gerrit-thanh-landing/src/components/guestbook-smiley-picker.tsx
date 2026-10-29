@@ -5,9 +5,10 @@ import {
 } from '@workspace/api-zod/guestbook-smileys';
 import { guestbookSmileyUrl } from './guestbook-message';
 
-const QUICK_IMAGE_SMILEYS = GUESTBOOK_SMILEYS.filter(({ id }) =>
-  ['gloss-hopeful', 'xp-happy', 'retro-star', 'pixel-smile', 'jelly-kiss', 'retro-cloud'].includes(id),
-);
+// Only the character sets go in the picker. The plain yellow faces (pixel, XP,
+// jelly, 2007 classics) are left out, but old messages that use them still render.
+const PICKER_GROUPS: readonly string[] = ['gloss', 'messenger', 'retro'];
+const PICKER_SMILEYS = GUESTBOOK_SMILEYS.filter(({ group }) => PICKER_GROUPS.includes(group));
 
 type Props = {
   disabled: boolean;
@@ -22,13 +23,15 @@ export function GuestbookSmileyPicker({ disabled, count, onInsert }: Props) {
 
   return <div className="gb-smileys">
     <div className="gb-picker-toolbar">
-      {QUICK_IMAGE_SMILEYS.map((smiley) =>
-        <button key={smiley.id} className="gb-quick-emoji" type="button" title={smiley.label}
-          aria-label={`Insert ${smiley.label}`} disabled={unavailable}
-          onClick={() => onInsert(smileyToken(smiley.id))}>
-          <img src={guestbookSmileyUrl(smiley.id)} alt="" width={26} height={26} />
-        </button>,
-      )}
+      <div className="gb-quick-strip">
+        {PICKER_SMILEYS.map((smiley) =>
+          <button key={smiley.id} className="gb-quick-emoji" type="button" title={smiley.label}
+            aria-label={`Insert ${smiley.label}`} disabled={unavailable}
+            onClick={() => onInsert(smileyToken(smiley.id))}>
+            <img src={guestbookSmileyUrl(smiley.id)} alt="" width={26} height={26} loading="lazy" />
+          </button>,
+        )}
+      </div>
       <button ref={moreRef} className="gb-smiley-toggle" type="button"
         aria-label={open ? 'Hide emojis and smileys' : 'Open emoji and smiley picker'}
         aria-expanded={open} aria-controls="guestbook-smiley-picker"
@@ -56,7 +59,7 @@ export function GuestbookSmileyPicker({ disabled, count, onInsert }: Props) {
         }
       }}>
       <div className="gb-smiley-grid" aria-label="Choose a smiley">
-        {GUESTBOOK_SMILEYS.map((smiley) =>
+        {PICKER_SMILEYS.map((smiley) =>
             <button key={smiley.id} type="button" title={smiley.label}
               aria-label={`Insert ${smiley.label}`} disabled={unavailable}
               onClick={() => onInsert(smileyToken(smiley.id))}>
