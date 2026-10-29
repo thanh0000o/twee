@@ -36,7 +36,6 @@ main.ed .wi-row {
   gap: 0 calc(20 * var(--ui-px));
   align-items: baseline;
   padding: calc(5 * var(--ui-px)) 0;
-  border-bottom: 1px dotted #c9c9c4;
   color: var(--ed-ink);
   text-decoration: none;
 }
@@ -47,8 +46,7 @@ main.ed .wi-row > span {
   white-space: nowrap;
 }
 main.ed .wi-head {
-  padding-bottom: calc(6 * var(--ui-px));
-  border-bottom: 1px solid var(--ed-ink);
+  padding-bottom: calc(10 * var(--ui-px));
   color: var(--ed-ink);
   text-transform: uppercase;
   letter-spacing: .03em;
@@ -58,7 +56,14 @@ main.ed .wi-year { font-variant-numeric: tabular-nums; }
 main.ed .wi-year,
 main.ed .wi-kind,
 main.ed .wi-context { color: var(--ed-mute); }
-main.ed .wi-name { display: flex; align-items: baseline; gap: .55em; }
+/* Room around the sphere, so it can grow on hover without being cut off. */
+main.ed .wi-row > .wi-name {
+  display: flex;
+  align-items: baseline;
+  gap: .6em;
+  overflow: visible;
+  padding-left: 2px;
+}
 main.ed .wi-title { overflow: hidden; text-overflow: ellipsis; }
 
 /* The site's glossy sphere, one per project in its own colour. */
@@ -90,8 +95,8 @@ main.ed .wi-row[data-active] .wi-title {
   text-underline-offset: .18em;
 }
 main.ed .wi-row[data-active] .wi-sphere {
-  transform: scale(1.35);
-  box-shadow: inset -.5px -1px 1px rgba(0, 10, 35, .28), 0 0 6px var(--dot);
+  transform: scale(1.3);
+  box-shadow: inset -.5px -1px 1px rgba(0, 10, 35, .28), .5px 1px 1.25px rgba(0, 15, 35, .24), 0 0 5px var(--dot);
 }
 main.ed .wi-link:focus-visible { outline: 1px dotted var(--ed-ink); outline-offset: 2px; }
 
