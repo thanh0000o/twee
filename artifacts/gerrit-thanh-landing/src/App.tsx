@@ -22,6 +22,7 @@ import { DesktopPortfolio } from '@/pages/desktop-portfolio';
 import { FirstPortfolio } from '@/pages/first-portfolio';
 import { MusicAgent } from '@/pages/music-agent';
 import { VacatureAgent } from '@/pages/vacature-agent';
+import { SmoothScroll } from '@/motion/smooth-scroll';
 import {
   Route,
   Switch,
@@ -69,7 +70,9 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}>
-          <Router />
+          <SmoothScroll>
+            <Router />
+          </SmoothScroll>
         </WouterRouter>
         <Toaster />
       </TooltipProvider>
