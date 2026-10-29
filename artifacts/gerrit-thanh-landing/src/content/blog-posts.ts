@@ -16,9 +16,43 @@ export interface BlogPost {
   wide?: boolean;
 }
 
+const SEPPE_POST_URL = 'https://www.instagram.com/seppedemeulder/';
+
 const guestbook = (text: string): PostSegment => ({ text, href: '/guestbook?from=blog-links', kind: 'guestbook' });
 
 export const BLOG_POSTS: BlogPost[] = [
+  {
+    slug: 'one-land-many-boxes',
+    title: 'one land, many boxes',
+    category: 'opinion',
+    dateTime: '2026-10-29T14:30:00+01:00',
+    dateLabel: '29 October 2026, 14:30 CET',
+    author: 'Thành Lambeets',
+    wide: true,
+    body: [
+      [
+        'I came across ',
+        { text: 'this post', href: SEPPE_POST_URL, kind: 'external' },
+        " by chance while scrolling, and since I now have this blog as a place to write down what I think, I decided to use it. I picked this one on purpose. The post and both comments under it each had a clear side, and it looked like they had all done their research, but mostly to back up their own point. My first thought was: here we go again, everyone throwing numbers around and defending their own side. That made me curious about why it keeps happening, so I'm writing about it. I only read the post and these two comments, not the whole thread. I'm also not going to check every claim. This post is about how people talk to each other, not about who has the right numbers.",
+      ],
+      [
+        "The post, by @seppedemeulder, reacts to a message from Prime Minister Bart De Wever on the anniversary of the Hamas attack on Israel. In the tweet, it can look as if the story starts on that day, and the post pushes back with a long list of Israeli attacks going back to the founding of Israel. Whether De Wever actually sees it that way, I honestly don't know. A tweet leaves a lot out, and I've never read his full view on the conflict. One commenter rejects the word genocide, says Israel also helped people in Gaza and warns readers not to believe the news. Another answers that he is the one who hasn't done his reading, blames Europe for the whole conflict and ends with a personal jab.",
+      ],
+      [
+        "This is only my reading of a few short texts by people I don't know, but look past the tone and each of them wants something you can understand. The post seems to want Palestinian suffering to count as much as Israeli suffering. The first commenter seems afraid that Jews as a whole are being painted as the villain. The second one, as I read it, is saying that both peoples are paying for choices Europe made, but that gets lost in the insult.",
+      ],
+      [
+        "This ties in with my earlier posts about boxes. In one short thread, people put each other in boxes: the ignorant one, the antisemite, and the labels that are left unsaid. Once someone is in a box, you don't have to listen anymore. Add confirmation bias, the habit of picking only the facts that suit your side, and a counterargument starts to feel like a personal attack. Meanwhile, a child in Gaza and a young person at a festival near the border both died for something they never chose.",
+      ],
+      [
+        "So why can't they just live together? This is my own simple take, and the full history is a lot longer. In some places they do. Many of Israel's citizens are Arab-Palestinian, and in cities like Haifa and Jaffa, Jews and Arabs share the same streets. On a larger scale it fails because two peoples see the same land as home. For many Jews it is the one place they feel safe after centuries of persecution. For Palestinians it is where their families lived for generations, until many were driven out or fled. Fear does the rest, and hardliners on both sides get their support from it. People who actually meet each other often soften. What stands between them is mostly fear, and the people who use it.",
+      ],
+      [
+        "I try to stand in the middle of discussions like this, recognising the pain on both sides and listening to what the other person actually says. That doesn't make every claim equally true. It just means hearing people out, because behind every argument in these threads there is a person.",
+      ],
+      ['Thanks to @seppedemeulder and the commenters for starting the conversation. If you read it differently, leave a note in the ', guestbook('guestbook'), '.'],
+    ],
+  },
   {
     slug: 'running-on-my-own',
     title: 'running on my own',
