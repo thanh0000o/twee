@@ -101,10 +101,10 @@ export const About: FC = () => {
             <span className="about-paper-print">
               <img
                 ref={portraitRef}
-                src={`${base}resume/portrait-selfie-monochrome-paper.webp`}
-                width="580"
-                height="613"
-                alt="Black-and-white enhanced close-up portrait of Thành Lambeets from his selfie, with a light matte-paper texture across the surface, balanced contrast, softly detailed face and hair and a clean neutral background, without an added frame or folds."
+                src={`${base}resume/portrait-selfie-monochrome-paper-straight.webp`}
+                width="570"
+                height="605"
+                alt="Black-and-white enhanced close-up portrait of Thành Lambeets from his selfie, with a light matte-paper texture across the surface, balanced contrast, softly detailed face and hair and a clean neutral background and straight edges."
               />
             </span>
           </figure>

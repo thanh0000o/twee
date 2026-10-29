@@ -24,7 +24,8 @@ main.ed-about .about-paper-print img {
   display: block;
   width: 100%;
   height: auto;
-  filter: drop-shadow(.7px 1px 1.6px rgba(0,0,0,.16));
+  /* Same offset backplate shadow as the framed images (.ed-stage::before). */
+  filter: drop-shadow(7px 7px 5px rgba(0, 0, 0, .6));
 }
 @media (min-width: 1001px) {
   main.ed-about > .ed-cols { row-gap: calc(10 * var(--ui-px)); }
