@@ -49,8 +49,9 @@ export const GuestbookChat: FC = () => {
     // Assign by first appearance (oldest first) so new authors don't recolour
     // existing ones. Unlike name hashing, distinct authors use every hue before repeating.
     for (const entry of [...chatEntries].reverse()) {
-      if (!colors.has(entry.name)) {
-        colors.set(entry.name, NAME_COLORS[colors.size % NAME_COLORS.length]);
+      const key = entry.name.toLowerCase();
+      if (!colors.has(key)) {
+        colors.set(key, NAME_COLORS[colors.size % NAME_COLORS.length]);
       }
     }
     return colors;
@@ -76,7 +77,7 @@ export const GuestbookChat: FC = () => {
   }, []);
 
   const acceptName = () => {
-    const cleanName = name.trim();
+    const cleanName = name.trim().toLowerCase();
     if (cleanName) setActiveName(cleanName);
   };
 
@@ -129,14 +130,14 @@ export const GuestbookChat: FC = () => {
           )}
 
           {chatEntries.map((entry) => {
-            const color = nameColors.get(entry.name);
+            const color = nameColors.get(entry.name.toLowerCase());
             return (
               <p className="gb-chat-line" key={entry.id}>
                 <time className="gb-chat-time" dateTime={entry.createdAt} title={entry.createdAt}>
                   {guestbookTime.format(new Date(entry.createdAt))}
                 </time>{' '}
                 <span className="gb-chat-text">
-                  <span className="gb-chat-name" style={{ color }}>{entry.name}</span>
+                  <span className="gb-chat-name" style={{ color }}>{entry.name.toLowerCase()}</span>
                   <span className="gb-colon">:</span>{' '}
                   <span className="gb-chat-message"><GuestbookMessage message={entry.message} /></span>
                 </span>
@@ -164,7 +165,7 @@ export const GuestbookChat: FC = () => {
           <input
             id="guestbook-name"
             value={name}
-            onChange={(event) => setName(event.target.value)}
+            onChange={(event) => setName(event.target.value.toLowerCase())}
             onKeyDown={(event) => {
               if (event.key === 'Enter') acceptName();
             }}

@@ -35,7 +35,7 @@ router.post("/guestbook", async (req, res): Promise<void> => {
     return;
   }
 
-  const name = parsed.data.name.trim();
+  const name = parsed.data.name.trim().toLowerCase();
   const message = parsed.data.message.trim();
   if (!name || !message) {
     res.status(400).json({ error: "Name and message are required." });
