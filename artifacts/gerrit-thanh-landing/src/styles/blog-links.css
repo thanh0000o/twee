@@ -187,8 +187,12 @@ main.ed .gb-page.gb-embedded::before { content: none; }
 :root body main.ed .gb-page.gb-embedded .gb-chat {
   display: flex;
   flex-direction: column;
-  max-width: 100%;
+  width: 100%;
   min-height: 0;
+}
+:root body main.ed .gb-page.gb-embedded .gb-controls {
+  box-sizing: border-box;
+  width: 100%;
 }
 :root body main.ed .gb-page.gb-embedded .gb-chat-scrollwrap {
   display: flex;
