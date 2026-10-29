@@ -218,7 +218,7 @@ main.ed .gb-page.gb-embedded::before { content: none; }
   font-variant-numeric: tabular-nums;
   line-height: 1;
   letter-spacing: 0;
-  color: #9a9a9a;
+  color: #000;
   white-space: nowrap;
 }
 :root body main.ed .gb-page.gb-embedded .gb-chat-text { min-width: 0; }
