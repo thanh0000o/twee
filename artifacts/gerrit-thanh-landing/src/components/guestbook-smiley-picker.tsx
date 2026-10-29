@@ -5,19 +5,15 @@ import {
 } from '@workspace/api-zod/guestbook-smileys';
 import { guestbookSmileyUrl } from './guestbook-message';
 
-// Only the character sets are offered, in colour order: pinks and reds, orange,
-// yellow, green, blue, purple, then white, grey and black. The plain yellow
-// face sets are left out, but old messages that use them still render.
+// Only the gloss and retro character sets are offered, in colour order: reds,
+// orange, yellow, green, blue, purple, then white and grey. The other sets are
+// left out of the picker, but old messages that use them still render.
 const COLOUR_ORDER = [
-  'messenger-berry', 'messenger-blush', 'messenger-rose', 'messenger-red', 'gloss-angry',
-  'retro-mushroom', 'retro-apple', 'messenger-sunset', 'messenger-peach', 'retro-shin-chan',
-  'retro-alarm-clock', 'retro-tulip', 'gloss-sleepy', 'messenger-gold', 'messenger-lemon',
-  'retro-peanut', 'retro-cheese', 'messenger-lime', 'retro-clown-caterpillar', 'retro-house',
-  'messenger-green', 'retro-christmas-tree', 'messenger-leaf', 'gloss-hopeful', 'retro-computer',
-  'retro-fishbowl', 'messenger-aqua', 'messenger-ocean', 'messenger-blue', 'retro-cloud',
-  'gloss-blue', 'messenger-lilac', 'messenger-ice', 'messenger-lavender', 'retro-space-caterpillar',
-  'gloss-dreamy', 'retro-snowman', 'retro-star', 'retro-tooth', 'gloss-surprised',
-  'messenger-silver', 'retro-candle', 'messenger-slate', 'messenger-black',
+  'gloss-angry', 'retro-mushroom', 'retro-apple', 'retro-shin-chan', 'retro-alarm-clock',
+  'retro-tulip', 'gloss-sleepy', 'retro-peanut', 'retro-cheese', 'retro-clown-caterpillar',
+  'retro-house', 'retro-christmas-tree', 'gloss-hopeful', 'retro-computer', 'retro-fishbowl',
+  'retro-cloud', 'gloss-blue', 'retro-space-caterpillar', 'gloss-dreamy', 'retro-snowman',
+  'retro-star', 'retro-tooth', 'gloss-surprised', 'retro-candle',
 ];
 const smileysById = new Map(GUESTBOOK_SMILEYS.map((smiley) => [smiley.id, smiley]));
 const PICKER_SMILEYS = COLOUR_ORDER.flatMap((id) => {

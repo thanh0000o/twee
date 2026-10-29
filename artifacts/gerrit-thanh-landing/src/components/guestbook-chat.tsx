@@ -136,9 +136,11 @@ export const GuestbookChat: FC = () => {
                 <time className="gb-chat-time" dateTime={entry.createdAt} title={entry.createdAt}>
                   {guestbookTime.format(new Date(entry.createdAt))}
                 </time>{' '}
-                <span className="gb-chat-name" style={{ color }}>{entry.name}</span>
-                <span className="gb-colon">:</span>{' '}
-                <span className="gb-chat-message"><GuestbookMessage message={entry.message} /></span>
+                <span className="gb-chat-text">
+                  <span className="gb-chat-name" style={{ color }}>{entry.name}</span>
+                  <span className="gb-colon">:</span>{' '}
+                  <span className="gb-chat-message"><GuestbookMessage message={entry.message} /></span>
+                </span>
               </p>
             );
           })}
