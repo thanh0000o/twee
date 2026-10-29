@@ -18,12 +18,7 @@ const guestbookTime = new Intl.DateTimeFormat('en-GB', {
   hour: '2-digit', minute: '2-digit', second: '2-digit',
   hourCycle: 'h23', timeZoneName: 'short',
 });
-const guestbookDay = new Intl.DateTimeFormat('en-GB', {
-  timeZone: 'Europe/Brussels', day: '2-digit', month: '2-digit', year: '2-digit',
-});
-const guestbookClock = new Intl.DateTimeFormat('en-GB', {
-  timeZone: 'Europe/Brussels', hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
-});
+
 
 /** The guestbook chat itself, shown in its own block on the blog+links page. */
 export const GuestbookChat: FC = () => {
@@ -139,10 +134,8 @@ export const GuestbookChat: FC = () => {
             const color = nameColors.get(entry.name);
             return (
               <p className="gb-chat-line" key={entry.id}>
-                <time className="gb-chat-time" dateTime={entry.createdAt}
-                  title={guestbookTime.format(new Date(entry.createdAt))}>
-                  <span className="gb-chat-day">{guestbookDay.format(new Date(entry.createdAt)).replaceAll('/', '.')}</span>
-                  <span className="gb-chat-clock">{guestbookClock.format(new Date(entry.createdAt))}</span>
+                <time className="gb-chat-time" dateTime={entry.createdAt} title={entry.createdAt}>
+                  {guestbookTime.format(new Date(entry.createdAt))}
                 </time>{' '}
                 <span className="gb-chat-text">
                   <span className="gb-chat-name" style={{ color }}>{entry.name}</span>

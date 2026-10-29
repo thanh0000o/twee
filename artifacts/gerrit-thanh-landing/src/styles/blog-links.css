@@ -194,7 +194,7 @@ main.ed .gb-page.gb-embedded::before { content: none; }
 /* A tidy log: fixed date column, one dotted rule per message, everything centred on the row. */
 :root body main.ed .gb-page.gb-embedded .gb-chat-line {
   display: grid;
-  grid-template-columns: 7.6em minmax(0, 1fr);
+  grid-template-columns: 10.4em minmax(0, 1fr);
   column-gap: 14px;
   align-items: center;
   min-height: 28px;
@@ -214,26 +214,12 @@ main.ed .gb-page.gb-embedded::before { content: none; }
   gap: 0;
   margin: 0;
   font-family: Tahoma, Verdana, sans-serif;
-  font-size: 11px;
+  font-size: 10.5px;
   font-variant-numeric: tabular-nums;
   line-height: 1;
   letter-spacing: 0;
   color: #9a9a9a;
   white-space: nowrap;
-}
-/* Space between date and hour. */
-:root body main.ed .gb-page.gb-embedded .gb-chat-day { margin-right: 6px; }
-/* The hour slightly darker and bolder than the date, after a small dot. */
-:root body main.ed .gb-page.gb-embedded .gb-chat-clock {
-  color: #555;
-  font-weight: 700;
-  font-size: 10.5px;
-}
-:root body main.ed .gb-page.gb-embedded .gb-chat-clock::before {
-  content: '\00b7';
-  margin-right: 6px;
-  color: #bbb;
-  font-weight: 400;
 }
 :root body main.ed .gb-page.gb-embedded .gb-chat-text { min-width: 0; }
 :root body main.ed .gb-page.gb-embedded .gb-chat-name { font-size: 14.5px; }
