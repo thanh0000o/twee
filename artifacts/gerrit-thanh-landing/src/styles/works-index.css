@@ -19,23 +19,32 @@ main.ed.works-text-index .visually-hidden {
 /* Intro line, then one straight table: every project is a single row. */
 main.ed .wi-intro {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: baseline;
   gap: calc(24 * var(--ui-px));
-  margin: calc(8 * var(--ui-px)) 0 calc(34 * var(--ui-px));
+  margin: calc(8 * var(--ui-px)) 0 calc(26 * var(--ui-px));
 }
 main.ed .wi-intro p { margin: 0; max-width: 62ch; }
+main.ed .wi-intro { gap: .35em; }
 main.ed .wi-intro p.wi-mute { white-space: nowrap; }
 main.ed .wi-mute { color: var(--ed-mute); }
 
-main.ed .wi-table { width: 100%; }
-main.ed .wi-rows { margin: 0; padding: 0; list-style: none; }
-main.ed .wi-row {
+/* One shared grid for all rows (subgrid), so columns hug their content and stay aligned. */
+main.ed .wi-table {
   display: grid;
-  grid-template-columns: 3.2em minmax(0, 1.5fr) minmax(0, .8fr) minmax(0, 1.1fr) minmax(0, 1.5fr);
-  gap: 0 calc(20 * var(--ui-px));
+  grid-template-columns: repeat(5, max-content);
+  column-gap: calc(40 * var(--ui-px));
+  justify-content: start;
+}
+main.ed .wi-rows,
+main.ed .wi-rows > li { display: contents; }
+main.ed .wi-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
   align-items: baseline;
-  padding: calc(5 * var(--ui-px)) 0;
+  padding: calc(2 * var(--ui-px)) 0;
   color: var(--ed-ink);
   text-decoration: none;
 }
@@ -46,7 +55,7 @@ main.ed .wi-row > span {
   white-space: nowrap;
 }
 main.ed .wi-head {
-  padding-bottom: calc(10 * var(--ui-px));
+  padding-bottom: calc(8 * var(--ui-px));
   color: var(--ed-ink);
   text-transform: uppercase;
   letter-spacing: .03em;
@@ -191,12 +200,16 @@ main.ed .wi-preview-dot {
 }
 
 @media (max-width: 1000px) {
-  main.ed .wi-row { grid-template-columns: 3em minmax(0, 1.5fr) minmax(0, .9fr) minmax(0, 1.2fr); }
+  main.ed .wi-table { grid-template-columns: repeat(4, max-content); }
   main.ed .wi-row > :nth-child(5) { display: none; }
 }
 @media (max-width: 620px) {
   main.ed .wi-intro { flex-direction: column; gap: .6em; margin-bottom: calc(24 * var(--ui-px)); }
+  main.ed .wi-table { display: block; }
+  main.ed .wi-rows { display: block; margin: 0; padding: 0; list-style: none; }
+  main.ed .wi-rows > li { display: block; }
   main.ed .wi-row {
+    padding: calc(5 * var(--ui-px)) 0;
     grid-template-columns: 2.4em minmax(0, 1fr) auto;
     grid-template-areas: "num name year" ". kind kind";
     row-gap: 2px;
