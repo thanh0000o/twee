@@ -107,32 +107,23 @@ export function GuestbookSmileyPicker({ disabled, count, onInsert }: Props) {
   };
 
   return <div className="gb-smileys">
-    <div className="gb-picker-toolbar">
+    <div className="gb-picker-row gb-picker-toolbar">
+      <span className="gb-picker-label">emoji:</span>
       <div ref={windowRef} className="gb-quick-window">
-      <div ref={stripRef} className="gb-quick-strip" aria-label="Choose a smiley">
-        {PICKER_SMILEYS.map((smiley) =>
-          <button key={smiley.id} className="gb-quick-emoji" type="button" title={smiley.label}
-            aria-label={`Insert ${smiley.label}`} disabled={unavailable}
-            onClick={() => onInsert(smileyToken(smiley.id))}>
-            <img src={guestbookSmileyUrl(smiley.id)} alt="" width={26} height={26} />
-          </button>,
-        )}
+        <div ref={stripRef} className="gb-quick-strip" aria-label="Choose a smiley">
+          {PICKER_SMILEYS.map((smiley) =>
+            <button key={smiley.id} className="gb-quick-emoji" type="button" title={smiley.label}
+              aria-label={`Insert ${smiley.label}`} disabled={unavailable}
+              onClick={() => onInsert(smileyToken(smiley.id))}>
+              <img src={guestbookSmileyUrl(smiley.id)} alt="" width={24} height={24} />
+            </button>,
+          )}
+        </div>
       </div>
-      </div>
-      <button className="gb-smiley-next" type="button" aria-label="Show more smileys"
-        title="more smileys" onClick={showNext}>
-        <svg aria-hidden="true" width="5" height="8" viewBox="0 0 5 8">
-          <path d="M0 0 5 4 0 8Z" fill="currentColor" />
-        </svg>
-      </button>
-      <span className="gb-smiley-count" aria-live="polite"
-        aria-label={`${count} of ${MAX_GUESTBOOK_SMILEYS} smileys used`}
-        title={`Maximum ${MAX_GUESTBOOK_SMILEYS} smileys per message`}>
-        {count}/{MAX_GUESTBOOK_SMILEYS} used
-      </span>
+      <NextButton label="Show more smileys" onClick={showNext} />
     </div>
-    <div className="gb-ascii-bar" aria-label="Text smileys">
-      <span>text:</span>
+    <div className="gb-picker-row gb-ascii-bar" aria-label="Text smileys">
+      <span className="gb-picker-label">text:</span>
       <div className="gb-text-window">
         <div ref={textStripRef} className="gb-text-strip">
           {TEXT_SMILEYS.map((smiley) =>
@@ -141,12 +132,15 @@ export function GuestbookSmileyPicker({ disabled, count, onInsert }: Props) {
           )}
         </div>
       </div>
-      <button className="gb-smiley-next" type="button" aria-label="Show more text smileys"
-        title="more text smileys" onClick={showNextText}>
-        <svg aria-hidden="true" width="5" height="8" viewBox="0 0 5 8">
-          <path d="M0 0 5 4 0 8Z" fill="currentColor" />
-        </svg>
-      </button>
+      <NextButton label="Show more text smileys" onClick={showNextText} />
     </div>
   </div>;
+}
+
+function NextButton({ label, onClick }: { label: string; onClick: () => void }) {
+  return <button className="gb-smiley-next" type="button" aria-label={label} title={label} onClick={onClick}>
+    <svg aria-hidden="true" width="5" height="8" viewBox="0 0 5 8">
+      <path d="M0 0 5 4 0 8Z" fill="currentColor" />
+    </svg>
+  </button>;
 }

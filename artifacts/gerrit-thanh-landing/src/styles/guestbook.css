@@ -490,3 +490,41 @@
     background: #c0c0c0;
   }
 }
+
+/* Both picker rows share one layout: label, strip, arrow. */
+:root body .gb-page .gb-picker-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 0;
+  height: 34px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 5px 0 2px;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #a5afb5;
+  background: #d7dbde;
+  overflow: hidden;
+}
+:root body .gb-page .gb-picker-label {
+  flex: 0 0 48px;
+  width: 48px;
+  color: #29373f;
+  font: 12px Tahoma, Verdana, sans-serif;
+}
+:root body .gb-page .gb-picker-row .gb-quick-strip { height: 30px; align-items: center; }
+:root body .gb-page .gb-picker-row .gb-quick-emoji {
+  flex: 0 0 28px;
+  width: 28px;
+  height: 30px;
+}
+:root body .gb-page .gb-picker-row .gb-quick-emoji img { width: 24px; height: 24px; }
+:root body .gb-page .gb-picker-row .gb-smiley-next { flex: 0 0 18px; height: 22px; }
+:root body .gb-page .gb-name-row .gb-smiley-count {
+  flex: 0 0 auto;
+  margin-left: 6px;
+  white-space: nowrap;
+  color: #6c7680;
+  font: 10px Tahoma, sans-serif;
+}

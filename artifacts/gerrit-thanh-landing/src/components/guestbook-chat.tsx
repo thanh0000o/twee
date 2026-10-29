@@ -1,6 +1,6 @@
 import { type FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { countGuestbookSmileys, getGuestbookSmileyError } from '@workspace/api-zod/guestbook-smileys';
+import { countGuestbookSmileys, getGuestbookSmileyError, MAX_GUESTBOOK_SMILEYS } from '@workspace/api-zod/guestbook-smileys';
 import { GuestbookMessage } from './guestbook-message';
 import { GuestbookSmileyPicker } from './guestbook-smiley-picker';
 import '../styles/guestbook.css';
@@ -177,6 +177,11 @@ export const GuestbookChat: FC = () => {
           ) : (
             <button type="button" onClick={acceptName} disabled={!name.trim()}>ok</button>
           )}
+          <span className="gb-smiley-count" aria-live="polite"
+            aria-label={`${smileyCount} of ${MAX_GUESTBOOK_SMILEYS} smileys used`}
+            title={`Maximum ${MAX_GUESTBOOK_SMILEYS} smileys per message`}>
+            {smileyCount}/{MAX_GUESTBOOK_SMILEYS} smileys
+          </span>
         </div>
 
         <GuestbookSmileyPicker disabled={!activeName || createEntry.isPending}
