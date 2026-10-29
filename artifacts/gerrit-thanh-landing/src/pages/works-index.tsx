@@ -89,11 +89,6 @@ export const WorksIndex: FC = () => {
 
       <section className="wi-intro" aria-label="About this index">
         <p>Selected work by Thành Lambeets, Brussels. Research and strategy, websites and interfaces, and a few small AI tools.</p>
-        <p className="wi-mute">
-          {works.length} projects.{' '}
-          <span className="wi-hint-hover">Hover a row for a glimpse.</span>
-          <span className="wi-hint-touch">Tap a row to open it.</span>
-        </p>
       </section>
 
       <section className="wi-table" aria-labelledby="wi-table-title">
