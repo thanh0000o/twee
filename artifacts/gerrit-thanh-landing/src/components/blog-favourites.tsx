@@ -59,6 +59,30 @@ const otherFavouriteLinks: FavouriteLink[] = [
     href: 'https://skins.webamp.org/',
     description: 'Old Winamp skins.',
   },
+  {
+    id: 'realroots',
+    label: 'realrootsradio.net',
+    href: 'https://realrootsradio.net/',
+    description: 'Reggae and dub radio.',
+  },
+  {
+    id: 'rinse',
+    label: 'rinse.fm',
+    href: 'https://www.rinse.fm/channels/uk',
+    description: 'UK club radio.',
+  },
+  {
+    id: 'kosmik',
+    label: 'kosmik-dstroyer.top',
+    href: 'https://kosmik-dstroyer.top/',
+    description: 'Trip hop and jungle radio.',
+  },
+  {
+    id: 'kwsx',
+    label: 'radio.kwsx.online',
+    href: 'https://radio.kwsx.online/',
+    description: 'Internet radio.',
+  },
 ];
 
 const FavouriteLinkRow: FC<{ link: FavouriteLink }> = ({ link }) => (
