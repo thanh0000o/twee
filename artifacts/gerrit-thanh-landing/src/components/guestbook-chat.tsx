@@ -41,16 +41,14 @@ export const GuestbookChat: FC = () => {
   });
   const createEntry = useCreateGuestbookEntry();
 
-  const chatEntries = useMemo(
-    () => [...entries].reverse(),
-    [entries],
-  );
+  // The API returns the newest message first, and the chat shows it on top.
+  const chatEntries = entries;
 
   const nameColors = useMemo(() => {
     const colors = new Map<string, string>();
-    // Assign by first appearance so new authors don't recolour existing ones.
-    // Unlike name hashing, distinct authors use every hue before repeating.
-    for (const entry of chatEntries) {
+    // Assign by first appearance (oldest first) so new authors don't recolour
+    // existing ones. Unlike name hashing, distinct authors use every hue before repeating.
+    for (const entry of [...chatEntries].reverse()) {
       if (!colors.has(entry.name)) {
         colors.set(entry.name, NAME_COLORS[colors.size % NAME_COLORS.length]);
       }
@@ -59,7 +57,7 @@ export const GuestbookChat: FC = () => {
   }, [chatEntries]);
 
   useEffect(() => {
-    listRef.current?.scrollTo({ top: listRef.current.scrollHeight });
+    listRef.current?.scrollTo({ top: 0 });
   }, [chatEntries.length]);
 
   useEffect(() => {
