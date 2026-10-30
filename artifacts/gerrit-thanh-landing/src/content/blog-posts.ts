@@ -22,6 +22,21 @@ const guestbook = (text: string): PostSegment => ({ text, href: '#guestbook', ki
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: 'a-new-artwork',
+    title: 'a new artwork',
+    category: 'site-update',
+    dateTime: '2026-10-30T12:50:00+01:00',
+    dateLabel: '30 October 2026, 12:50 CET',
+    author: 'Thành Lambeets',
+    body: [
+      [
+        'I made a new ',
+        { text: 'artwork', href: '/artwork?from=blog-links', kind: 'artwork' },
+        '. You can find it at the top of the artwork page.',
+      ],
+    ],
+  },
+  {
     slug: 'a-few-small-changes',
     title: 'a few small changes',
     category: 'site-update',
