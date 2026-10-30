@@ -447,31 +447,42 @@ main.ed .blog-opinion-heading-row {
 
 main.ed .blog-lang-toggle {
   display: inline-flex;
-  border: 1px solid #858585;
-  font-family: var(--font-micro);
-  letter-spacing: .7px;
+  align-items: baseline;
+  gap: calc(2 * var(--ui-px));
+  font-size: var(--ed-fs);
 }
 
 main.ed .blog-lang-option {
-  padding: calc(2 * var(--ui-px)) calc(8 * var(--ui-px));
+  padding: 0;
   border: 0;
-  background: transparent;
-  color: var(--ed-ink);
+  background: none;
+  color: #9a9a9a;
   font: inherit;
-  font-size: calc(var(--ed-fs) * .85);
   cursor: pointer;
-  transition: background-color 240ms ease-out, box-shadow 280ms ease-out, color 240ms ease-out;
+  transition: color 200ms ease-out, text-shadow 240ms ease-out;
+}
+
+main.ed .blog-lang-option::before { content: '{'; }
+main.ed .blog-lang-option::after { content: '}'; }
+main.ed .blog-lang-option::before,
+main.ed .blog-lang-option::after {
+  opacity: 0;
+  transition: opacity 200ms ease-out;
 }
 
 main.ed .blog-lang-option[aria-pressed="true"] {
-  background: #858585;
-  color: #fff;
+  color: var(--ed-ink);
+  cursor: default;
 }
 
-main.ed .blog-lang-option:is(:hover, :focus-visible) {
-  background: var(--blog-link-color);
-  color: #000;
-  box-shadow: 0 0 6px 1px var(--blog-link-color);
+main.ed .blog-lang-option[aria-pressed="true"]::before,
+main.ed .blog-lang-option[aria-pressed="true"]::after {
+  opacity: 1;
+}
+
+main.ed .blog-lang-option[aria-pressed="false"]:is(:hover, :focus-visible) {
+  color: var(--blog-link-color);
+  text-shadow: 0 0 6px var(--blog-link-color);
   outline: none;
 }
 

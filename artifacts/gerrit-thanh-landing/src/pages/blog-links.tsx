@@ -96,9 +96,11 @@ const LangToggle: FC<{ lang: Lang; onChange: (lang: Lang) => void }> = ({ lang, 
         className="blog-lang-option"
         aria-pressed={lang === code}
         onClick={() => onChange(code)}
+        aria-label={code === 'en' ? 'Read in English' : 'Lees in het Nederlands'}
+        title={code === 'en' ? 'english' : 'nederlands'}
         data-testid={`blog-lang-${code}`}
       >
-        {code === 'en' ? 'english' : 'nederlands'}
+        {code}
       </button>
     ))}
   </div>
