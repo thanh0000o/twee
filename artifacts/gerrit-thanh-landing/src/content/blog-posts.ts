@@ -22,6 +22,19 @@ const guestbook = (text: string): PostSegment => ({ text, href: '#guestbook', ki
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: 'a-few-small-changes',
+    title: 'a few small changes',
+    category: 'site-update',
+    dateTime: '2026-10-30T12:46:00+01:00',
+    dateLabel: '30 October 2026, 12:46 CET',
+    author: 'Thành Lambeets',
+    body: [
+      [
+        "I redid the works page. It's now a simple list with the year, context and type of each project, and hovering over a title shows a small preview. I also changed the guestbook and moved it here to the blog page. There's a new piece at the top of the artwork page, and the artwork videos are about a third of the size they were, so the page loads faster.",
+      ],
+    ],
+  },
+  {
     slug: 'one-land-many-boxes',
     title: 'one land, many boxes',
     category: 'opinion',
