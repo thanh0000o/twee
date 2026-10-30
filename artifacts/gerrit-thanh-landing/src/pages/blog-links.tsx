@@ -1,4 +1,4 @@
-import { useEffect, useRef, type FC, type CSSProperties, type MouseEvent, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type FC, type CSSProperties, type MouseEvent, type ReactNode } from 'react';
 import { Link } from 'wouter';
 import { withBlogOrigin } from '../components/blog-return-link';
 import { useSavedPalette } from '../hooks/use-saved-palette';
@@ -6,7 +6,7 @@ import { getPaletteLinkColor } from '../palette';
 import { BlogFavourites } from '../components/blog-favourites';
 import { RecentlyAddedMusic } from '../components/recently-added-music';
 import { GuestbookChat } from '../components/guestbook-chat';
-import { sortedPosts, type BlogPost, type PostParagraph } from '../content/blog-posts';
+import { sortedPosts, type BlogPost, type PostBlock, type PostParagraph } from '../content/blog-posts';
 import '../styles/editorial.css';
 import '../styles/music.css';
 import '../styles/blog-links.css';
@@ -76,9 +76,37 @@ const Paragraph: FC<{ p: PostParagraph }> = ({ p }) => (
   </p>
 );
 
-const Meta: FC<{ post: BlogPost }> = ({ post }) => (
+type Lang = 'en' | 'nl';
+const LANG_KEY = 'blog-opinion-lang';
+
+const readLang = (): Lang => {
+  try {
+    return window.localStorage.getItem(LANG_KEY) === 'nl' ? 'nl' : 'en';
+  } catch {
+    return 'en';
+  }
+};
+
+const LangToggle: FC<{ lang: Lang; onChange: (lang: Lang) => void }> = ({ lang, onChange }) => (
+  <div className="blog-lang-toggle" role="group" aria-label="Language of the opinion pieces">
+    {(['en', 'nl'] as const).map((code) => (
+      <button
+        key={code}
+        type="button"
+        className="blog-lang-option"
+        aria-pressed={lang === code}
+        onClick={() => onChange(code)}
+        data-testid={`blog-lang-${code}`}
+      >
+        {code === 'en' ? 'english' : 'nederlands'}
+      </button>
+    ))}
+  </div>
+);
+
+const Meta: FC<{ post: BlogPost; dateLabel?: string; nl?: boolean }> = ({ post, dateLabel, nl }) => (
   <p className="blog-post-meta">
-    <time dateTime={post.dateTime}>{post.dateLabel}</time> — by {post.author}
+    <time dateTime={post.dateTime}>{dateLabel ?? post.dateLabel}</time> — {nl ? 'door' : 'by'} {post.author}
   </p>
 );
 
@@ -130,15 +158,47 @@ const BlogPosts: FC<{ posts: BlogPost[] }> = ({ posts }) => {
   const siteUpdates = posts.filter((post) => post.category === 'site-update');
   const opinions = posts.filter((post) => post.category === 'opinion');
 
-  const renderPosts = (group: BlogPost[]) => group.map((post) => (
-    <article key={post.slug} className="blog-post" aria-labelledby={`title-${post.slug}`} data-testid={`blog-post-${post.slug}`}>
-      <header>
-        <h2 id={`title-${post.slug}`}>{`{${post.title}}`}</h2>
-        <Meta post={post} />
-      </header>
-      {post.body.map((para, i) => <Paragraph key={i} p={para} />)}
-    </article>
-  ));
+  const [lang, setLang] = useState<Lang>(readLang);
+  const changeLang = (next: Lang) => {
+    setLang(next);
+    try {
+      window.localStorage.setItem(LANG_KEY, next);
+    } catch {
+      // The choice still holds for this visit.
+    }
+  };
+
+  const renderPosts = (group: BlogPost[], language: Lang = 'en') => group.map((post) => {
+    const translated = language === 'nl' ? post.nl : undefined;
+    const title = translated?.title ?? post.title;
+    const body = translated?.body ?? post.body;
+    const sources = translated?.sources ?? post.sources;
+    return (
+      <article key={post.slug} className="blog-post" aria-labelledby={`title-${post.slug}`} data-testid={`blog-post-${post.slug}`} lang={translated ? 'nl' : 'en'}>
+        <header>
+          <h2 id={`title-${post.slug}`}>{`{${title}}`}</h2>
+          <Meta post={post} dateLabel={translated?.dateLabel} nl={Boolean(translated)} />
+        </header>
+        {language === 'nl' && !translated && (
+          <p className="blog-post-lang-note">Dit stuk is (nog) alleen in het Engels.</p>
+        )}
+        {body.map((block: PostBlock, i) => (
+          Array.isArray(block)
+            ? <Paragraph key={i} p={block} />
+            : <h3 key={i} className="blog-post-subheading">{block.heading}</h3>
+        ))}
+        {sources && sources.length > 0 && (
+          <ul className="blog-post-sources" aria-label={translated ? 'Bronnen' : 'Sources'}>
+            {sources.map((source) => (
+              <li key={source.href}>
+                <a href={source.href} target="_blank" rel="noopener noreferrer">{source.text}</a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </article>
+    );
+  });
 
   return (
     <section className="blog-posts" aria-label="Blog posts" data-testid="blog-posts">
@@ -158,9 +218,12 @@ const BlogPosts: FC<{ posts: BlogPost[] }> = ({ posts }) => {
       </section>
       <section className="blog-column blog-opinion-column" aria-label="Opinion pieces, favourite links, and recently added music">
         <section className="blog-post-group" aria-labelledby="opinion-pieces-heading">
-          <h2 id="opinion-pieces-heading">{'{opinion pieces}'}</h2>
+          <div className="blog-extra-heading-row blog-opinion-heading-row">
+            <h2 id="opinion-pieces-heading">{'{opinion pieces}'}</h2>
+            <LangToggle lang={lang} onChange={changeLang} />
+          </div>
           <BlogScrollPanel id="blog-opinion-stream" label="opinion pieces" testid="blog-opinion-pieces">
-            {renderPosts(opinions)}
+            {renderPosts(opinions, lang)}
           </BlogScrollPanel>
         </section>
         <div className="blog-bottom-extras" aria-label="More from the blog">
