@@ -40,7 +40,7 @@ const SRC = {
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'who-carries-the-load',
-    title: 'who carries the load?',
+    title: 'a fair share',
     category: 'opinion',
     dateTime: '2026-10-30T15:40:00+01:00',
     dateLabel: '30 October 2026, 15:40 CET',
@@ -104,7 +104,7 @@ export const BLOG_POSTS: BlogPost[] = [
       { text: 'Statbel, employment and unemployment', href: SRC.statbel },
     ],
     nl: {
-      title: 'wie draagt de lasten?',
+      title: 'een eerlijk deel',
       dateLabel: '30 oktober 2026, 15:40 CET',
       body: [
         ['De vraag die me de laatste tijd bezighoudt is simpel: wie betaalt in België de rekening, en is dat eerlijk verdeeld?'],
