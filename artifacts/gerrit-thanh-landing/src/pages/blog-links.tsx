@@ -106,9 +106,9 @@ const LangToggle: FC<{ lang: Lang; onChange: (lang: Lang) => void }> = ({ lang, 
   </div>
 );
 
-const Meta: FC<{ post: BlogPost; dateLabel?: string; nl?: boolean }> = ({ post, dateLabel, nl }) => (
-  <p className="blog-post-meta">
-    <time dateTime={post.dateTime}>{dateLabel ?? post.dateLabel}</time> — {nl ? 'door' : 'by'} {post.author}
+const Meta: FC<{ post: BlogPost }> = ({ post }) => (
+  <p className="blog-post-meta" lang="en">
+    <time dateTime={post.dateTime}>{post.dateLabel}</time> — by {post.author}
   </p>
 );
 
@@ -172,14 +172,13 @@ const BlogPosts: FC<{ posts: BlogPost[] }> = ({ posts }) => {
 
   const renderPosts = (group: BlogPost[], language: Lang = 'en') => group.map((post) => {
     const translated = language === 'nl' ? post.nl : undefined;
-    const title = translated?.title ?? post.title;
     const body = translated?.body ?? post.body;
     const sources = translated?.sources ?? post.sources;
     return (
       <article key={post.slug} className="blog-post" aria-labelledby={`title-${post.slug}`} data-testid={`blog-post-${post.slug}`} lang={translated ? 'nl' : 'en'}>
         <header>
-          <h2 id={`title-${post.slug}`}>{`{${title}}`}</h2>
-          <Meta post={post} dateLabel={translated?.dateLabel} nl={Boolean(translated)} />
+          <h2 id={`title-${post.slug}`} lang="en">{`{${post.title}}`}</h2>
+          <Meta post={post} />
         </header>
         {language === 'nl' && !translated && (
           <p className="blog-post-lang-note">Dit stuk is (nog) alleen in het Engels.</p>

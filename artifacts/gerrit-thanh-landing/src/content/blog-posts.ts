@@ -17,7 +17,7 @@ export interface BlogPost {
   author: string;
   body: PostBlock[];
   sources?: PostSource[];
-  nl?: { title: string; dateLabel: string; body: PostBlock[]; sources?: PostSource[] };
+  nl?: { body: PostBlock[]; sources?: PostSource[] };
   wide?: boolean;
 }
 
@@ -104,8 +104,6 @@ export const BLOG_POSTS: BlogPost[] = [
       { text: 'Statbel, employment and unemployment', href: SRC.statbel },
     ],
     nl: {
-      title: 'een eerlijk deel',
-      dateLabel: '30 oktober 2026, 15:40 CET',
       body: [
         ['De vraag die me de laatste tijd bezighoudt is simpel: wie betaalt in België de rekening, en is dat eerlijk verdeeld?'],
         ['Ik begon erover na te denken door het begrotingsdebat van de regering-De Wever en een aflevering van De Afspraak met Bart Verhaeghe, de voorzitter van Club Brugge. Online lees je vooral boze reacties van beide kanten. Ik wilde verder kijken dan de slogans en begrijpen wat er echt op tafel ligt, en waarom mensen er zo verschillend over denken. Dit is wat ik ervan geleerd heb, en waar ik zelf sta.'],
