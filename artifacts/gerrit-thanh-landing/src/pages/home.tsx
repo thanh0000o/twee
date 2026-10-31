@@ -14,6 +14,11 @@ import '../styles/home-motion.css';
 const enteredOnHome = window.location.pathname.replace(/\/+$/, '') === import.meta.env.BASE_URL.replace(/\/+$/, '');
 let hasOpenedHome = !enteredOnHome;
 
+// Test switches: ?scan=off and ?lowres=off turn the old-screen effects off for comparison.
+const testParams = new URLSearchParams(window.location.search);
+const showScanlines = testParams.get('scan') !== 'off';
+const showLowRes = testParams.get('lowres') !== 'off';
+
 export const Home: FC = () => {
   const [opening, setOpening] = useState(() => !hasOpenedHome && !window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   useEffect(() => {
@@ -79,6 +84,24 @@ export const Home: FC = () => {
                 <circle cx="2.5" cy="2.5" r="1.35" fill="#397eba" />
               </pattern>
               <DepthDotPattern />
+              {/* Fine horizontal scanlines, like an old screen or a grabbed video frame. */}
+              <pattern id="home-scanlines" width="4" height="2.4" patternUnits="userSpaceOnUse">
+                <rect width="4" height="1.1" fill="#ffffff" opacity=".13" />
+                <rect y="1.2" width="4" height=".8" fill="#000a2a" opacity=".1" />
+              </pattern>
+              {/* Lower resolution: sample the panel in small blocks and reduce the number of colours. */}
+              <filter id="home-lowres" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" x="212" y="111" width="631" height="354" colorInterpolationFilters="sRGB">
+                <feFlood x="213" y="112" width="1" height="1" floodColor="#000" result="dot" />
+                <feComposite in="dot" in2="dot" operator="over" x="212" y="111" width="2.6" height="2.6" result="cell" />
+                <feTile in="cell" result="grid" />
+                <feComposite in="SourceGraphic" in2="grid" operator="in" result="sampled" />
+                <feMorphology in="sampled" operator="dilate" radius="1.3" result="blocks" />
+                <feComponentTransfer in="blocks">
+                  <feFuncR type="discrete" tableValues="0 .07 .14 .21 .29 .36 .43 .5 .57 .64 .71 .79 .86 .93 1" />
+                  <feFuncG type="discrete" tableValues="0 .07 .14 .21 .29 .36 .43 .5 .57 .64 .71 .79 .86 .93 1" />
+                  <feFuncB type="discrete" tableValues="0 .07 .14 .21 .29 .36 .43 .5 .57 .64 .71 .79 .86 .93 1" />
+                </feComponentTransfer>
+              </filter>
               {opening && <EntryDefs />}
               {opening && <InkDefs />}
               <linearGradient id="halftone-fade" x1="82" y1="0" x2="338" y2="0" gradientUnits="userSpaceOnUse">
@@ -218,7 +241,7 @@ export const Home: FC = () => {
             />
             {/* Dreamweaver/Flash-era panel depth, clipped by the exact Illustrator curve */}
             <g className="home-panel-reveal" clipPath="url(#blue-panel-clip)" mask={opening ? "url(#entry-wipe)" : undefined}>
-            <g className="home-gradient-arrival">
+            <g className="home-gradient-arrival" filter={showLowRes ? 'url(#home-lowres)' : undefined}>
             <path d="M822.6,444.55H232.67c3.09-40.8,15.1-133.63,74.69-219.93,32.11-46.51,67.41-75.73,93.15-93.27h422.1v313.21Z" fill="url(#flash-panel-blue)" stroke="#182c48" strokeWidth=".75" />
             <path d="M822.6,444.55H232.67c3.09-40.8,15.1-133.63,74.69-219.93,32.11-46.51,67.41-75.73,93.15-93.27h422.1v313.21Z" fill="url(#flash-panel-gloss)" />
             {/* Spatial shading: soft top-right light, grounded floor shade, inner shade along the curve */}
@@ -296,6 +319,10 @@ export const Home: FC = () => {
             </g>
 
             </g>
+
+            {showScanlines && (
+              <rect x="232" y="131" width="591" height="314" fill="url(#home-scanlines)" clipPath="url(#blue-panel-clip)" pointerEvents="none" aria-hidden="true" />
+            )}
 
             {/* Inner box shape base */}
             <path className="home-side-fill" d="M232.69,444.56H80.58V131.38h320.17c-26.34,17.95-78.2,58.81-118.34,134.81-38.71,73.28-47.38,143-49.72,178.36Z" fill="#ffffff" /> 
