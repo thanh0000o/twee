@@ -446,3 +446,50 @@
 .home-page[data-opening="true"] .home-dots-arrive {
   animation: home-arrive 1100ms ease-out 600ms backwards;
 }
+
+/* The colour switch and the visitor count live inside the composition, under a footer rule
+   that mirrors the header line: switch on the left, count on the right, like the header labels. */
+.home-page .home-controls-framed {
+  position: absolute;
+  left: calc(103.94 * var(--u));
+  top: calc(467 * var(--u));
+  bottom: auto;
+  width: calc(691 * var(--u));
+  transform: none;
+  justify-content: space-between;
+  gap: 0;
+  pointer-events: auto;
+}
+.home-page .home-controls-framed .home-control-button {
+  padding: 0;
+  gap: calc(7 * var(--u));
+  font-family: var(--font-body);
+  font-size: calc(11.5 * var(--u));
+  letter-spacing: calc(.25 * var(--u));
+  color: var(--color-border);
+}
+.home-page .home-controls-framed .home-palette-preview { gap: calc(3 * var(--u)); height: calc(12 * var(--u)); }
+.home-page .home-controls-framed .home-control-sphere {
+  width: calc(6.5 * var(--u));
+  height: calc(6.5 * var(--u));
+}
+.home-page .home-controls-framed .home-palette-preview .home-control-sphere[data-active="true"] {
+  width: calc(9.5 * var(--u));
+  height: calc(9.5 * var(--u));
+}
+.home-page .home-controls-framed .home-visitor-count {
+  gap: calc(6 * var(--u));
+  font-family: var(--font-body);
+  font-size: calc(11.5 * var(--u));
+  letter-spacing: calc(.25 * var(--u));
+  color: var(--color-border);
+}
+.home-page .home-controls-framed .home-visitor-count .home-control-sphere {
+  width: calc(7 * var(--u));
+  height: calc(7 * var(--u));
+}
+
+.home-page[data-opening="true"] .home-footer-line {
+  stroke-dasharray: 1;
+  animation: home-ink-draw 1300ms cubic-bezier(.3,.55,.2,1) 900ms both;
+}
