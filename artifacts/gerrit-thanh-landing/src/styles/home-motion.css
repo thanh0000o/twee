@@ -373,3 +373,51 @@
   .home-scan, .home-scan-lines, .home-scan-band { animation: none; }
   .home-scan-band { display: none; }
 }
+
+/* Each theme's dot figure moves in its own calm way. The figures are flattened into ovals,
+   so spins happen "in perspective": stretch back, rotate, flatten again. */
+.home-page[data-palette="green"] .home-oval-drift {
+  transform-origin: 486px 316px;
+  animation: home-dots-flow 16s ease-in-out infinite;
+}
+.home-page[data-palette="violet"] .home-oval-drift {
+  transform-origin: 649px 321px;
+  animation: home-dots-spin 48s linear infinite;
+}
+.home-page[data-palette="rose"] .home-oval-drift {
+  transform-origin: 630px 316px;
+  animation: home-dots-pulse 9s ease-in-out infinite;
+}
+.home-page[data-palette="lime"] .home-oval-drift {
+  transform-origin: 626px 316px;
+  animation: home-dots-float 10s ease-in-out infinite;
+}
+
+/* The wave slides along itself and swells a little, like a slow current. */
+@keyframes home-dots-flow {
+  0%, 100% { transform: translate(-12px, 2px) scale(1, .97); }
+  50% { transform: translate(14px, -3px) scale(1, 1.04); }
+}
+
+/* The spiral turns slowly around its own centre. */
+@keyframes home-dots-spin {
+  from { transform: scale(1.75, 1) rotate(0deg) scale(.5714, 1); }
+  to { transform: scale(1.75, 1) rotate(-360deg) scale(.5714, 1); }
+}
+
+/* The burst breathes in and out and turns one ray further each breath. */
+@keyframes home-dots-pulse {
+  0% { transform: scale(1.75, 1) rotate(0deg) scale(.5714, 1) scale(.95); }
+  50% { transform: scale(1.75, 1) rotate(15deg) scale(.5714, 1) scale(1.05); }
+  100% { transform: scale(1.75, 1) rotate(30deg) scale(.5714, 1) scale(.95); }
+}
+
+/* The sphere floats up and down and tilts slightly, as if it hangs in water. */
+@keyframes home-dots-float {
+  0%, 100% { transform: translateY(5px) scale(1.75, 1) rotate(-3deg) scale(.5714, 1); }
+  50% { transform: translateY(-6px) scale(1.75, 1) rotate(3deg) scale(.5714, 1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page[data-palette] .home-oval-drift { animation: none; }
+}
