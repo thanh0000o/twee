@@ -448,28 +448,28 @@ export const Home: FC = () => {
                    }} alt="" />
             </Link>
 
-            {/* MUSIC */}
-            <Link href="/music" className="group home-nav-link home-nav-link-music pointer-events-auto" aria-label="Music">
-              <div className="absolute whitespace-nowrap transition-none cursor-pointer"
+            {/* RADIO */}
+            <Link href="/radio" className="group home-nav-link home-nav-link-radio pointer-events-auto" aria-label="Radio">
+              <div className="absolute whitespace-nowrap transition-none cursor-pointer" 
                    style={{ left: 'calc(84.70 * var(--u))', top: 'calc(394.65 * var(--u))', width: 'calc(140 * var(--u))', textAlign: 'right', transform: 'translateY(-75%) scaleX(1.55)', transformOrigin: 'right top', color: 'var(--color-border)', fontSize: 'calc(10.5 * var(--u))', letterSpacing: 'calc(.7 * var(--u))', fontFamily: 'var(--font-micro)' }}>
-                <span className="home-nav-title">{'{music}'}</span>
+                <span className="home-nav-title">{'{radio}'}</span>
               </div>
               <img src={asset9} className="nav-orb absolute cursor-pointer transition-none group-hover:brightness-125"
-                   style={{
+                   style={{ 
                      left: 'calc(232.65 * var(--u))', top: 'calc(384.20 * var(--u))',
                      width: 'calc(13.2 * var(--u))', height: 'calc(15.36 * var(--u))',
                      filter: 'drop-shadow(1px 1px 0px rgba(255,255,255,0.7)) drop-shadow(1px 2px 2px rgba(0,0,0,0.5))'
                    }} alt="" />
             </Link>
 
-            {/* RADIO */}
-            <Link href="/radio" className="group home-nav-link home-nav-link-radio pointer-events-auto" aria-label="Radio">
-              <div className="absolute whitespace-nowrap transition-none cursor-pointer" 
+            {/* MUSIC */}
+            <Link href="/music" className="group home-nav-link home-nav-link-music pointer-events-auto" aria-label="Music">
+              <div className="absolute whitespace-nowrap transition-none cursor-pointer"
                    style={{ left: 'calc(80.21 * var(--u))', top: 'calc(424.65 * var(--u))', width: 'calc(140 * var(--u))', textAlign: 'right', transform: 'translateY(-75%) scaleX(1.55)', transformOrigin: 'right top', color: 'var(--color-border)', fontSize: 'calc(10.5 * var(--u))', letterSpacing: 'calc(.7 * var(--u))', fontFamily: 'var(--font-micro)' }}>
-                <span className="home-nav-title">{'{radio}'}</span>
+                <span className="home-nav-title">{'{music}'}</span>
               </div>
               <img src={asset9} className="nav-orb absolute cursor-pointer transition-none group-hover:brightness-125"
-                   style={{ 
+                   style={{
                      left: 'calc(228.16 * var(--u))', top: 'calc(414.20 * var(--u))',
                      width: 'calc(13.2 * var(--u))', height: 'calc(15.36 * var(--u))',
                      filter: 'drop-shadow(1px 1px 0px rgba(255,255,255,0.7)) drop-shadow(1px 2px 2px rgba(0,0,0,0.5))'

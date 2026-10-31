@@ -273,8 +273,8 @@
 .home-page .home-nav-link-artwork { --nav-cue-delay: 940ms; --nav-light-delay: 1420ms; }
 .home-page .home-nav-link-visualisations { --nav-cue-delay: 1030ms; --nav-light-delay: 1580ms; }
 .home-page .home-nav-link-blog-links { --nav-cue-delay: 1120ms; --nav-light-delay: 1740ms; }
-.home-page .home-nav-link-music { --nav-cue-delay: 1210ms; --nav-light-delay: 1900ms; }
-.home-page :is(.home-nav-link-guestbook, .home-nav-link-radio) { --nav-cue-delay: 1300ms; --nav-light-delay: 2060ms; }
+.home-page .home-nav-link-radio { --nav-cue-delay: 1210ms; --nav-light-delay: 1900ms; }
+.home-page :is(.home-nav-link-guestbook, .home-nav-link-music) { --nav-cue-delay: 1300ms; --nav-light-delay: 2060ms; }
 
 .home-page .home-nav-link .home-nav-title {
   transition: background-color 70ms ease-out, box-shadow 90ms ease-out, color 70ms ease-out;
