@@ -1,4 +1,4 @@
-import { type FC, useEffect, useRef, useState } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import { Link } from 'wouter';
 import asset9 from '@assets/Asset_9_1788291702405.png';
 import ovalSignal from '../assets/oval-signal-transparent.png';
@@ -48,20 +48,6 @@ export const Home: FC = () => {
   const nextPalette = PALETTES[(activePaletteIndex + 1) % PALETTES.length];
   const centerAccent = activePaletteIndex === 0 ? undefined : getPaletteLinkColor(palette.name);
   const signalImage = SIGNAL_BY_PALETTE[palette.name] ?? ovalSignal;
-  // The low-resolution blocks are drawn in drawing units. On smaller screens the drawing shrinks,
-  // so the blocks grow in units to stay about one screen pixel; below that the filter breaks and turns grey.
-  const canvasRef = useRef<HTMLDivElement>(null);
-  const [canvasScale, setCanvasScale] = useState(1);
-  useEffect(() => {
-    const el = canvasRef.current;
-    if (!el) return;
-    const update = () => setCanvasScale(el.getBoundingClientRect().width / 1109.84 || 1);
-    update();
-    const observer = new ResizeObserver(update);
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-  const lowResCell = Math.round((1.15 / Math.min(1, Math.max(.2, canvasScale))) * 100) / 100;
   // Load and decode every theme's dot figure up front, so switching themes never waits for a download.
   useEffect(() => {
     Object.values(SIGNAL_BY_PALETTE).forEach((src) => {
@@ -85,7 +71,6 @@ export const Home: FC = () => {
   return (
     <div className="home-page min-h-screen w-full flex items-center justify-center overflow-hidden bg-white" data-palette={palette.name} data-opening={opening} data-swapping={swapping || undefined}>
       <div 
-        ref={canvasRef}
         className="home-canvas w-full max-w-[1109.84px] bg-[#ffffff] relative"
         style={{ 
           containerType: 'inline-size', 
@@ -136,14 +121,11 @@ export const Home: FC = () => {
                 <rect width="4" height="1.1" fill="#ffffff" opacity=".13" />
                 <rect y="1.2" width="4" height=".8" fill="#000a2a" opacity=".1" />
               </pattern>
-              {/* Lower resolution: sample the panel in small blocks and reduce the number of colours. */}
+              {/* Old-screen look: a little softness and fewer colours, so the gradient shows soft colour steps. */}
               <filter id="home-lowres" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" x="212" y="111" width="631" height="354" colorInterpolationFilters="sRGB">
-                <feFlood x={212 + lowResCell * .25} y={111 + lowResCell * .25} width={lowResCell * .5} height={lowResCell * .5} floodColor="#000" result="dot" />
-                <feComposite in="dot" in2="dot" operator="over" x="212" y="111" width={lowResCell} height={lowResCell} result="cell" />
-                <feTile in="cell" result="grid" />
-                <feComposite in="SourceGraphic" in2="grid" operator="in" result="sampled" />
-                <feMorphology in="sampled" operator="dilate" radius={lowResCell / 2} result="blocks" />
-                <feComponentTransfer in="blocks">
+                {/* A slight softness instead of pixel blocks: pixel blocks break at some screen sizes. */}
+                <feGaussianBlur in="SourceGraphic" stdDeviation=".45" result="soft" />
+                <feComponentTransfer in="soft">
                   <feFuncR type="discrete" tableValues="0 0.021 0.043 0.064 0.085 0.106 0.128 0.149 0.170 0.191 0.213 0.234 0.255 0.277 0.298 0.319 0.340 0.362 0.383 0.404 0.426 0.447 0.468 0.489 0.511 0.532 0.553 0.574 0.596 0.617 0.638 0.660 0.681 0.702 0.723 0.745 0.766 0.787 0.809 0.830 0.851 0.872 0.894 0.915 0.936 0.957 0.979 1" />
                   <feFuncG type="discrete" tableValues="0 0.021 0.043 0.064 0.085 0.106 0.128 0.149 0.170 0.191 0.213 0.234 0.255 0.277 0.298 0.319 0.340 0.362 0.383 0.404 0.426 0.447 0.468 0.489 0.511 0.532 0.553 0.574 0.596 0.617 0.638 0.660 0.681 0.702 0.723 0.745 0.766 0.787 0.809 0.830 0.851 0.872 0.894 0.915 0.936 0.957 0.979 1" />
                   <feFuncB type="discrete" tableValues="0 0.021 0.043 0.064 0.085 0.106 0.128 0.149 0.170 0.191 0.213 0.234 0.255 0.277 0.298 0.319 0.340 0.362 0.383 0.404 0.426 0.447 0.468 0.489 0.511 0.532 0.553 0.574 0.596 0.617 0.638 0.660 0.681 0.702 0.723 0.745 0.766 0.787 0.809 0.830 0.851 0.872 0.894 0.915 0.936 0.957 0.979 1" />
