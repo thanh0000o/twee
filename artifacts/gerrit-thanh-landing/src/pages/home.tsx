@@ -10,7 +10,6 @@ import { DepthDotPattern } from '../components/depth-dot-pattern';
 import { InkDefs } from '../components/home-ink-masks';
 import { BubbleReveal, EntryDefs } from '../components/home-entry-masks';
 import { CopyParagraph } from '../components/copy-paragraph';
-import { VisitorCount } from '../components/visitor-count';
 import { PALETTES, getSavedPaletteIndex, savePaletteIndex, getPaletteLinkColor } from '../palette';
 import '../styles/home-motion.css';
 
@@ -386,7 +385,6 @@ export const Home: FC = () => {
             </g>
             {/* Embedded Dots with subtle glassy/vector highlights */}
              <ellipse className="home-marker-reveal home-marker-red" cx="334.81" cy="189.38" rx="7.16" ry="8.37" fill="var(--color-accent-red)" stroke="rgba(255,255,255,0.9)" strokeWidth="1" />
-            <ellipse className="home-marker-reveal home-marker-ink" cx="287.23" cy="258.36" rx="7.16" ry="8.37" fill="var(--color-border)" stroke="rgba(255,255,255,0.9)" strokeWidth="1" />
           </svg>
 
           {/* Text Layer */}
@@ -463,6 +461,23 @@ export const Home: FC = () => {
                <span className="home-nav-sphere home-nav-sphere-red absolute cursor-pointer" style={{ left: 'calc(787.8 * var(--u))', top: 'calc(414.2 * var(--u))' }} aria-hidden="true" />
             </Link>
 
+            {/* COLOURS: a button on the curve, in the spot of the old black marker, like the menu below it. */}
+            <button type="button" onClick={cyclePalette}
+              className="group home-nav-link home-nav-link-colors pointer-events-auto"
+              style={{ '--home-nav-glow': palette.highlight } as React.CSSProperties}
+              aria-label={`Change colors. Now ${palette.name}, next ${nextPalette.name}.`}>
+              <div className="absolute whitespace-nowrap transition-none cursor-pointer"
+                   style={{ left: 'calc(132.6 * var(--u))', top: 'calc(261.13 * var(--u))', width: 'calc(140 * var(--u))', textAlign: 'right', transform: 'translateY(-75%) scaleX(1.55)', transformOrigin: 'right top', color: 'var(--color-border)', fontSize: 'calc(10.5 * var(--u))', letterSpacing: 'calc(.7 * var(--u))', fontFamily: 'var(--font-micro)' }}>
+                <span className="home-nav-title" aria-live="polite">{`{colors: ${palette.name}}`}</span>
+              </div>
+              <img src={asset9} className="nav-orb absolute cursor-pointer transition-none group-hover:brightness-125"
+                   style={{
+                     left: 'calc(280.63 * var(--u))', top: 'calc(250.68 * var(--u))',
+                     width: 'calc(13.2 * var(--u))', height: 'calc(15.36 * var(--u))',
+                     filter: 'drop-shadow(1px 1px 0px rgba(255,255,255,0.7)) drop-shadow(1px 2px 2px rgba(0,0,0,0.5))'
+                   }} alt="" />
+            </button>
+
             {/* BLOG */}
             <Link href="/blog-links" className="group home-nav-link home-nav-link-blog-links pointer-events-auto" aria-label="Blog">
               <div className="absolute whitespace-nowrap transition-none cursor-pointer"
@@ -506,31 +521,6 @@ export const Home: FC = () => {
             </Link>
           </div>
 
-        </div>
-        {/* Same coordinates as the drawing, outside the palette filter so the theme spheres keep their own colours. */}
-        <div className="absolute inset-0 pointer-events-none z-[5]" style={{ '--u': 'calc(100cqi / 1109.84)', transform: 'translate(9.3%, 3%)' } as React.CSSProperties}>
-        <div className="home-controls home-controls-framed">
-          <button
-            type="button"
-            className="home-control-button home-palette-toggle"
-            style={{ '--palette-highlight': palette.highlight } as React.CSSProperties}
-            aria-label={`Current colors: ${palette.name}. Switch to ${nextPalette.name}.`}
-            onClick={cyclePalette}
-          >
-            <span className="home-palette-preview" aria-hidden="true">
-              {PALETTES.map((theme) => (
-                <span
-                  key={theme.name}
-                  className="home-nav-sphere home-nav-sphere-blue home-control-sphere"
-                  data-active={theme.name === palette.name}
-                  style={{ filter: theme.filter }}
-                />
-              ))}
-            </span>
-            <span className="home-palette-label" aria-live="polite">{`{change colors: ${palette.name}}`}</span>
-          </button>
-          <VisitorCount />
-        </div>
         </div>
       </div>
     </div>
