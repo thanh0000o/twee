@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties, type FC, type ReactNode } from 'react';
+import { useEffect, useState, type CSSProperties, type FC, type ReactNode } from 'react';
 import { Link } from 'wouter';
 import { BlogReturnLink, useBlogOrigin, withBlogOrigin } from '../components/blog-return-link';
 import { useSavedPalette } from '../hooks/use-saved-palette';
@@ -9,12 +9,11 @@ import '../styles/works-index.css';
 
 const number = (index: number) => String(index + 1).padStart(4, '0');
 
-/** A text-only index of the works. Hovering a title shows a small glimpse of the project. */
+/** A text-only index of the works. */
 export const WorksIndex: FC = () => {
   const palette = useSavedPalette();
   const fromBlog = useBlogOrigin();
   const [active, setActive] = useState<number | null>(null);
-  const previewRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const previousTitle = document.title;
@@ -26,17 +25,6 @@ export const WorksIndex: FC = () => {
       document.title = previousTitle;
       if (description && previousDescription) description.content = previousDescription;
     };
-  }, []);
-
-  // The glimpse follows the pointer without re-rendering the page.
-  useEffect(() => {
-    const move = (event: PointerEvent) => {
-      const preview = previewRef.current;
-      if (!preview) return;
-      preview.style.transform = `translate3d(${event.clientX + 18}px, ${event.clientY + 14}px, 0)`;
-    };
-    window.addEventListener('pointermove', move, { passive: true });
-    return () => window.removeEventListener('pointermove', move);
   }, []);
 
   const activeWork = active === null ? null : works[active];
@@ -121,15 +109,6 @@ export const WorksIndex: FC = () => {
         </ol>
       </section>
 
-      <div ref={previewRef} className="wi-preview" aria-hidden="true">
-        {works.map((work, index) => (
-          <div key={work.cover.file} className="wi-preview-card" data-show={active === index ? 'true' : undefined}>
-            {work.preview
-              ? <img src={workAssetUrl(work.preview)} alt="" decoding="async" />
-              : <span className="wi-preview-dot" style={{ '--dot': work.accent } as CSSProperties} />}
-          </div>
-        ))}
-      </div>
     </main>
   );
 };
