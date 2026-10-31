@@ -94,11 +94,11 @@ export const WorksIndex: FC = () => {
       <section className="wi-table" aria-labelledby="wi-table-title">
         <h2 id="wi-table-title" className="visually-hidden">Projects</h2>
         <div className="wi-row wi-head" aria-hidden="true">
-          <span>No.</span>
-          <span>Project</span>
-          <span>Year</span>
-          <span>Context</span>
-          <span>Kind</span>
+          <span>{'{no.}'}</span>
+          <span>{'{project}'}</span>
+          <span>{'{year}'}</span>
+          <span>{'{context}'}</span>
+          <span>{'{kind}'}</span>
         </div>
         <ol className="wi-rows">
           {works.map((work, index) => {

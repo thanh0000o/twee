@@ -227,3 +227,36 @@ main.ed .wi-preview-dot {
   main.ed .wi-backdrop-layer,
   main.ed .wi-preview-card { transition: none; }
 }
+
+/* Old-school touch: the site's Eurostile, braces in the header, grey and white rows
+   like the guestbook, and scanlines over the little preview. */
+main.ed.works-text-index {
+  --ed-font: 'Eurostile', Tahoma, Verdana, sans-serif;
+  -webkit-font-smoothing: auto;
+}
+main.ed.works-text-index .wi-head {
+  text-transform: none;
+  letter-spacing: .02em;
+}
+main.ed .wi-row {
+  padding: calc(3 * var(--ui-px)) calc(8 * var(--ui-px));
+  margin: 0 calc(-8 * var(--ui-px));
+}
+main.ed .wi-rows > li:nth-child(odd) > .wi-row { background: #f3f3f3; }
+main.ed .wi-rows > li > .wi-row[data-active] { background: #e7eef8; }
+main.ed .wi-preview-card { position: absolute; }
+main.ed .wi-preview-card:has(img)::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, .16) 0 1px, rgba(0, 10, 40, .1) 1px 2px);
+  animation: wi-scan-crawl .7s linear infinite;
+}
+@keyframes wi-scan-crawl {
+  from { background-position: 0 0; }
+  to { background-position: 0 2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  main.ed .wi-preview-card:has(img)::after { animation: none; }
+}
