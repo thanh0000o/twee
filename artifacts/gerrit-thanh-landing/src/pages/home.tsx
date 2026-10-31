@@ -470,12 +470,9 @@ export const Home: FC = () => {
                    style={{ left: 'calc(132.6 * var(--u))', top: 'calc(261.13 * var(--u))', width: 'calc(140 * var(--u))', textAlign: 'right', transform: 'translateY(-75%) scaleX(1.55)', transformOrigin: 'right top', color: 'var(--color-border)', fontSize: 'calc(10.5 * var(--u))', letterSpacing: 'calc(.7 * var(--u))', fontFamily: 'var(--font-micro)' }}>
                 <span className="home-nav-title" aria-live="polite">{`{colors: ${palette.name}}`}</span>
               </div>
-              <img src={asset9} className="nav-orb absolute cursor-pointer transition-none group-hover:brightness-125"
-                   style={{
-                     left: 'calc(280.63 * var(--u))', top: 'calc(250.68 * var(--u))',
-                     width: 'calc(13.2 * var(--u))', height: 'calc(15.36 * var(--u))',
-                     filter: 'drop-shadow(1px 1px 0px rgba(255,255,255,0.7)) drop-shadow(1px 2px 2px rgba(0,0,0,0.5))'
-                   }} alt="" />
+              {/* A glossy sphere in the theme's own colour: the palette filter on this layer tints it. */}
+              <span className="home-nav-sphere home-nav-sphere-blue absolute cursor-pointer" aria-hidden="true"
+                    style={{ left: 'calc(280.23 * var(--u))', top: 'calc(251.36 * var(--u))', width: 'calc(14 * var(--u))', height: 'calc(14 * var(--u))' }} />
             </button>
 
             {/* BLOG */}
