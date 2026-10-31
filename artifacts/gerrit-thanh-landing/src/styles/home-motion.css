@@ -447,12 +447,12 @@
   animation: home-arrive 1100ms ease-out 600ms backwards;
 }
 
-/* The colour switch and the visitor count live inside the frame, in the quiet white corner
-   at the top left, stacked like a small legend. */
+/* The colour switch and the visitor count sit inside the coloured panel, under the welcome text,
+   lined up with it and in the same light colour. */
 .home-page .home-controls-framed {
   position: absolute;
-  left: calc(103.94 * var(--u));
-  top: calc(147 * var(--u));
+  left: calc(374 * var(--u));
+  top: calc(372 * var(--u));
   bottom: auto;
   transform: none;
   flex-direction: column;
@@ -466,7 +466,7 @@
   font-family: var(--font-body);
   font-size: calc(11.5 * var(--u));
   letter-spacing: calc(.25 * var(--u));
-  color: var(--color-border);
+  color: #f5fbff;
 }
 .home-page .home-controls-framed .home-palette-preview { gap: calc(3 * var(--u)); height: calc(12 * var(--u)); }
 .home-page .home-controls-framed .home-control-sphere {
@@ -482,7 +482,8 @@
   font-family: var(--font-body);
   font-size: calc(11.5 * var(--u));
   letter-spacing: calc(.25 * var(--u));
-  color: var(--color-border);
+  color: #f5fbff;
+  opacity: .9;
 }
 .home-page .home-controls-framed .home-visitor-count .home-control-sphere {
   width: calc(7 * var(--u));
