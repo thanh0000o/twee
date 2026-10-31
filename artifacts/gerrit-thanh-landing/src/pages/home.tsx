@@ -355,49 +355,6 @@ export const Home: FC = () => {
               <path className="home-frame-reveal" pathLength="1" d="M451.59 131.38H80.58V444.56H451.59" />
               <path className="home-frame-reveal home-frame-return" pathLength="1" d="M451.59 131.38H822.6V444.56H451.59" />
             </g>
-            {opening && (
-              /* A row of thin bars flickers under the header line, like a Flash loader strip. */
-              <g className="home-intro-bars" pointerEvents="none" aria-hidden="true">
-                <line x1="468.0" y1="117" x2="468.0" y2="128" strokeWidth="2.2" style={{ "--bar-delay": "1138ms" } as React.CSSProperties} />
-                <line x1="481.0" y1="116" x2="481.0" y2="128" strokeWidth="2.2" style={{ "--bar-delay": "1052ms" } as React.CSSProperties} />
-                <line x1="487.0" y1="116" x2="487.0" y2="128" strokeWidth="1.4" style={{ "--bar-delay": "1105ms" } as React.CSSProperties} />
-                <line x1="491.0" y1="117" x2="491.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "1137ms" } as React.CSSProperties} />
-                <line x1="495.0" y1="116" x2="495.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "1322ms" } as React.CSSProperties} />
-                <line x1="508.0" y1="116" x2="508.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "1182ms" } as React.CSSProperties} />
-                <line x1="525.0" y1="123" x2="525.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "1248ms" } as React.CSSProperties} />
-                <line x1="531.0" y1="121" x2="531.0" y2="128" strokeWidth="2.2" style={{ "--bar-delay": "1300ms" } as React.CSSProperties} />
-                <line x1="544.0" y1="119" x2="544.0" y2="128" strokeWidth="1.4" style={{ "--bar-delay": "1440ms" } as React.CSSProperties} />
-                <line x1="561.0" y1="121" x2="561.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "1650ms" } as React.CSSProperties} />
-                <line x1="565.0" y1="123" x2="565.0" y2="128" strokeWidth="1.4" style={{ "--bar-delay": "1592ms" } as React.CSSProperties} />
-                <line x1="578.0" y1="116" x2="578.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "1635ms" } as React.CSSProperties} />
-                <line x1="587.0" y1="121" x2="587.0" y2="128" strokeWidth="2.2" style={{ "--bar-delay": "1707ms" } as React.CSSProperties} />
-                <line x1="591.0" y1="123" x2="591.0" y2="128" strokeWidth="2.2" style={{ "--bar-delay": "1670ms" } as React.CSSProperties} />
-                <line x1="604.0" y1="123" x2="604.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "1867ms" } as React.CSSProperties} />
-                <line x1="608.0" y1="123" x2="608.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "1834ms" } as React.CSSProperties} />
-                <line x1="614.0" y1="123" x2="614.0" y2="128" strokeWidth="1.4" style={{ "--bar-delay": "1972ms" } as React.CSSProperties} />
-                <line x1="627.0" y1="117" x2="627.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "1936ms" } as React.CSSProperties} />
-                <line x1="636.0" y1="119" x2="636.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "2049ms" } as React.CSSProperties} />
-                <line x1="645.0" y1="123" x2="645.0" y2="128" strokeWidth="1.4" style={{ "--bar-delay": "2005ms" } as React.CSSProperties} />
-                <line x1="651.0" y1="121" x2="651.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "2005ms" } as React.CSSProperties} />
-                <line x1="655.0" y1="117" x2="655.0" y2="128" strokeWidth="1.4" style={{ "--bar-delay": "2145ms" } as React.CSSProperties} />
-                <line x1="672.0" y1="121" x2="672.0" y2="128" strokeWidth="1.4" style={{ "--bar-delay": "2370ms" } as React.CSSProperties} />
-                <line x1="678.0" y1="121" x2="678.0" y2="128" strokeWidth="1.4" style={{ "--bar-delay": "2361ms" } as React.CSSProperties} />
-                <line x1="682.0" y1="117" x2="682.0" y2="128" strokeWidth="1.4" style={{ "--bar-delay": "2328ms" } as React.CSSProperties} />
-                <line x1="686.0" y1="119" x2="686.0" y2="128" strokeWidth="2.2" style={{ "--bar-delay": "2430ms" } as React.CSSProperties} />
-                <line x1="690.0" y1="121" x2="690.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "2531ms" } as React.CSSProperties} />
-                <line x1="707.0" y1="116" x2="707.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "2406ms" } as React.CSSProperties} />
-                <line x1="713.0" y1="121" x2="713.0" y2="128" strokeWidth="1.4" style={{ "--bar-delay": "2572ms" } as React.CSSProperties} />
-                <line x1="717.0" y1="116" x2="717.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "2646ms" } as React.CSSProperties} />
-                <line x1="730.0" y1="123" x2="730.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "2596ms" } as React.CSSProperties} />
-                <line x1="736.0" y1="116" x2="736.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "2612ms" } as React.CSSProperties} />
-                <line x1="753.0" y1="119" x2="753.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "2892ms" } as React.CSSProperties} />
-                <line x1="759.0" y1="116" x2="759.0" y2="128" strokeWidth="1.4" style={{ "--bar-delay": "2784ms" } as React.CSSProperties} />
-                <line x1="772.0" y1="121" x2="772.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "2929ms" } as React.CSSProperties} />
-                <line x1="778.0" y1="116" x2="778.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "2922ms" } as React.CSSProperties} />
-                <line x1="784.0" y1="116" x2="784.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "3078ms" } as React.CSSProperties} />
-                <line x1="797.0" y1="116" x2="797.0" y2="128" strokeWidth="0.6" style={{ "--bar-delay": "3150ms" } as React.CSSProperties} />
-              </g>
-            )}
             {/* Embedded Dots with subtle glassy/vector highlights */}
              <ellipse className="home-marker-reveal home-marker-red" cx="334.81" cy="189.38" rx="7.16" ry="8.37" fill="var(--color-accent-red)" stroke="rgba(255,255,255,0.9)" strokeWidth="1" />
             <ellipse className="home-marker-reveal home-marker-ink" cx="287.23" cy="258.36" rx="7.16" ry="8.37" fill="var(--color-border)" stroke="rgba(255,255,255,0.9)" strokeWidth="1" />
@@ -405,7 +362,6 @@ export const Home: FC = () => {
 
           {/* Text Layer */}
           <div className="home-copy-reveal absolute inset-0 pointer-events-none z-[3]">
-            {opening && <p className="home-ghost-word" aria-hidden="true">welcome.</p>}
             {/* Headers - Preserved top labels */}
             <div className="absolute whitespace-nowrap flash-text" style={{ left: 'calc(103.94 * var(--u))', top: 'calc(107.54 * var(--u))', transform: 'scaleX(1.2) translateY(-75%)', transformOrigin: 'left top', color: 'var(--color-border)', fontFamily: 'var(--font-body)', fontWeight: 400, fontSize: 'calc(13 * var(--u))', letterSpacing: 'calc(.25 * var(--u))' }}>{`{thành lambeets}`}</div>
             <div className="absolute whitespace-nowrap flash-text" style={{ left: 'calc(470 * var(--u))', top: 'calc(107.54 * var(--u))', width: 'calc(325 * var(--u))', textAlign: 'right', transform: 'scaleX(1.2) translateY(-75%)', transformOrigin: 'right top', color: 'var(--color-border)', fontFamily: 'var(--font-body)', fontWeight: 400, fontSize: 'calc(13 * var(--u))', letterSpacing: 'calc(.25 * var(--u))' }}>{`{my little corner of the internet}`}</div>

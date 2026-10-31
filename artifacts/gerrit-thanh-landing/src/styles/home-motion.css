@@ -107,7 +107,7 @@
 }
 
 .home-page[data-opening="true"] .welcome-motion {
-  animation: home-welcome-arrive 2250ms cubic-bezier(.2,.65,.25,1) 540ms backwards;
+  animation: home-welcome-arrive 2900ms cubic-bezier(.16,.7,.22,1) 500ms backwards;
 }
 
 /* The existing leftward smear follows the word into place.
@@ -191,18 +191,31 @@
 
 @keyframes home-welcome-arrive {
   0% {
-    opacity: 0;
-    transform: scaleX(1.53) translateX(calc(-24 * var(--u)));
-    filter: blur(calc(5 * var(--u)));
+    opacity: .15;
+    transform: scaleX(1.53) translateX(calc(-150 * var(--u))) scale(3.2);
+    filter: blur(calc(3 * var(--u)));
+    text-shadow:
+      calc(-14 * var(--u)) 0 calc(3 * var(--u)) color-mix(in srgb, currentColor 45%, transparent),
+      calc(-30 * var(--u)) 0 calc(6 * var(--u)) color-mix(in srgb, currentColor 30%, transparent),
+      calc(-52 * var(--u)) 0 calc(10 * var(--u)) color-mix(in srgb, currentColor 18%, transparent);
   }
-  65% {
+  22% {
+    opacity: .9;
+  }
+  55% {
     opacity: 1;
+    transform: scaleX(1.53) translateX(calc(-12 * var(--u))) scale(1.35);
     filter: blur(calc(.6 * var(--u)));
+    text-shadow:
+      calc(-6 * var(--u)) 0 calc(2 * var(--u)) color-mix(in srgb, currentColor 35%, transparent),
+      calc(-13 * var(--u)) 0 calc(4 * var(--u)) color-mix(in srgb, currentColor 20%, transparent),
+      calc(-22 * var(--u)) 0 calc(6 * var(--u)) color-mix(in srgb, currentColor 10%, transparent);
   }
   100% {
     opacity: 1;
-    transform: scaleX(1.53) translateX(0);
+    transform: scaleX(1.53) translateX(0) scale(1);
     filter: blur(0);
+    text-shadow: 0 0 0 transparent, 0 0 0 transparent, 0 0 0 transparent;
   }
 }
 
@@ -374,44 +387,8 @@
   .home-scan-band { display: none; }
 }
 
-/* Flash-era touches, kept clean: a huge ghost of "welcome." drifts and shrinks behind the scene,
-   a row of thin bars flickers under the header line, and the corner labels come into focus. */
-.home-ghost-word {
-  position: absolute;
-  left: 50%;
-  top: 46%;
-  margin: 0;
-  font-family: var(--font-body);
-  font-size: calc(170 * var(--u));
-  line-height: 1;
-  letter-spacing: calc(4 * var(--u));
-  color: var(--color-border);
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, -50%) scaleX(1.5);
-  animation: home-ghost-word 4200ms cubic-bezier(.25,.6,.3,1) 200ms both;
-}
-@keyframes home-ghost-word {
-  0% { opacity: 0; transform: translate(-46%, -50%) scaleX(1.5) scale(1.2); filter: blur(calc(8 * var(--u))); }
-  30% { opacity: .1; filter: blur(calc(2 * var(--u))); }
-  100% { opacity: 0; transform: translate(-54%, -50%) scaleX(1.5) scale(.94); filter: blur(calc(1 * var(--u))); }
-}
-
-.home-intro-bars line { stroke: var(--color-border); stroke-width: .6; opacity: 0; }
-.home-page[data-opening="true"] .home-intro-bars line {
-  animation: home-bar-flicker 2600ms steps(1, end) var(--bar-delay) both;
-}
-@keyframes home-bar-flicker {
-  0% { opacity: 0; }
-  8% { opacity: .9; }
-  14% { opacity: .2; }
-  22% { opacity: .75; }
-  70% { opacity: .55; }
-  85% { opacity: .25; }
-  100% { opacity: 0; }
-}
-
+/* Flash-era touches, kept clean: the corner labels come into focus,
+   and "welcome." flies in big with a motion-blur streak before settling. */
 .home-page[data-opening="true"] .flash-text {
   animation: home-caption-focus 1800ms cubic-bezier(.25,.6,.3,1) 360ms backwards;
 }
@@ -421,6 +398,3 @@
   to { opacity: 1; letter-spacing: calc(.25 * var(--u)); filter: blur(0); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .home-ghost-word, .home-intro-bars { display: none; }
-}
