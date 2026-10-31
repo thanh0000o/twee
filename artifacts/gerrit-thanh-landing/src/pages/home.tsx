@@ -92,16 +92,21 @@ export const Home: FC = () => {
               {/* Lower resolution: sample the panel in small blocks and reduce the number of colours. */}
               <filter id="home-lowres" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" x="212" y="111" width="631" height="354" colorInterpolationFilters="sRGB">
                 <feFlood x="213" y="112" width="1" height="1" floodColor="#000" result="dot" />
-                <feComposite in="dot" in2="dot" operator="over" x="212" y="111" width="2.6" height="2.6" result="cell" />
+                <feComposite in="dot" in2="dot" operator="over" x="212" y="111" width="1.9" height="1.9" result="cell" />
                 <feTile in="cell" result="grid" />
                 <feComposite in="SourceGraphic" in2="grid" operator="in" result="sampled" />
-                <feMorphology in="sampled" operator="dilate" radius="1.3" result="blocks" />
+                <feMorphology in="sampled" operator="dilate" radius=".95" result="blocks" />
                 <feComponentTransfer in="blocks">
-                  <feFuncR type="discrete" tableValues="0 .07 .14 .21 .29 .36 .43 .5 .57 .64 .71 .79 .86 .93 1" />
-                  <feFuncG type="discrete" tableValues="0 .07 .14 .21 .29 .36 .43 .5 .57 .64 .71 .79 .86 .93 1" />
-                  <feFuncB type="discrete" tableValues="0 .07 .14 .21 .29 .36 .43 .5 .57 .64 .71 .79 .86 .93 1" />
+                  <feFuncR type="discrete" tableValues="0 0.043 0.087 0.130 0.174 0.217 0.261 0.304 0.348 0.391 0.435 0.478 0.522 0.565 0.609 0.652 0.696 0.739 0.783 0.826 0.870 0.913 0.957 1" />
+                  <feFuncG type="discrete" tableValues="0 0.043 0.087 0.130 0.174 0.217 0.261 0.304 0.348 0.391 0.435 0.478 0.522 0.565 0.609 0.652 0.696 0.739 0.783 0.826 0.870 0.913 0.957 1" />
+                  <feFuncB type="discrete" tableValues="0 0.043 0.087 0.130 0.174 0.217 0.261 0.304 0.348 0.391 0.435 0.478 0.522 0.565 0.609 0.652 0.696 0.739 0.783 0.826 0.870 0.913 0.957 1" />
                 </feComponentTransfer>
               </filter>
+              <linearGradient id="home-scan-band" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor="#ffffff" stopOpacity="0" />
+                <stop offset=".5" stopColor="#e8f6ff" stopOpacity=".09" />
+                <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
+              </linearGradient>
               {opening && <EntryDefs />}
               {opening && <InkDefs />}
               <linearGradient id="halftone-fade" x1="82" y1="0" x2="338" y2="0" gradientUnits="userSpaceOnUse">
@@ -321,7 +326,11 @@ export const Home: FC = () => {
             </g>
 
             {showScanlines && (
-              <rect x="232" y="131" width="591" height="314" fill="url(#home-scanlines)" clipPath="url(#blue-panel-clip)" pointerEvents="none" aria-hidden="true" />
+              <g className="home-scan" clipPath="url(#blue-panel-clip)" pointerEvents="none" aria-hidden="true">
+                {/* The lines crawl down one step at a time and a soft bright band rolls over the screen. */}
+                <rect className="home-scan-lines" x="232" y="126" width="591" height="324" fill="url(#home-scanlines)" />
+                <rect className="home-scan-band" x="232" y="60" width="591" height="46" fill="url(#home-scan-band)" />
+              </g>
             )}
 
             {/* Inner box shape base */}

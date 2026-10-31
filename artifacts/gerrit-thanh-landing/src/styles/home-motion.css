@@ -345,3 +345,31 @@
     transform: none;
   }
 }
+
+/* Old live screen: scanlines crawl, a bright band rolls down, the picture flickers a little. */
+.home-scan { animation: home-scan-flicker 4.2s steps(1, end) infinite; }
+.home-scan-lines { animation: home-scan-crawl 0.7s linear infinite; }
+.home-scan-band { animation: home-scan-roll 7s linear infinite; }
+
+@keyframes home-scan-crawl {
+  from { transform: translateY(0); }
+  to { transform: translateY(2.4px); }
+}
+
+@keyframes home-scan-roll {
+  from { transform: translateY(0); }
+  to { transform: translateY(420px); }
+}
+
+@keyframes home-scan-flicker {
+  0%, 100% { opacity: 1; }
+  31% { opacity: .82; }
+  32% { opacity: 1; }
+  67% { opacity: .9; }
+  68% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-scan, .home-scan-lines, .home-scan-band { animation: none; }
+  .home-scan-band { display: none; }
+}
