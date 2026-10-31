@@ -386,7 +386,12 @@
 }
 .home-page[data-palette="rose"] .home-oval-drift {
   transform-origin: 630px 316px;
-  animation: home-dots-pulse 9s ease-in-out infinite;
+  animation: home-dots-spin 90s linear infinite;
+}
+.home-page[data-palette="rose"] .home-dots-inner {
+  transform-box: view-box;
+  transform-origin: 630px 316px;
+  animation: home-dots-breathe 9s ease-in-out infinite;
 }
 .home-page[data-palette="lime"] .home-oval-drift {
   transform-origin: 626px 316px;
@@ -405,11 +410,10 @@
   to { transform: scale(1.75, 1) rotate(-360deg) scale(.5714, 1); }
 }
 
-/* The burst breathes in and out and turns one ray further each breath. */
-@keyframes home-dots-pulse {
-  0% { transform: scale(1.75, 1) rotate(0deg) scale(.5714, 1) scale(.95); }
-  50% { transform: scale(1.75, 1) rotate(15deg) scale(.5714, 1) scale(1.05); }
-  100% { transform: scale(1.75, 1) rotate(30deg) scale(.5714, 1) scale(.95); }
+/* The burst turns slowly without ever stopping (outer layer) and breathes in and out (inner layer). */
+@keyframes home-dots-breathe {
+  0%, 100% { transform: scale(.96); }
+  50% { transform: scale(1.05); }
 }
 
 /* The sphere floats up and down and tilts slightly, as if it hangs in water. */
@@ -419,7 +423,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home-page[data-palette] .home-oval-drift { animation: none; }
+  .home-page[data-palette] .home-oval-drift,
+  .home-page[data-palette] .home-dots-inner { animation: none; }
 }
 
 /* When the colour theme changes, the new dot figure fades in while the colours glide over. */
