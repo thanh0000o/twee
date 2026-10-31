@@ -447,17 +447,17 @@
   animation: home-arrive 1100ms ease-out 600ms backwards;
 }
 
-/* The colour switch and the visitor count live inside the composition, under a footer rule
-   that mirrors the header line: switch on the left, count on the right, like the header labels. */
+/* The colour switch and the visitor count live inside the frame, in the quiet white corner
+   at the top left, stacked like a small legend. */
 .home-page .home-controls-framed {
   position: absolute;
   left: calc(103.94 * var(--u));
-  top: calc(467 * var(--u));
+  top: calc(147 * var(--u));
   bottom: auto;
-  width: calc(691 * var(--u));
   transform: none;
-  justify-content: space-between;
-  gap: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(7 * var(--u));
   pointer-events: auto;
 }
 .home-page .home-controls-framed .home-control-button {
@@ -489,7 +489,3 @@
   height: calc(7 * var(--u));
 }
 
-.home-page[data-opening="true"] .home-footer-line {
-  stroke-dasharray: 1;
-  animation: home-ink-draw 1300ms cubic-bezier(.3,.55,.2,1) 900ms both;
-}
