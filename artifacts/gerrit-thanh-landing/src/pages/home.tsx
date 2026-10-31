@@ -48,13 +48,20 @@ export const Home: FC = () => {
   const nextPalette = PALETTES[(activePaletteIndex + 1) % PALETTES.length];
   const centerAccent = activePaletteIndex === 0 ? undefined : getPaletteLinkColor(palette.name);
   const signalImage = SIGNAL_BY_PALETTE[palette.name] ?? ovalSignal;
+  const [swapping, setSwapping] = useState(false);
+  useEffect(() => {
+    if (!swapping) return;
+    const timer = window.setTimeout(() => setSwapping(false), 600);
+    return () => window.clearTimeout(timer);
+  }, [swapping, paletteIndex]);
   const cyclePalette = () => {
+    setSwapping(true);
     const nextIndex = (activePaletteIndex + 1) % PALETTES.length;
     setPaletteIndex(nextIndex);
     savePaletteIndex(nextIndex);
   };
   return (
-    <div className="home-page min-h-screen w-full flex items-center justify-center overflow-hidden bg-white" data-palette={palette.name} data-opening={opening}>
+    <div className="home-page min-h-screen w-full flex items-center justify-center overflow-hidden bg-white" data-palette={palette.name} data-opening={opening} data-swapping={swapping || undefined}>
       <div 
         className="home-canvas w-full max-w-[1109.84px] bg-[#ffffff] relative"
         style={{ 
@@ -70,6 +77,8 @@ export const Home: FC = () => {
             fontFamily: 'var(--font-body)',
             transform: 'translate(9.3%, 3%)',
             filter: palette.filter,
+            // Theme changes glide instead of jumping.
+            transition: 'filter 420ms ease-in-out',
           } as React.CSSProperties}
         >
           {/* Main SVG Background Outlines & Shapes */}
@@ -274,7 +283,7 @@ export const Home: FC = () => {
               <g mask="url(#oval-signal-mask)">
                 <g mask="url(#oval-signal-vertical-mask)">
                   {/* Keep masks in scene coordinates; mirror only the PNG and its trails. */}
-                  <g className="home-oval-drift">
+                  <g className="home-oval-drift home-dots-swap" key={signalImage}>
                     <BubbleReveal opening={opening}>
                   <g transform="translate(972 0) scale(-1 1)">
                     <image href={signalImage} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" opacity=".4" filter="url(#oval-depth-shadow)" />
@@ -293,7 +302,7 @@ export const Home: FC = () => {
             <g clipPath="url(#blue-panel-clip)" pointerEvents="none" aria-hidden="true" opacity=".45" style={{ mixBlendMode: 'screen' }}>
               <g mask="url(#oval-signal-mask)">
                 <g mask="url(#oval-signal-vertical-mask)">
-                  <g className="home-oval-drift">
+                  <g className="home-oval-drift home-dots-swap" key={signalImage}>
                     <BubbleReveal opening={opening}>
                   <g transform="translate(972 0) scale(-1 1)">
                     <image href={signalImage} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" opacity=".48" filter="url(#oval-rim-light)" />
@@ -317,7 +326,7 @@ export const Home: FC = () => {
             <g clipPath="url(#blue-panel-clip)" pointerEvents="none" aria-hidden="true">
               <g mask="url(#oval-signal-mask)">
                 <g mask="url(#oval-signal-vertical-mask)">
-                  <g className="home-oval-drift">
+                  <g className="home-oval-drift home-dots-swap" key={signalImage}>
                     <BubbleReveal opening={opening}>
                   <g transform="translate(972 0) scale(-1 1)">
                     <g opacity=".3" style={{ mixBlendMode: 'multiply' }}>

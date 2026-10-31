@@ -421,3 +421,18 @@
 @media (prefers-reduced-motion: reduce) {
   .home-page[data-palette] .home-oval-drift { animation: none; }
 }
+
+/* When the colour theme changes, the new dot figure fades in while the colours glide over. */
+.home-page[data-swapping] .home-dots-swap > * {
+  animation: home-dots-swap 520ms ease-out both;
+}
+@keyframes home-dots-swap {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.home-page .home-nav-title,
+.home-page .welcome-face,
+.home-page .center-copy span { transition: color 420ms ease-in-out; }
+@media (prefers-reduced-motion: reduce) {
+  .home-page .home-dots-swap > * { animation: none; }
+}
