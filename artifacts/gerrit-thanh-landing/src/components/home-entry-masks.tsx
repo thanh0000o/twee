@@ -20,7 +20,7 @@ export const EntryDefs: FC = () => (
     <mask id="entry-bubbles" maskUnits="userSpaceOnUse" x="0" y="0" width="1109.84" height="630.53">
       <g transform="translate(972 0) scale(-1 1) translate(114 188) scale(1.0479 1.0478)" filter="url(#entry-bubble-soft)">
         {BUBBLES.map(([cx, cy, rx, ry, t], i) => (
-          <ellipse key={i} className="home-entry-bubble" cx={cx} cy={cy} rx={rx} ry={ry} fill="#fff" style={{ animationDelay: (t + 550) + "ms" }} />
+          <ellipse key={i} className="home-entry-bubble" cx={cx} cy={cy} rx={rx} ry={ry} fill="#fff" style={{ animationDelay: Math.round(t * 1.8 + 990) + "ms" }} />
         ))}
       </g>
       <rect className="home-entry-remainder" x="0" y="0" width="1109.84" height="630.53" fill="#fff" />

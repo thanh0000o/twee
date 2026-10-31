@@ -39,23 +39,23 @@
    Reveal masks follow the ink centerlines; fills and gradients are never masked.
    Everything ends by 2.6s; "forwards" keeps the mask complete until the flag ends. */
 .home-page[data-opening="true"] .home-ink-arc {
-  animation: home-ink-draw 1500ms cubic-bezier(.3,.55,.2,1) 0ms both;
+  animation: home-ink-draw 2700ms cubic-bezier(.3,.55,.2,1) 0ms both;
 }
 .home-page[data-opening="true"] .home-ink-frame {
-  animation: home-ink-draw 1600ms cubic-bezier(.3,.55,.2,1) 550ms both;
+  animation: home-ink-draw 2880ms cubic-bezier(.3,.55,.2,1) 990ms both;
 }
 .home-page[data-opening="true"] .home-ink-header {
-  animation: home-ink-draw 1300ms cubic-bezier(.3,.55,.2,1) 800ms both;
+  animation: home-ink-draw 2340ms cubic-bezier(.3,.55,.2,1) 1440ms both;
 }
 .home-page[data-opening="true"] .home-ink-bracket {
-  animation: home-ink-draw 1000ms cubic-bezier(.3,.55,.2,1) 1500ms both;
+  animation: home-ink-draw 1800ms cubic-bezier(.3,.55,.2,1) 2700ms both;
 }
 .home-page[data-opening="true"] .home-frame-reveal {
   stroke-dasharray: 1;
-  animation: home-frame-corner-draw 1600ms cubic-bezier(.3,.55,.2,1) 550ms both;
+  animation: home-frame-corner-draw 2880ms cubic-bezier(.3,.55,.2,1) 990ms both;
 }
 .home-page[data-opening="true"] .home-frame-return {
-  animation-delay: 650ms;
+  animation-delay: 1170ms;
 }
 @keyframes home-ink-draw {
   from { stroke-dashoffset: 1; }
@@ -63,29 +63,29 @@
 }
 
 .home-page[data-opening="true"] .home-marker-reveal {
-  animation: home-marker-appear 680ms ease-in-out 560ms backwards;
+  animation: home-marker-appear 1224ms ease-in-out 1008ms backwards;
 }
 
 .home-page[data-opening="true"] .home-marker-ink {
-  animation-delay: 730ms;
+  animation-delay: 1314ms;
 }
 
 
 /* Feathered left-to-right wipe: a stationary mask inside the stationary panel clip. */
 .home-page[data-opening="true"] .home-entry-wipe {
-  animation: home-entry-wipe 1550ms cubic-bezier(.45,.05,.3,1) 80ms both;
+  animation: home-entry-wipe 2790ms cubic-bezier(.45,.05,.3,1) 144ms both;
 }
 
 .home-page[data-opening="true"] .home-panel-shadow {
-  animation: home-entry-bubble 1550ms ease-out 80ms backwards;
+  animation: home-entry-bubble 2790ms ease-out 144ms backwards;
 }
 
 .home-page[data-opening="true"] .home-entry-bubble {
-  animation: home-entry-bubble 260ms cubic-bezier(.2,.7,.3,1) backwards;
+  animation: home-entry-bubble 468ms cubic-bezier(.2,.7,.3,1) backwards;
 }
 
 .home-page[data-opening="true"] .home-entry-remainder {
-  animation: home-arrive 450ms ease-in-out 2350ms backwards;
+  animation: home-arrive 810ms ease-in-out 4230ms backwards;
 }
 
 @keyframes home-entry-wipe {
@@ -99,34 +99,34 @@
 }
 
 .home-page[data-opening="true"] .flash-text {
-  animation: home-caption-appear 780ms ease-in-out 150ms backwards;
+  animation: home-caption-appear 1404ms ease-in-out 270ms backwards;
 }
 
 .home-page[data-opening="true"] .flash-text:nth-child(2) {
-  animation-delay: 260ms;
+  animation-delay: 468ms;
 }
 
 .home-page[data-opening="true"] .welcome-motion {
-  animation: home-welcome-arrive 1250ms cubic-bezier(.2,.65,.25,1) 300ms backwards;
+  animation: home-welcome-arrive 2250ms cubic-bezier(.2,.65,.25,1) 540ms backwards;
 }
 
 /* The existing leftward smear follows the word into place.
    No scan line, shine or added glowing layer. */
 .home-page[data-opening="true"] .welcome-trail {
   transform-origin: left center;
-  animation: home-welcome-trail-arrive 1450ms cubic-bezier(.2,.65,.25,1) 300ms backwards;
+  animation: home-welcome-trail-arrive 2610ms cubic-bezier(.2,.65,.25,1) 540ms backwards;
 }
 
 .home-page[data-opening="true"] .home-copy-body > p {
-  animation: home-line-appear 820ms cubic-bezier(.26,.48,.3,1) 620ms backwards;
+  animation: home-line-appear 1476ms cubic-bezier(.26,.48,.3,1) 1116ms backwards;
 }
 
 .home-page[data-opening="true"] .home-copy-body > p:nth-child(2) {
-  animation-delay: 820ms;
+  animation-delay: 1476ms;
 }
 
 .home-page[data-opening="true"] .home-copy-body > p:nth-child(3) {
-  animation-delay: 1020ms;
+  animation-delay: 1836ms;
 }
 
 .home-page .home-copy-body > p:nth-child(3) {
@@ -134,11 +134,11 @@
 }
 
 .home-page[data-opening="true"] .home-nav-link > div {
-  animation: home-nav-appear 670ms ease-in-out var(--nav-cue-delay, 870ms) backwards;
+  animation: home-nav-appear 1206ms ease-in-out var(--nav-cue-delay, 1566ms) backwards;
 }
 
 .home-page[data-opening="true"] .home-nav-link > :is(.home-nav-sphere, .nav-orb) {
-  animation: home-orb-appear 620ms ease-in-out var(--nav-cue-delay, 870ms) backwards;
+  animation: home-orb-appear 1116ms ease-in-out var(--nav-cue-delay, 1566ms) backwards;
 }
 
 /* A short wave of each link's own palette colour, after its label appears.
@@ -149,7 +149,7 @@
 }
 
 .home-page[data-opening="true"] .home-nav-title {
-  animation: home-title-ink-light 1000ms ease-in-out var(--nav-light-delay, 1100ms);
+  animation: home-title-ink-light 1800ms ease-in-out var(--nav-light-delay, 1980ms);
 }
 
 .home-page[data-opening="true"] .home-nav-title::before {
@@ -162,11 +162,11 @@
   filter: blur(calc(5 * var(--u)));
   opacity: 0;
   pointer-events: none;
-  animation: home-title-halo-light 1000ms ease-in-out var(--nav-light-delay, 1100ms);
+  animation: home-title-halo-light 1800ms ease-in-out var(--nav-light-delay, 1980ms);
 }
 
 .home-page[data-opening="true"] .home-controls {
-  animation: home-arrive 680ms ease-in-out 750ms backwards;
+  animation: home-arrive 1224ms ease-in-out 1350ms backwards;
 }
 
 @keyframes home-frame-draw {
@@ -268,13 +268,13 @@
 }
 
 /* Scope these refinements to the landing page: blog links stay unchanged. */
-.home-page .home-nav-link-about { --nav-cue-delay: 760ms; --nav-light-delay: 1100ms; }
-.home-page .home-nav-link-works { --nav-cue-delay: 850ms; --nav-light-delay: 1260ms; }
-.home-page .home-nav-link-artwork { --nav-cue-delay: 940ms; --nav-light-delay: 1420ms; }
-.home-page .home-nav-link-visualisations { --nav-cue-delay: 1030ms; --nav-light-delay: 1580ms; }
-.home-page .home-nav-link-blog-links { --nav-cue-delay: 1120ms; --nav-light-delay: 1740ms; }
-.home-page .home-nav-link-radio { --nav-cue-delay: 1210ms; --nav-light-delay: 1900ms; }
-.home-page :is(.home-nav-link-guestbook, .home-nav-link-music) { --nav-cue-delay: 1300ms; --nav-light-delay: 2060ms; }
+.home-page .home-nav-link-about { --nav-cue-delay: 1368ms; --nav-light-delay: 1980ms; }
+.home-page .home-nav-link-works { --nav-cue-delay: 1530ms; --nav-light-delay: 2268ms; }
+.home-page .home-nav-link-artwork { --nav-cue-delay: 1692ms; --nav-light-delay: 2556ms; }
+.home-page .home-nav-link-visualisations { --nav-cue-delay: 1854ms; --nav-light-delay: 2844ms; }
+.home-page .home-nav-link-blog-links { --nav-cue-delay: 2016ms; --nav-light-delay: 3132ms; }
+.home-page .home-nav-link-radio { --nav-cue-delay: 2178ms; --nav-light-delay: 3420ms; }
+.home-page :is(.home-nav-link-guestbook, .home-nav-link-music) { --nav-cue-delay: 2340ms; --nav-light-delay: 3708ms; }
 
 .home-page .home-nav-link .home-nav-title {
   transition: background-color 70ms ease-out, box-shadow 90ms ease-out, color 70ms ease-out;
@@ -372,4 +372,55 @@
 @media (prefers-reduced-motion: reduce) {
   .home-scan, .home-scan-lines, .home-scan-band { animation: none; }
   .home-scan-band { display: none; }
+}
+
+/* Flash-era touches, kept clean: a huge ghost of "welcome." drifts and shrinks behind the scene,
+   a row of thin bars flickers under the header line, and the corner labels come into focus. */
+.home-ghost-word {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: calc(170 * var(--u));
+  line-height: 1;
+  letter-spacing: calc(4 * var(--u));
+  color: var(--color-border);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scaleX(1.5);
+  animation: home-ghost-word 4200ms cubic-bezier(.25,.6,.3,1) 200ms both;
+}
+@keyframes home-ghost-word {
+  0% { opacity: 0; transform: translate(-46%, -50%) scaleX(1.5) scale(1.2); filter: blur(calc(8 * var(--u))); }
+  30% { opacity: .1; filter: blur(calc(2 * var(--u))); }
+  100% { opacity: 0; transform: translate(-54%, -50%) scaleX(1.5) scale(.94); filter: blur(calc(1 * var(--u))); }
+}
+
+.home-intro-bars line { stroke: var(--color-border); stroke-width: .6; opacity: 0; }
+.home-page[data-opening="true"] .home-intro-bars line {
+  animation: home-bar-flicker 2600ms steps(1, end) var(--bar-delay) both;
+}
+@keyframes home-bar-flicker {
+  0% { opacity: 0; }
+  8% { opacity: .9; }
+  14% { opacity: .2; }
+  22% { opacity: .75; }
+  70% { opacity: .55; }
+  85% { opacity: .25; }
+  100% { opacity: 0; }
+}
+
+.home-page[data-opening="true"] .flash-text {
+  animation: home-caption-focus 1800ms cubic-bezier(.25,.6,.3,1) 360ms backwards;
+}
+.home-page[data-opening="true"] .flash-text:nth-child(2) { animation-delay: 620ms; }
+@keyframes home-caption-focus {
+  from { opacity: 0; letter-spacing: calc(1.6 * var(--u)); filter: blur(calc(3 * var(--u))); }
+  to { opacity: 1; letter-spacing: calc(.25 * var(--u)); filter: blur(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-ghost-word, .home-intro-bars { display: none; }
 }
