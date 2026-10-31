@@ -2,6 +2,10 @@ import { type FC, useEffect, useState } from 'react';
 import { Link } from 'wouter';
 import asset9 from '@assets/Asset_9_1788291702405.png';
 import ovalSignal from '../assets/oval-signal-transparent.png';
+import patternWave from '../assets/patterns/wave.png';
+import patternSpiral from '../assets/patterns/spiral.png';
+import patternBurst from '../assets/patterns/burst.png';
+import patternSphere from '../assets/patterns/sphere.png';
 import { DepthDotPattern } from '../components/depth-dot-pattern';
 import { InkDefs } from '../components/home-ink-masks';
 import { BubbleReveal, EntryDefs } from '../components/home-entry-masks';
@@ -19,6 +23,15 @@ const testParams = new URLSearchParams(window.location.search);
 const showScanlines = testParams.get('scan') !== 'off';
 const showLowRes = testParams.get('lowres') !== 'off';
 
+// Each colour theme gets its own dot figure in the panel; blue keeps the original ovals.
+const SIGNAL_BY_PALETTE: Record<string, string> = {
+  blue: ovalSignal,
+  green: patternWave,
+  violet: patternSpiral,
+  rose: patternBurst,
+  lime: patternSphere,
+};
+
 export const Home: FC = () => {
   const [opening, setOpening] = useState(() => !hasOpenedHome && !window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   useEffect(() => {
@@ -34,6 +47,7 @@ export const Home: FC = () => {
   const palette = PALETTES[activePaletteIndex];
   const nextPalette = PALETTES[(activePaletteIndex + 1) % PALETTES.length];
   const centerAccent = activePaletteIndex === 0 ? undefined : getPaletteLinkColor(palette.name);
+  const signalImage = SIGNAL_BY_PALETTE[palette.name] ?? ovalSignal;
   const cyclePalette = () => {
     const nextIndex = (activePaletteIndex + 1) % PALETTES.length;
     setPaletteIndex(nextIndex);
@@ -263,11 +277,11 @@ export const Home: FC = () => {
                   <g className="home-oval-drift">
                     <BubbleReveal opening={opening}>
                   <g transform="translate(972 0) scale(-1 1)">
-                    <image href={ovalSignal} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" opacity=".4" filter="url(#oval-depth-shadow)" />
-                    <image href={ovalSignal} x="138" y="188" width="744" height="256.7" preserveAspectRatio="none" opacity=".22" filter="url(#oval-motion-trail)" />
-                    <image href={ovalSignal} x="154" y="193" width="744" height="256.7" preserveAspectRatio="none" opacity=".16" filter="url(#oval-motion-trail)" />
-                    <image href={ovalSignal} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" opacity=".5" filter="url(#oval-blur-core)" />
-                    <image href={ovalSignal} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" opacity=".32" filter="url(#oval-soft-edge)" />
+                    <image href={signalImage} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" opacity=".4" filter="url(#oval-depth-shadow)" />
+                    <image href={signalImage} x="138" y="188" width="744" height="256.7" preserveAspectRatio="none" opacity=".22" filter="url(#oval-motion-trail)" />
+                    <image href={signalImage} x="154" y="193" width="744" height="256.7" preserveAspectRatio="none" opacity=".16" filter="url(#oval-motion-trail)" />
+                    <image href={signalImage} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" opacity=".5" filter="url(#oval-blur-core)" />
+                    <image href={signalImage} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" opacity=".32" filter="url(#oval-soft-edge)" />
                   </g>
                     </BubbleReveal>
                   </g>
@@ -282,7 +296,7 @@ export const Home: FC = () => {
                   <g className="home-oval-drift">
                     <BubbleReveal opening={opening}>
                   <g transform="translate(972 0) scale(-1 1)">
-                    <image href={ovalSignal} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" opacity=".48" filter="url(#oval-rim-light)" />
+                    <image href={signalImage} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" opacity=".48" filter="url(#oval-rim-light)" />
                   </g>
                     </BubbleReveal>
                   </g>
@@ -307,13 +321,13 @@ export const Home: FC = () => {
                     <BubbleReveal opening={opening}>
                   <g transform="translate(972 0) scale(-1 1)">
                     <g opacity=".3" style={{ mixBlendMode: 'multiply' }}>
-                      <image href={ovalSignal} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" filter="url(#oval-cast-shadow)" />
+                      <image href={signalImage} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" filter="url(#oval-cast-shadow)" />
                     </g>
                     <g opacity=".47" style={{ mixBlendMode: 'multiply' }}>
-                      <image href={ovalSignal} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" filter="url(#oval-relief-shade)" />
+                      <image href={signalImage} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" filter="url(#oval-relief-shade)" />
                     </g>
                     <g className="home-oval-reflection" opacity=".7" style={{ mixBlendMode: 'screen' }}>
-                      <image href={ovalSignal} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" filter="url(#oval-relief-spec)" />
+                      <image href={signalImage} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" filter="url(#oval-relief-spec)" />
                     </g>
                   </g>
                     </BubbleReveal>
