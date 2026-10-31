@@ -2,10 +2,10 @@ import { type FC, useEffect, useState } from 'react';
 import { Link } from 'wouter';
 import asset9 from '@assets/Asset_9_1788291702405.png';
 import ovalSignal from '../assets/oval-signal-transparent.png';
-import patternWave from '../assets/patterns/wave.png';
-import patternSpiral from '../assets/patterns/spiral.png';
-import patternBurst from '../assets/patterns/burst.png';
-import patternSphere from '../assets/patterns/sphere.png';
+import patternWave from '../assets/patterns/wave.webp';
+import patternSpiral from '../assets/patterns/spiral.webp';
+import patternBurst from '../assets/patterns/burst.webp';
+import patternSphere from '../assets/patterns/sphere.webp';
 import { DepthDotPattern } from '../components/depth-dot-pattern';
 import { InkDefs } from '../components/home-ink-masks';
 import { BubbleReveal, EntryDefs } from '../components/home-entry-masks';
@@ -48,6 +48,14 @@ export const Home: FC = () => {
   const nextPalette = PALETTES[(activePaletteIndex + 1) % PALETTES.length];
   const centerAccent = activePaletteIndex === 0 ? undefined : getPaletteLinkColor(palette.name);
   const signalImage = SIGNAL_BY_PALETTE[palette.name] ?? ovalSignal;
+  // Load and decode every theme's dot figure up front, so switching themes never waits for a download.
+  useEffect(() => {
+    Object.values(SIGNAL_BY_PALETTE).forEach((src) => {
+      const img = new Image();
+      img.src = src;
+      img.decode?.().catch(() => {});
+    });
+  }, []);
   const [swapping, setSwapping] = useState(false);
   useEffect(() => {
     if (!swapping) return;
@@ -79,6 +87,7 @@ export const Home: FC = () => {
             filter: palette.filter,
             // Theme changes glide instead of jumping.
             transition: 'filter 420ms ease-in-out',
+            willChange: 'filter',
           } as React.CSSProperties}
         >
           {/* Main SVG Background Outlines & Shapes */}
