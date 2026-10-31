@@ -2,7 +2,6 @@ import { useEffect, useState, type CSSProperties, type FC, type ReactNode } from
 import { Link } from 'wouter';
 import { BlogReturnLink, useBlogOrigin, withBlogOrigin } from '../components/blog-return-link';
 import { useSavedPalette } from '../hooks/use-saved-palette';
-import { workAssetUrl } from '../lib/works';
 import { works, workTitleParts } from '../lib/works-list';
 import '../styles/editorial.css';
 import '../styles/works-index.css';
@@ -54,15 +53,9 @@ export const WorksIndex: FC = () => {
       data-hovering={active !== null ? 'true' : undefined}
       style={{ '--wi-accent': activeWork?.accent ?? '#c9c9c4' } as CSSProperties}
     >
-      {/* Soft, blurred field of colour behind the text, taken from the hovered project. */}
+      {/* A faint, still haze of colour behind the text. */}
       <div className="wi-backdrop" aria-hidden="true">
         <div className="wi-ambient" />
-        {works.map((work, index) => (
-          <div key={work.cover.file} className="wi-backdrop-layer" data-show={active === index ? 'true' : undefined}
-            style={{ '--wi-layer-accent': work.accent } as CSSProperties}>
-            {work.preview && <img src={workAssetUrl(work.preview)} alt="" decoding="async" />}
-          </div>
-        ))}
       </div>
 
       <header className="subpage-header ed-top">

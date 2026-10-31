@@ -146,7 +146,6 @@ main.ed .wi-ambient {
     radial-gradient(closest-side at 85% 40%, #b6a9c4, transparent);
   transition: opacity 420ms ease-out;
 }
-main.ed.works-text-index[data-hovering] .wi-ambient { opacity: 0; }
 
 main.ed .wi-hint-touch { display: none; }
 @media (hover: none) {
