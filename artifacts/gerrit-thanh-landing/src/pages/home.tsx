@@ -293,7 +293,7 @@ export const Home: FC = () => {
                 <g mask="url(#oval-signal-vertical-mask)">
                   {/* Keep masks in scene coordinates; mirror only the PNG and its trails. */}
                   <g className="home-oval-drift home-dots-swap" key={signalImage}>
-                    <g className="home-dots-inner"><BubbleReveal opening={opening}>
+                    <g className="home-dots-inner"><BubbleReveal opening={opening} original={signalImage === ovalSignal}>
                   <g transform="translate(972 0) scale(-1 1)">
                     <image href={signalImage} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" opacity=".4" filter="url(#oval-depth-shadow)" />
                     <image href={signalImage} x="138" y="188" width="744" height="256.7" preserveAspectRatio="none" opacity=".22" filter="url(#oval-motion-trail)" />
@@ -312,7 +312,7 @@ export const Home: FC = () => {
               <g mask="url(#oval-signal-mask)">
                 <g mask="url(#oval-signal-vertical-mask)">
                   <g className="home-oval-drift home-dots-swap" key={signalImage}>
-                    <g className="home-dots-inner"><BubbleReveal opening={opening}>
+                    <g className="home-dots-inner"><BubbleReveal opening={opening} original={signalImage === ovalSignal}>
                   <g transform="translate(972 0) scale(-1 1)">
                     <image href={signalImage} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" opacity=".48" filter="url(#oval-rim-light)" />
                   </g>
@@ -336,7 +336,7 @@ export const Home: FC = () => {
               <g mask="url(#oval-signal-mask)">
                 <g mask="url(#oval-signal-vertical-mask)">
                   <g className="home-oval-drift home-dots-swap" key={signalImage}>
-                    <g className="home-dots-inner"><BubbleReveal opening={opening}>
+                    <g className="home-dots-inner"><BubbleReveal opening={opening} original={signalImage === ovalSignal}>
                   <g transform="translate(972 0) scale(-1 1)">
                     <g opacity=".3" style={{ mixBlendMode: 'multiply' }}>
                       <image href={signalImage} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" filter="url(#oval-cast-shadow)" />

@@ -441,3 +441,8 @@
 @media (prefers-reduced-motion: reduce) {
   .home-page .home-dots-swap > * { animation: none; }
 }
+
+/* Non-blue figures arrive with a soft fade while the bubbles of the blue theme pop in. */
+.home-page[data-opening="true"] .home-dots-arrive {
+  animation: home-arrive 1100ms ease-out 600ms backwards;
+}

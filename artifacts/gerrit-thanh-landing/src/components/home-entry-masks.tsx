@@ -28,6 +28,10 @@ export const EntryDefs: FC = () => (
   </>
 );
 
-export const BubbleReveal: FC<{ opening: boolean; children: ReactNode }> = ({ opening, children }) => (
-  <g mask={opening ? "url(#entry-bubbles)" : undefined}>{children}</g>
+// The bubble mask is cut from the original ovals, so it only fits the blue theme's figure.
+// Other themes' figures fade in softly at the same moment instead of being cut into pieces.
+export const BubbleReveal: FC<{ opening: boolean; original?: boolean; children: ReactNode }> = ({ opening, original = true, children }) => (
+  opening && !original
+    ? <g className="home-dots-arrive">{children}</g>
+    : <g mask={opening ? "url(#entry-bubbles)" : undefined}>{children}</g>
 );
