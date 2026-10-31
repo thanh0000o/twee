@@ -381,7 +381,7 @@
   animation: home-dots-flow 16s ease-in-out infinite;
 }
 .home-page[data-palette="violet"] .home-oval-drift {
-  transform-origin: 649px 321px;
+  transform-origin: 544px 323px;
   animation: home-dots-spin 48s linear infinite;
 }
 .home-page[data-palette="rose"] .home-oval-drift {
