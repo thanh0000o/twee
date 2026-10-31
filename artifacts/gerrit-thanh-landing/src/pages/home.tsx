@@ -92,14 +92,14 @@ export const Home: FC = () => {
               {/* Lower resolution: sample the panel in small blocks and reduce the number of colours. */}
               <filter id="home-lowres" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" x="212" y="111" width="631" height="354" colorInterpolationFilters="sRGB">
                 <feFlood x="213" y="112" width="1" height="1" floodColor="#000" result="dot" />
-                <feComposite in="dot" in2="dot" operator="over" x="212" y="111" width="1.9" height="1.9" result="cell" />
+                <feComposite in="dot" in2="dot" operator="over" x="212" y="111" width="1.5" height="1.5" result="cell" />
                 <feTile in="cell" result="grid" />
                 <feComposite in="SourceGraphic" in2="grid" operator="in" result="sampled" />
-                <feMorphology in="sampled" operator="dilate" radius=".95" result="blocks" />
+                <feMorphology in="sampled" operator="dilate" radius=".75" result="blocks" />
                 <feComponentTransfer in="blocks">
-                  <feFuncR type="discrete" tableValues="0 0.043 0.087 0.130 0.174 0.217 0.261 0.304 0.348 0.391 0.435 0.478 0.522 0.565 0.609 0.652 0.696 0.739 0.783 0.826 0.870 0.913 0.957 1" />
-                  <feFuncG type="discrete" tableValues="0 0.043 0.087 0.130 0.174 0.217 0.261 0.304 0.348 0.391 0.435 0.478 0.522 0.565 0.609 0.652 0.696 0.739 0.783 0.826 0.870 0.913 0.957 1" />
-                  <feFuncB type="discrete" tableValues="0 0.043 0.087 0.130 0.174 0.217 0.261 0.304 0.348 0.391 0.435 0.478 0.522 0.565 0.609 0.652 0.696 0.739 0.783 0.826 0.870 0.913 0.957 1" />
+                  <feFuncR type="discrete" tableValues="0 0.032 0.065 0.097 0.129 0.161 0.194 0.226 0.258 0.290 0.323 0.355 0.387 0.419 0.452 0.484 0.516 0.548 0.581 0.613 0.645 0.677 0.710 0.742 0.774 0.806 0.839 0.871 0.903 0.935 0.968 1" />
+                  <feFuncG type="discrete" tableValues="0 0.032 0.065 0.097 0.129 0.161 0.194 0.226 0.258 0.290 0.323 0.355 0.387 0.419 0.452 0.484 0.516 0.548 0.581 0.613 0.645 0.677 0.710 0.742 0.774 0.806 0.839 0.871 0.903 0.935 0.968 1" />
+                  <feFuncB type="discrete" tableValues="0 0.032 0.065 0.097 0.129 0.161 0.194 0.226 0.258 0.290 0.323 0.355 0.387 0.419 0.452 0.484 0.516 0.548 0.581 0.613 0.645 0.677 0.710 0.742 0.774 0.806 0.839 0.871 0.903 0.935 0.968 1" />
                 </feComponentTransfer>
               </filter>
               <linearGradient id="home-scan-band" x1="0" y1="0" x2="0" y2="1">
