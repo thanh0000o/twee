@@ -381,8 +381,8 @@
   animation: home-dots-flow 16s ease-in-out infinite;
 }
 .home-page[data-palette="violet"] .home-oval-drift {
-  transform-origin: 544px 323px;
-  animation: home-dots-spin 48s linear infinite;
+  transform-origin: 334px 371px;
+  animation: home-dots-vortex 14s ease-in-out infinite;
 }
 .home-page[data-palette="rose"] .home-oval-drift {
   transform-origin: 630px 316px;
@@ -408,6 +408,12 @@
 @keyframes home-dots-spin {
   from { transform: scale(1.75, 1) rotate(0deg) scale(.5714, 1); }
   to { transform: scale(1.75, 1) rotate(-360deg) scale(.5714, 1); }
+}
+
+/* The spiral is a close-up of a vortex: it sways a little around its eye and slowly draws in and out. */
+@keyframes home-dots-vortex {
+  0%, 100% { transform: scale(1.45, 1) rotate(-5deg) scale(.69, 1) scale(1); }
+  50% { transform: scale(1.45, 1) rotate(5deg) scale(.69, 1) scale(1.06); }
 }
 
 /* The burst turns slowly without ever stopping (outer layer) and breathes in and out (inner layer). */
