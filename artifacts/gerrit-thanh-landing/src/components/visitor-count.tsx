@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import { getVisitorCount, recordVisitor } from '@workspace/api-client-react';
 
-export function VisitorCount() {
+/**
+ * Keeps the live visitor total up to date and registers this visit.
+ * "hidden" only counts (landing page); "counter" shows an old-school hit counter (blog page).
+ */
+export function VisitorCount({ variant = 'inline' }: { variant?: 'inline' | 'counter' | 'hidden' } = {}) {
   const [count, setCount] = useState<number | null>(null);
   const [unavailable, setUnavailable] = useState(false);
 
@@ -70,6 +74,18 @@ export function VisitorCount() {
     };
   }, []);
 
+  if (variant === 'hidden') return null;
+  if (variant === 'counter') {
+    const digits = unavailable || count === null ? '------' : String(count).padStart(6, '0');
+    return (
+      <p className="hit-counter" title="An estimate of unique visitors since the site went live, not a verified count of people.">
+        <span className="hit-counter-label">you are visitor no.</span>
+        <span className="hit-counter-digits" aria-label={unavailable || count === null ? 'visitor count loading' : `${count} visitors`}>
+          {digits.split('').map((digit, index) => <span key={index} className="hit-counter-digit" aria-hidden="true">{digit}</span>)}
+        </span>
+      </p>
+    );
+  }
   return (
     <span className="home-visitor-count" title="Corrected total: 116, plus new IP addresses after activity on the live site. Previews and recognised bots are excluded. This is an estimate, not a verified count of people.">
       <span className="home-nav-sphere home-nav-sphere-green home-control-sphere" aria-hidden="true" />

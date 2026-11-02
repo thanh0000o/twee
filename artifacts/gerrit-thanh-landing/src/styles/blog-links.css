@@ -492,3 +492,26 @@ main.ed .blog-post-lang-note {
   color: var(--ed-ink);
   opacity: .75;
 }
+
+/* Old-school hit counter under the guestbook: little black digit boxes, like 2001. */
+.hit-counter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+  margin: 10px 0 0;
+  font-family: var(--font-micro);
+  font-size: 11px;
+  color: #333;
+}
+.hit-counter-digits { display: inline-flex; gap: 1px; padding: 1px; background: #888; }
+.hit-counter-digit {
+  display: inline-block;
+  min-width: 1.05em;
+  padding: 2px 0 1px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+  background: linear-gradient(to bottom, #3a3a3a 0%, #111 48%, #000 52%, #1c1c1c 100%);
+  text-shadow: 0 0 3px rgba(255, 255, 255, .35);
+}

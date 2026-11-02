@@ -6,6 +6,7 @@ import { getPaletteLinkColor } from '../palette';
 import { BlogFavourites } from '../components/blog-favourites';
 import { RecentlyAddedMusic } from '../components/recently-added-music';
 import { GuestbookChat } from '../components/guestbook-chat';
+import { VisitorCount } from '../components/visitor-count';
 import { sortedPosts, type BlogPost, type PostBlock, type PostParagraph } from '../content/blog-posts';
 import '../styles/editorial.css';
 import '../styles/music.css';
@@ -215,6 +216,7 @@ const BlogPosts: FC<{ posts: BlogPost[] }> = ({ posts }) => {
           <div className="gb-page gb-embedded">
             <GuestbookChat />
           </div>
+          <VisitorCount variant="counter" />
         </section>
       </section>
       <section className="blog-column blog-opinion-column" aria-label="Opinion pieces, favourite links, and recently added music">

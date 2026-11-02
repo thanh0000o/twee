@@ -10,6 +10,7 @@ import { DepthDotPattern } from '../components/depth-dot-pattern';
 import { InkDefs } from '../components/home-ink-masks';
 import { BubbleReveal, EntryDefs } from '../components/home-entry-masks';
 import { CopyParagraph } from '../components/copy-paragraph';
+import { VisitorCount } from '../components/visitor-count';
 import { PALETTES, getSavedPaletteIndex, savePaletteIndex, getPaletteLinkColor } from '../palette';
 import '../styles/home-motion.css';
 
@@ -520,6 +521,7 @@ export const Home: FC = () => {
 
         </div>
       </div>
+      <VisitorCount variant="hidden" />
     </div>
   );
 };
