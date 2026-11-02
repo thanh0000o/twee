@@ -270,8 +270,7 @@ export const BlogLinks: FC = () => {
       <div className="blog-links-intro-row">
         <article className="ed-col" aria-label="Welcome" data-testid="blog-links-welcome">
           <p>
-            Welcome to blog+links, a little space for site updates, opinion pieces, favourite
-            websites and the records I added lately. Leave a note in the guestbook while you're here.
+            welcome to my blog
           </p>
         </article>
       </div>
