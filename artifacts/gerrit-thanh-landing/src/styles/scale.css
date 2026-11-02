@@ -68,3 +68,18 @@
 /* Works carousel and legacy works pages */
 :root body .works-page { font-size: var(--ui-body); }
 :root body .works-viewer-panel { font-size: var(--ui-fs); }
+
+/* Blog+links keeps the compact size of a ~1180px window on every screen, like a fixed-width
+   site from around 2000: on big screens it stays one block in the middle instead of spreading out. */
+:root body main.ed.blog-links-page {
+  --ui-fs: clamp(12px, calc(6px + .3vw + .3vh), 13.5px);
+  --ui-px: calc(var(--ui-fs) / 12);
+  --ui-edge: clamp(16px, calc(10px + .45vw), 18px);
+  --ui-pad: var(--ui-edge);
+  --ed-fs: var(--ui-fs);
+  --ed-pad: var(--ui-pad);
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+}
+:root body main.ed.blog-links-page .subpage-header { font-size: var(--ui-fs); }
