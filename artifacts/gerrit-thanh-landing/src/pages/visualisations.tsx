@@ -225,7 +225,16 @@ import img219 from '@/assets/visualisations/219.webp';
 import img220 from '@/assets/visualisations/220.webp';
 import img221 from '@/assets/visualisations/221.webp';
 import img222 from '@/assets/visualisations/222.webp';
-import img223 from '@/assets/visualisations/223.webp';
+import img224 from '@/assets/visualisations/224.webp';
+import img225 from '@/assets/visualisations/225.webp';
+import img226 from '@/assets/visualisations/226.webp';
+import img227 from '@/assets/visualisations/227.webp';
+import img228 from '@/assets/visualisations/228.webp';
+import img229 from '@/assets/visualisations/229.webp';
+import img230 from '@/assets/visualisations/230.webp';
+import img231 from '@/assets/visualisations/231.webp';
+import img232 from '@/assets/visualisations/232.webp';
+import img233 from '@/assets/visualisations/233.webp';
 
 const visualisationSources = [
   img1, img2, img3, img4, img5, img6, img7, img8, img9, img10,
@@ -251,11 +260,14 @@ const visualisationSources = [
   img191, img192, img193, img194, img195, img196, img197, img198, img199,
   img200, img201, img202, img203, img204, img205, img206, img207, img208,
   img209, img210, img211, img212, img213, img214, img215, img216, img217,
-  img218, img219, img220, img221
+  img218, img219, img220, img221,
+  // One trip (bunkers, a bridge, fields): spread through the page by the shuffle below.
+  img224, img225, img226, img227, img228, img229, img230, img231, img232, img233
 ];
 
 const FIXED_PREFIX_COUNT = 30;
-const OPENING_IMAGES = [img222, img223];
+const OPENING_IMAGES = [img16, img23, img22, img222];
+const openingSet = new Set(OPENING_IMAGES);
 
 function seededShuffle(items: readonly string[], seed: number): string[] {
   const shuffled = [...items];
@@ -275,7 +287,7 @@ function seededShuffle(items: readonly string[], seed: number): string[] {
 
 const allVisualisations = [
   ...OPENING_IMAGES,
-  ...visualisationSources.slice(0, FIXED_PREFIX_COUNT),
+  ...visualisationSources.slice(0, FIXED_PREFIX_COUNT).filter((src) => !openingSet.has(src)),
   ...seededShuffle(visualisationSources.slice(FIXED_PREFIX_COUNT), 0x51a7e),
 ];
 

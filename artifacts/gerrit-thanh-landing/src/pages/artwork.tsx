@@ -79,6 +79,7 @@ import img73 from '@/assets/artwork/73.jpg';
 import img74 from '@/assets/artwork/74.jpg';
 import img75 from '@/assets/artwork/75.jpg';
 import img76 from '@/assets/artwork/76.jpg';
+import img77 from '@/assets/artwork/77.webp';
 import video1 from '@/assets/artwork/videos/01.mp4';
 import video2 from '@/assets/artwork/videos/02.mp4';
 import video3 from '@/assets/artwork/videos/03.mp4';
@@ -135,12 +136,14 @@ const mixedArtwork = [...shuffledArtwork, ...videoArtwork]
 const removedArtwork = new Set([img9, img56, img69]);
 const topArtwork = [img76, img6, video1, video7, img15, video2, img16, video5, video4];
 const topArtworkSet = new Set(topArtwork);
-const allArtwork = [
+const orderedArtwork = [
   ...topArtwork,
   ...[...featuredArtwork, ...mixedArtwork].filter(
     (src) => !removedArtwork.has(src) && !topArtworkSet.has(src),
   ),
 ];
+// Moved over from visualisations: one scroll down, at the start of the second row of pieces.
+const allArtwork = [...orderedArtwork.slice(0, 10), img77, ...orderedArtwork.slice(10)];
 const VIDEO_ARTWORK = new Set(videoArtwork);
 
 const CHUNK_SIZE = 10;
