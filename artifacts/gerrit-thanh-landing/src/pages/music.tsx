@@ -75,6 +75,12 @@ export const Music: FC = () => {
           kinds of music, especially my dad. Through my teens and into my twenties, I kept
           exploring SoundCloud and YouTube, looking for new sounds and niche discoveries.
         </p>
+        <p>
+          The records play on a{' '}
+          <a className="music-link" href="https://www.radiomuseum.org/r/sony_compact_hifi_stereo_system_lbt_d305_hst_d305_ps_lx46.html" target="_blank" rel="noopener noreferrer" data-testid="link-sound-system">Sony LBT-D305</a>
+          {' '}that my dad gave me, a compact hi-fi set from around 1990 with a PS-LX46P
+          turntable, a double cassette deck and a seven-band equalizer.
+        </p>
       </section>
 
       {isLoading && (
