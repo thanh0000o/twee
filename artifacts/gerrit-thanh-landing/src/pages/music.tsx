@@ -5,6 +5,7 @@ import { getMusicCollection } from '@workspace/api-client-react';
 import { BlogReturnLink } from '../components/blog-return-link';
 import { useSavedPalette } from '../hooks/use-saved-palette';
 import { orderMusicCollection } from '../lib/music-groups';
+import { availableGenres, viewRecords, VIEWS, type MusicView } from '../lib/music-filter';
 import { loadCompleteMusicCollection } from '../lib/load-music-collection';
 import { correctMusicRecord, musicCover } from '../lib/music-cover';
 import '../styles/editorial.css';
@@ -38,6 +39,13 @@ export const Music: FC = () => {
     )),
     [data?.records],
   );
+
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [view, setView] = useState<MusicView>('mine');
+  const [genre, setGenre] = useState<string | null>(null);
+  const genres = useMemo(() => availableGenres(orderedRecords), [orderedRecords]);
+  const shownRecords = useMemo(() => viewRecords(orderedRecords, view, genre), [orderedRecords, view, genre]);
+  const filtered = view !== 'mine' || genre !== null;
 
   useEffect(() => {
     const previousTitle = document.title;
@@ -83,6 +91,50 @@ export const Music: FC = () => {
         </p>
       </section>
 
+      {data && data.records.length > 0 && (
+        <section className="music-filter" aria-label="Filter the collection">
+          <div className="music-filter-bar">
+            <button
+              type="button"
+              className="music-filter-toggle"
+              aria-expanded={filterOpen}
+              aria-controls="music-filter-panel"
+              onClick={() => setFilterOpen((open) => !open)}
+            >
+              {filterOpen ? '{close filter}' : '{filter & sort}'}
+            </button>
+            {filtered && (
+              <span className="music-filter-state">
+                {shownRecords.length} of {orderedRecords.length}
+                {' · '}
+                <button type="button" className="music-link" onClick={() => { setView('mine'); setGenre(null); }}>reset</button>
+              </span>
+            )}
+          </div>
+          {filterOpen && (
+            <div className="music-filter-panel" id="music-filter-panel">
+              <div className="music-filter-row" role="group" aria-label="Order">
+                <span className="music-filter-label">order</span>
+                {VIEWS.map((option) => (
+                  <button key={option.id} type="button" aria-pressed={view === option.id} onClick={() => setView(option.id)}>
+                    {`{${option.label}}`}
+                  </button>
+                ))}
+              </div>
+              <div className="music-filter-row" role="group" aria-label="Genre">
+                <span className="music-filter-label">genre</span>
+                <button type="button" aria-pressed={genre === null} onClick={() => setGenre(null)}>{'{all}'}</button>
+                {genres.map((option) => (
+                  <button key={option.id} type="button" aria-pressed={genre === option.id} onClick={() => setGenre(genre === option.id ? null : option.id)}>
+                    {`{${option.label}}`}<span className="music-filter-count">{option.count}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </section>
+      )}
+
       {isLoading && (
         <ul className="music-grid" aria-busy="true" aria-label="Loading collection">
           {Array.from({ length: 12 }, (_, i) => <li key={i} className="music-skel" />)}
@@ -111,7 +163,7 @@ export const Music: FC = () => {
 
       {data && data.records.length > 0 && (
           <ul className="music-grid">
-            {orderedRecords.map((r, index) => (
+            {shownRecords.map((r, index) => (
               <li key={r.id} className="music-card" data-testid={`card-record-${r.id}`}>
                 <a href={r.url} target="_blank" rel="noopener noreferrer" aria-label={`${r.artist} — ${r.title} on Discogs (opens in a new tab)`}>
                   <div className="ed-stage"><Cover src={musicCover(r, import.meta.env.BASE_URL)} alt={`${r.artist} — ${r.title}`} eager={index < 7} /></div>
