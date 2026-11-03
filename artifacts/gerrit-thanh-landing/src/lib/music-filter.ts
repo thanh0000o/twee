@@ -37,6 +37,38 @@ export const availableGenres = (records: MusicRecord[]) =>
     count: records.filter((record) => genresOf(record).includes(genre.id)).length,
   })).filter((genre) => genre.count > 0);
 
+// Bought recently but catalogued on Discogs earlier, so their Discogs order is wrong.
+// They sit at the top of "recently added", in this order.
+const RECENT_PURCHASES: [RegExp, RegExp][] = [
+  [/^various$/i, /^the future sound of jazz\W+vol\W+4$/i],
+  [/^miles davis$/i, /^sketches of spain$/i],
+  [/^maestro$/i, /^blue note trip\W+goin\W+down/i],
+  [/^maestro$/i, /^blue note trip\W+sunset/i],
+  [/^maestro$/i, /^blue note trip\W+saturday night/i],
+  [/^moby$/i, /^animal rights/i],
+  [/^moby$/i, /^i like to score$/i],
+  [/^moby$/i, /^18$/i],
+  [/^lamb$/i, /^between darkness and wonder$/i],
+  [/^lamb$/i, /^what sound$/i],
+  [/^lamb$/i, /^fear of fours$/i],
+  [/^lamb$/i, /^lamb$/i],
+];
+// Anything added to Discogs from Ambient Lounge 7 on goes above that block, newest first.
+const NEW_FROM_ID = 2200755978;
+
+const recentRank = (record: MusicRecord) =>
+  RECENT_PURCHASES.findIndex(([artist, title]) => artist.test(record.artist.trim()) && title.test(record.title.trim()));
+
+const byRecentlyAdded = (a: MusicRecord, b: MusicRecord) => {
+  const aNew = a.id >= NEW_FROM_ID;
+  const bNew = b.id >= NEW_FROM_ID;
+  if (aNew || bNew) return aNew && bNew ? b.id - a.id : aNew ? -1 : 1;
+  const ra = recentRank(a);
+  const rb = recentRank(b);
+  if (ra >= 0 || rb >= 0) return ra >= 0 && rb >= 0 ? ra - rb : ra >= 0 ? -1 : 1;
+  return b.id - a.id;
+};
+
 const collator = new Intl.Collator('en', { numeric: true, sensitivity: 'base' });
 const artistKey = (artist: string) => artist.replace(/^the\s+/i, '');
 
@@ -45,7 +77,7 @@ export const viewRecords = (ordered: MusicRecord[], view: MusicView, genre: stri
   const picked = genre ? ordered.filter((record) => genresOf(record).includes(genre)) : ordered;
   switch (view) {
     // Discogs gives each copy a rising id when it is added, so a higher id means added later.
-    case 'recent': return [...picked].sort((a, b) => b.id - a.id);
+    case 'recent': return [...picked].sort(byRecentlyAdded);
     case 'artist': return [...picked].sort((a, b) => collator.compare(artistKey(a.artist), artistKey(b.artist)) || (a.year || 9999) - (b.year || 9999));
     case 'year': return [...picked].sort((a, b) => (a.year || 9999) - (b.year || 9999) || collator.compare(a.artist, b.artist));
     default: return picked;
