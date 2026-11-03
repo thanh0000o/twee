@@ -2178,8 +2178,15 @@
 }
 .artwork-video-progress:focus-visible { outline: 1px solid #111; outline-offset: 5px; }
 
-.viz-lightbox-close {
+.viz-lightbox-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
   margin-top: 11px;
+}
+
+.viz-lightbox-close {
+  text-decoration: none;
   padding: 1px 3px;
   border: 0;
   background: transparent;

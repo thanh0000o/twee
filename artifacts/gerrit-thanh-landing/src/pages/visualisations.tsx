@@ -402,14 +402,23 @@ export const Visualisations: FC = () => {
               alt={`Visualisation ${activeIndex + 1}`}
               className="viz-lightbox-image"
             />
-            <button
-              type="button"
-              className="viz-lightbox-close"
-              autoFocus
-              onClick={() => setActiveIndex(null)}
-            >
-              {`{close}`}
-            </button>
+            <div className="viz-lightbox-actions">
+              <a
+                className="viz-lightbox-close"
+                href={allVisualisations[activeIndex]}
+                download={`thanh-lambeets-visualisation-${String(activeIndex + 1).padStart(3, '0')}.${allVisualisations[activeIndex].split('?')[0].split('.').pop()}`}
+              >
+                {`{download}`}
+              </a>
+              <button
+                type="button"
+                className="viz-lightbox-close"
+                autoFocus
+                onClick={() => setActiveIndex(null)}
+              >
+                {`{close}`}
+              </button>
+            </div>
           </div>
         </div>
       )}
