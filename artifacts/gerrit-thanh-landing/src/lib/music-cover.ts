@@ -21,6 +21,9 @@ const missingYears: Record<string, number> = {
   'https://www.discogs.com/release/14169973': 1995, // Reno - Graffiti On The Moon (Deepoint)
   'https://www.discogs.com/release/30555439': 1959, // Miles Davis - Porgy And Bess, original album
   'https://www.discogs.com/release/1451897': 1964, // Getz / Gilberto, original album
+  // No source found for these two; best estimates, change them if the sleeve says otherwise.
+  'https://www.discogs.com/release/6004184': 1970, // Chopin, Moguilewsky / Rozhdestvensky LP
+  'https://www.discogs.com/release/11474064': 2005, // Nothing But The Blues, 10 CD box
 };
 
 const withYear = (record: MusicRecord): MusicRecord => {
