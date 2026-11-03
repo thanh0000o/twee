@@ -25,13 +25,56 @@ const clock = (seconds: number) => `${Math.floor(seconds / 60)}:${pad(seconds % 
 
 type Painter = (ctx: CanvasRenderingContext2D, f: Frame, w: number, h: number, peaks: number[]) => void;
 
+/** Mixes a hex colour towards white: the hot core of a neon tube. */
+const lighten = (hex: string, amount: number) => {
+  const n = parseInt(hex.replace('#', '').padEnd(6, '0').slice(0, 6), 16);
+  const mix = (c: number) => Math.round(c + (255 - c) * amount);
+  return `rgb(${mix((n >> 16) & 255)}, ${mix((n >> 8) & 255)}, ${mix(n & 255)})`;
+};
+
 const glowText = (
   ctx: CanvasRenderingContext2D, value: string, x: number, y: number, size: number, color: string,
   lit: boolean, align: CanvasTextAlign = 'left',
 ) => {
   ctx.save();
   ctx.globalAlpha = lit ? 1 : 0.09;
+  if (lit) { ctx.shadowColor = color; ctx.shadowBlur = 9; }
   text(ctx, value, x, y, { size, color, align, spacing: 0.1 });
+  if (lit) {
+    ctx.shadowBlur = 0;
+    ctx.globalAlpha = 0.55;
+    text(ctx, value, x, y, { size, color: lighten(color, 0.65), align, spacing: 0.1 });
+  }
+  ctx.restore();
+};
+
+/** Seven-segment digits with a neon glow and a pale core. */
+const neonDigits = (
+  ctx: CanvasRenderingContext2D, value: string, x: number, y: number, w: number, h: number,
+  color: string, gap: number, ghost: number, on: boolean,
+) => {
+  ctx.save();
+  if (on) { ctx.shadowColor = color; ctx.shadowBlur = 10; }
+  seg7Text(ctx, value, x, y, w, h, color, gap, ghost);
+  ctx.restore();
+  if (!on) return;
+  ctx.save();
+  ctx.globalAlpha = 0.5;
+  seg7Text(ctx, value, x, y, w, h, lighten(color, 0.7), gap, 0);
+  ctx.restore();
+};
+
+/** A lit bar segment: coloured glow with a lighter centre. */
+const neonBar = (ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, color: string) => {
+  ctx.save();
+  ctx.fillStyle = color;
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 8;
+  ctx.fillRect(x, y, w, h);
+  ctx.shadowBlur = 0;
+  ctx.globalAlpha = 0.5;
+  ctx.fillStyle = lighten(color, 0.7);
+  ctx.fillRect(x + w * 0.15, y + h * 0.2, w * 0.7, h * 0.6);
   ctx.restore();
 };
 
@@ -47,10 +90,7 @@ const tuner: Painter = (ctx, f, w) => {
   glowText(ctx, 'STEREO', 16, 4.5, 2, c, active && state.playing);
   glowText(ctx, 'TUNED', 30, 4.5, 2, c, active);
   const digits = freq.toFixed(2).padStart(6, ' ');
-  ctx.save();
-  if (on) { ctx.shadowColor = color; ctx.shadowBlur = 6; }
-  seg7Text(ctx, digits.replace('.', ''), 16, 7, 9, 14, c, 1.6, ghost);
-  ctx.restore();
+  neonDigits(ctx, digits.replace('.', ''), 16, 7, 9, 14, c, 1.6, ghost, on);
   // decimal point between the third and fourth digit
   if (on) {
     ctx.fillStyle = color;
@@ -58,10 +98,7 @@ const tuner: Painter = (ctx, f, w) => {
   }
   glowText(ctx, 'MHz', 70.5, 18.5, 2.6, c, on);
   glowText(ctx, 'PRESET', 82, 4.5, 2, c, on);
-  ctx.save();
-  if (on) { ctx.shadowColor = color; ctx.shadowBlur = 5; }
-  seg7Text(ctx, pad(state.track + 1), 84, 7, 5.5, 9.5, c, 1.1, ghost);
-  ctx.restore();
+  neonDigits(ctx, pad(state.track + 1), 84, 7, 5.5, 9.5, c, 1.1, ghost, on);
   // signal strength
   for (let i = 0; i < 5; i++) {
     const lit = active && (i < 4 || Math.sin(t * 3) > 0);
@@ -125,12 +162,14 @@ const amp: Painter = (ctx, f, w, _h, peaks) => {
       const hot = i >= segs - 5;
       const isPeak = on && Math.round(peaks[row]) === i + 1 && i > 0;
       const isLit = on && (i < lit || isPeak);
-      ctx.save();
-      ctx.fillStyle = hot ? RED : color;
-      ctx.globalAlpha = isLit ? 1 : on ? 0.08 : 0.03;
-      if (isLit) { ctx.shadowColor = ctx.fillStyle; ctx.shadowBlur = 5; }
-      ctx.fillRect(x0 + i * segW, y, segW - 1, 4.4);
-      ctx.restore();
+      if (isLit) neonBar(ctx, x0 + i * segW, y, segW - 1, 4.4, hot ? RED : color);
+      else {
+        ctx.save();
+        ctx.fillStyle = hot ? RED : color;
+        ctx.globalAlpha = on ? 0.08 : 0.03;
+        ctx.fillRect(x0 + i * segW, y, segW - 1, 4.4);
+        ctx.restore();
+      }
     }
   });
   const marks: [string, number][] = [['-30', 0], ['-20', 7], ['-10', 12], ['-5', 15], ['0', 17], ['+3', 20]];
@@ -165,12 +204,14 @@ const eq: Painter = (ctx, f, w, _h, peaks) => {
       const y = 28 - (r + 1) * segH;
       const peak = on && Math.round(peaks[i]) === r + 1 && r > 0;
       const isLit = on && (r < lit || peak);
-      ctx.save();
-      ctx.fillStyle = r >= rows - 2 ? AMBER : color;
-      ctx.globalAlpha = isLit ? 1 : on ? 0.07 : 0.03;
-      if (isLit) { ctx.shadowColor = ctx.fillStyle; ctx.shadowBlur = 5; }
-      ctx.fillRect(x + 1, y + 0.25, colW - 3, segH - 0.5);
-      ctx.restore();
+      if (isLit) neonBar(ctx, x + 1, y + 0.25, colW - 3, segH - 0.5, r >= rows - 2 ? AMBER : color);
+      else {
+        ctx.save();
+        ctx.fillStyle = r >= rows - 2 ? AMBER : color;
+        ctx.globalAlpha = on ? 0.07 : 0.03;
+        ctx.fillRect(x + 1, y + 0.25, colW - 3, segH - 0.5);
+        ctx.restore();
+      }
     }
     glowText(ctx, labels[i], x + colW / 2 - 0.5, 31.6, 1.8, c, on, 'center');
   }
@@ -281,10 +322,7 @@ const tapeMid: Painter = (ctx, f) => {
   glowText(ctx, '▶', 45, 3.5, 2.2, AMBER, running && state.rec);
   glowText(ctx, '● REC', 58.5, 8, 1.9, RED, on && state.rec && Math.sin(t * 5) > -0.2, 'right');
   glowText(ctx, 'COUNTER', 3, 8, 1.7, c, on);
-  ctx.save();
-  if (on) { ctx.shadowColor = color; ctx.shadowBlur = 5; }
-  seg7Text(ctx, pad(Math.floor(time * 1.6) % 1000, 3), 16, 10, 6, 10, c, 1.4, on ? 0.07 : 0.03);
-  ctx.restore();
+  neonDigits(ctx, pad(Math.floor(time * 1.6) % 1000, 3), 16, 10, 6, 10, c, 1.4, on ? 0.07 : 0.03, on);
   glowText(ctx, 'DOLBY', 58.5, 15, 1.8, c, on, 'right');
   glowText(ctx, 'NR', 58.5, 18.5, 1.8, c, on, 'right');
 };
@@ -299,15 +337,16 @@ const cd: Painter = (ctx, f, w) => {
   glowText(ctx, 'MIN', 31, 3.5, 1.8, c, on);
   glowText(ctx, 'SEC', 50, 3.5, 1.8, c, on);
   ctx.save();
-  if (on) { ctx.shadowColor = color; ctx.shadowBlur = 6; }
   if (on && state.trayOpen) {
-    seg7Text(ctx, ' OPEn', 4, 6, 7, 13, c, 1.5, ghost);
+    neonDigits(ctx, ' OPEn', 4, 6, 7, 13, c, 1.5, ghost, on);
   } else {
-    seg7Text(ctx, active ? pad(state.track + 1) : pad(trackCount), 4, 6, 7, 13, c, 1.5, ghost);
+    neonDigits(ctx, active ? pad(state.track + 1) : pad(trackCount), 4, 6, 7, 13, c, 1.5, ghost, on);
     const shown = state.timeMode === 'remain' && state.duration ? Math.max(0, state.duration - time) : time;
     const value = active ? clock(shown).padStart(5, ' ') : on ? '--:--' : '     ';
-    seg7Text(ctx, value.replace(':', ''), 25, 6, 7, 13, c, 1.5, ghost);
+    neonDigits(ctx, value.replace(':', ''), 25, 6, 7, 13, c, 1.5, ghost, on);
     if (on) {
+      ctx.shadowColor = color;
+      ctx.shadowBlur = 8;
       ctx.fillStyle = color;
       ctx.beginPath(); ctx.arc(41.7, 9.8, 0.75, 0, Math.PI * 2); ctx.fill();
       ctx.beginPath(); ctx.arc(41.1, 15.4, 0.75, 0, Math.PI * 2); ctx.fill();
@@ -362,6 +401,7 @@ export const createDisplay = (def: DisplayDef): LiveDisplay => {
   const ctx = canvas.getContext('2d')!;
   const painter = PAINTERS[def.id];
   const peaks: number[] = [];
+  const crt = def.id !== 'tapeA' && def.id !== 'tapeB';
   let last: string | null | undefined;
   return {
     def,
@@ -375,6 +415,27 @@ export const createDisplay = (def: DisplayDef): LiveDisplay => {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.setTransform(def.ppm, 0, 0, def.ppm, 0, 0);
       painter(ctx, frame, def.w, def.h, peaks);
+      if (crt) {
+        // old monitor scan lines and a bit of curved glass
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.42)';
+        const step = Math.max(3, Math.round(def.ppm * 0.62));
+        const line = Math.max(1, Math.round(step * 0.38));
+        for (let yy = 0; yy < canvas.height; yy += step) ctx.fillRect(0, yy, canvas.width, line);
+        const vignette = ctx.createRadialGradient(
+          canvas.width / 2, canvas.height / 2, canvas.height * 0.2,
+          canvas.width / 2, canvas.height / 2, canvas.width * 0.62,
+        );
+        vignette.addColorStop(0, 'rgba(0,0,0,0)');
+        vignette.addColorStop(1, 'rgba(0,0,0,0.45)');
+        ctx.fillStyle = vignette;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        const sheen = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        sheen.addColorStop(0, 'rgba(255,255,255,0.07)');
+        sheen.addColorStop(0.42, 'rgba(255,255,255,0.0)');
+        ctx.fillStyle = sheen;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
       return true;
     },
   };
