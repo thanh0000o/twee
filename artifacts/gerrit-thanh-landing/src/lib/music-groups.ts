@@ -226,6 +226,17 @@ function placeAmbientOne(records: MusicRecord[]): MusicRecord[] {
   return [...rest.slice(0, anchor + 1), ...albums, ...rest.slice(anchor + 1)];
 }
 
+function placeAmbientLounge(records: MusicRecord[]): MusicRecord[] {
+  const isAmbientLounge = (record: MusicRecord) => /^Ambient Lounge\s+7$/i.test(record.title.trim());
+  const albums = records.filter(isAmbientLounge);
+  if (!albums.length) return records;
+  const rest = records.filter(record => !isAmbientLounge(record));
+  // Owner-selected neighbour: right after The Amalgamation Of Soundz.
+  const anchor = rest.findLastIndex(record => artistName(record.artist).toLowerCase() === 'the amalgamation of soundz');
+  if (anchor < 0) return records;
+  return [...rest.slice(0, anchor + 1), ...albums, ...rest.slice(anchor + 1)];
+}
+
 export function orderMusicCollection(records: MusicRecord[]): MusicRecord[] {
   // Group before applying catalogue/genre priority. Mixed-style series such
   // as DJ-Kicks and Freezone must not be split across genre buckets.
@@ -236,7 +247,7 @@ export function orderMusicCollection(records: MusicRecord[]): MusicRecord[] {
     }))
     .sort((a, b) => a.priority - b.priority)
     .flatMap(({ group }) => group.records);
-  const curated = placeAmbientOne(placeSvenVanHees(placeHappyTunes(placeLoungeCluster(ordered))));
+  const curated = placeAmbientLounge(placeAmbientOne(placeSvenVanHees(placeHappyTunes(placeLoungeCluster(ordered)))));
   // Owner-selected placement, not a change to this album's Jazz metadata.
   const soundsOf94 = (record: MusicRecord) => /^Sounds Of\s+['’]?94$/i.test(record.title.trim());
   return [...curated.filter(record => !soundsOf94(record)), ...curated.filter(soundsOf94)];
