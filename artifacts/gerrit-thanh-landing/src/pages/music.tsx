@@ -13,6 +13,11 @@ import '../styles/music.css';
 
 const DEFAULT_COLLECTION = 'https://www.discogs.com/user/Thanh66/collection';
 
+// Releases that are on Discogs by mistake and are not in the owner's real collection.
+const NOT_OWNED = [/^nookie\b.*larry heard/i];
+const owned = (record: { artist: string; title: string }) =>
+  !NOT_OWNED.some((rule) => rule.test(record.artist) && /^paradise$/i.test(record.title.trim()));
+
 const Cover: FC<{ src: string; alt: string; eager: boolean }> = ({ src, alt, eager }) => {
   const [failed, setFailed] = useState(false);
   if (!src || failed) return <span className="music-fallback">No cover</span>;
@@ -34,7 +39,7 @@ export const Music: FC = () => {
   });
   const { data, isLoading, isError, refetch } = query;
   const orderedRecords = useMemo(
-    () => orderMusicCollection((data?.records ?? []).map(
+    () => orderMusicCollection((data?.records ?? []).filter(owned).map(
       record => correctMusicRecord(record, import.meta.env.BASE_URL),
     )),
     [data?.records],
@@ -76,7 +81,7 @@ export const Music: FC = () => {
         <p>
           My record collection, as catalogued on{' '}
           <a className="music-link" href={collectionUrl} target="_blank" rel="noopener noreferrer" data-testid="link-discogs-collection">Discogs</a>
-          {data ? <> — {data.total} {data.total === 1 ? 'release' : 'releases'}.</> : '.'}
+          {data ? <> — {orderedRecords.length} {orderedRecords.length === 1 ? 'release' : 'releases'}.</> : '.'}
         </p>
         <p>
           Collecting music is a passion that started at home. My parents opened my ears to all
