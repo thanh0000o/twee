@@ -12,6 +12,7 @@ export const PALETTE_STORAGE_KEY = 'thanh-landing-palette';
 
 export const getPaletteLinkColor = (name: string) =>
   name === 'rose' ? '#ff8c7e' :
+  name === 'aero' ? '#1aa8e0' :
   name === 'violet' ? '#ff8e98' :
   name === 'blue' ? 'var(--color-accent-red)' :
   '#ff6070';

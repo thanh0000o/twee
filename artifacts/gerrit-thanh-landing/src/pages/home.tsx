@@ -2,7 +2,7 @@ import { type FC, useEffect, useRef, useState } from 'react';
 import { Link } from 'wouter';
 import asset9 from '@assets/Asset_9_1788291702405.png';
 import ovalSignal from '../assets/oval-signal-transparent.png';
-import aeroPanel from '../assets/themes/aero.webp';
+import { AeroDefs, AeroPanel } from '../components/aero-panel';
 import patternWave from '../assets/patterns/wave.webp';
 import patternSpiral from '../assets/patterns/spiral.webp';
 import patternBurst from '../assets/patterns/burst.webp';
@@ -137,6 +137,7 @@ export const Home: FC = () => {
                 <circle cx="2.5" cy="2.5" r="1.35" fill="#397eba" />
               </pattern>
               <DepthDotPattern />
+              {aero && <AeroDefs />}
               {/* Fine horizontal scanlines, like an old screen or a grabbed video frame. */}
               <pattern id="home-scanlines" width="4" height="2.4" patternUnits="userSpaceOnUse">
                 <rect width="4" height="1.1" fill="#ffffff" opacity=".13" />
@@ -296,10 +297,10 @@ export const Home: FC = () => {
             />
             {/* Dreamweaver/Flash-era panel depth, clipped by the exact Illustrator curve */}
             <g className="home-panel-reveal" clipPath="url(#blue-panel-clip)" mask={opening ? "url(#entry-wipe)" : undefined}>
-            <g className="home-gradient-arrival" filter={showLowRes ? 'url(#home-lowres)' : undefined}>
+            <g className="home-gradient-arrival" filter={showLowRes && !aero ? 'url(#home-lowres)' : undefined}>
             {aero ? (
               <>
-                <image href={aeroPanel} x="232" y="131.35" width="591" height="313.2" preserveAspectRatio="xMidYMid slice" />
+                <AeroPanel />
                 <path d="M822.6,444.55H232.67c3.09-40.8,15.1-133.63,74.69-219.93,32.11-46.51,67.41-75.73,93.15-93.27h422.1v313.21Z" fill="none" stroke="#182c48" strokeWidth=".75" />
               </>
             ) : (
