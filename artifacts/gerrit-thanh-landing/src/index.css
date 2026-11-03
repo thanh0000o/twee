@@ -2557,3 +2557,14 @@
   .works-rail { scroll-behavior: auto; }
   .works-rail .works-cover-plate, .works-rail .works-cover-button, .works-dot-sphere { transition: none; }
 }
+
+/* Previous / next arrows in the image viewer, same as the works carousel. */
+.viz-lightbox-arrow {
+  position: fixed;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
+}
+.viz-lightbox-arrow-prev { left: calc(14 * var(--ui-px)); }
+.viz-lightbox-arrow-next { right: calc(14 * var(--ui-px)); }
+.viz-lightbox-arrow svg { width: calc(22 * var(--ui-px)); height: calc(22 * var(--ui-px)); }

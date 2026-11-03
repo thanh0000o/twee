@@ -1,4 +1,4 @@
-import { type FC, useEffect, useState } from 'react';
+import { type CSSProperties, type FC, useEffect, useState } from 'react';
 import { Link } from 'wouter';
 import { BlogReturnLink } from '../components/blog-return-link';
 import { getSavedPaletteFilter } from '../palette';
@@ -335,6 +335,8 @@ export const Visualisations: FC = () => {
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') setActiveIndex(null);
+      if (event.key === 'ArrowLeft') setActiveIndex((current) => current === null ? null : (current - 1 + allVisualisations.length) % allVisualisations.length);
+      if (event.key === 'ArrowRight') setActiveIndex((current) => current === null ? null : (current + 1) % allVisualisations.length);
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -396,6 +398,32 @@ export const Visualisations: FC = () => {
           aria-label={`Visualisation ${activeIndex + 1} of ${allVisualisations.length}`}
           onClick={() => setActiveIndex(null)}
         >
+          <button
+            type="button"
+            className="works-arrow viz-lightbox-arrow viz-lightbox-arrow-prev"
+            style={{ '--nav-works-glow': 'var(--nav-visualisations-glow)', filter: getSavedPaletteFilter() } as CSSProperties}
+            aria-label="Previous"
+            onClick={(event) => { event.stopPropagation(); setActiveIndex((current) => current === null ? null : (current - 1 + allVisualisations.length) % allVisualisations.length); }}
+          >
+            <span aria-hidden="true">
+              <svg viewBox="0 0 18 18" fill="none" stroke="#000" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m11 4-5 5 5 5" />
+              </svg>
+            </span>
+          </button>
+          <button
+            type="button"
+            className="works-arrow viz-lightbox-arrow viz-lightbox-arrow-next"
+            style={{ '--nav-works-glow': 'var(--nav-visualisations-glow)', filter: getSavedPaletteFilter() } as CSSProperties}
+            aria-label="Next"
+            onClick={(event) => { event.stopPropagation(); setActiveIndex((current) => current === null ? null : (current + 1 + allVisualisations.length) % allVisualisations.length); }}
+          >
+            <span aria-hidden="true">
+              <svg viewBox="0 0 18 18" fill="none" stroke="#000" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m7 4 5 5-5 5" />
+              </svg>
+            </span>
+          </button>
           <div className="viz-lightbox-stage" onClick={(event) => event.stopPropagation()}>
             <img
               src={allVisualisations[activeIndex]}
