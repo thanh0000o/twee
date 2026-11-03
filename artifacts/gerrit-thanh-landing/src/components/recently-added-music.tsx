@@ -9,34 +9,34 @@ const COLLECTION_QUERY = {
   per_page: 100,
 };
 
+const normalise = (title: string) => title.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+
 const featuredRecordRules: Array<{ matches: (record: MusicRecord) => boolean }> = [
   {
     matches: record =>
-      record.title.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim() === 'the future sound of jazz vol 3'
+      normalise(record.title) === 'freezone 4 dangerous lullabies'
       && /\bcd\b/i.test(record.format),
   },
   {
     matches: record =>
-      record.title.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim() === 'the future sound of jazz vol 4'
+      normalise(record.title) === 'ambient lounge 7'
+      && /\bcd\b/i.test(record.format),
+  },
+  {
+    matches: record =>
+      normalise(record.title) === 'the future sound of jazz vol 4'
       && /\bcd\b/i.test(record.format),
   },
   {
     matches: record =>
       record.artist.toLowerCase() === 'brian eno'
-      && record.title.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim() === 'ambient 1 music for airports'
+      && normalise(record.title) === 'ambient 1 music for airports'
       && /\b(?:vinyl|lp)\b/i.test(record.format),
   },
   {
     matches: record =>
       record.artist.toLowerCase() === 'maestro'
-      && record.title.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim() === 'blue note trip goin down gettin up'
-      && /\bcd\b/i.test(record.format)
-      && record.labels.some(label => label.trim().toLowerCase() === 'blue note'),
-  },
-  {
-    matches: record =>
-      record.artist.toLowerCase() === 'maestro'
-      && record.title.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim() === 'blue note trip sunset sunrise'
+      && normalise(record.title) === 'blue note trip sunset sunrise'
       && /\bcd\b/i.test(record.format)
       && record.labels.some(label => label.trim().toLowerCase() === 'blue note'),
   },
