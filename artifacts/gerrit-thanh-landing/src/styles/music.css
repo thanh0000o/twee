@@ -35,34 +35,18 @@ main.ed .music-skel { aspect-ratio: 1 / 1; border: 1px solid var(--ed-line); bac
 
 /* filter & sort */
 main.ed .music-filter { max-width: var(--ed-w); margin: 0 auto calc(26 * var(--ui-px)); }
-main.ed .music-filter-bar { display: flex; flex-wrap: wrap; align-items: baseline; gap: calc(14 * var(--ui-px)); }
-main.ed .music-filter-toggle {
-  font: inherit; color: var(--ed-ink); background: #fff; cursor: pointer;
-  border: 1px solid var(--ed-ink); padding: calc(3 * var(--ui-px)) calc(10 * var(--ui-px));
-  box-shadow: 2px 2px 0 var(--ed-ink);
-}
-main.ed .music-filter-toggle { filter: var(--music-filter); }
-main.ed .music-filter-toggle:hover, main.ed .music-filter-toggle:focus-visible,
-main.ed .music-filter-toggle[aria-expanded='true'] {
-  background: var(--nav-music-glow); outline: none;
-  box-shadow: 2px 2px 0 var(--ed-ink), 0 0 6px var(--nav-music-glow);
-}
-main.ed .music-filter-toggle:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--ed-ink); }
-main.ed .music-filter-state { color: var(--ed-mute); }
-main.ed .music-filter-panel {
-  display: flex; flex-direction: column; gap: calc(8 * var(--ui-px));
-  margin-top: calc(12 * var(--ui-px)); padding-top: calc(10 * var(--ui-px));
-  border-top: 1px solid var(--ed-line);
-}
+main.ed .music-filter-state { color: var(--ed-mute); margin: 0 0 calc(8 * var(--ui-px)); }
+main.ed .music-filter-panel { display: flex; flex-direction: column; gap: calc(8 * var(--ui-px)); }
 main.ed .music-filter-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: calc(4 * var(--ui-px)) calc(12 * var(--ui-px)); }
 main.ed .music-filter-label { color: var(--ed-mute); min-width: 5ch; }
 main.ed .music-filter-row button {
-  font: inherit; color: var(--ed-ink); background: none; border: 0; padding: 0 1px; cursor: pointer;
-  filter: var(--music-filter);
+  font: inherit; color: var(--ed-ink); background: none; border: 0; padding: 0; cursor: pointer; outline: none;
 }
-/* same soft glow as the other links on the site */
-main.ed .music-filter-row button:hover, main.ed .music-filter-row button:focus-visible {
-  background: var(--nav-music-glow); box-shadow: 0 0 4px var(--nav-music-glow); outline: none;
+/* same glow as {return home}: it sits on the label, the button itself stays plain */
+main.ed .music-filter-title { padding: 0 1px; filter: var(--music-filter); }
+main.ed .music-filter-row button:hover .music-filter-title,
+main.ed .music-filter-row button:focus-visible .music-filter-title {
+  background: var(--nav-music-glow); box-shadow: 0 0 4px var(--nav-music-glow);
 }
-main.ed .music-filter-row button[aria-pressed='true'] { text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+main.ed .music-filter-row button[aria-pressed='true'] .music-filter-title { text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
 main.ed .music-filter-count { color: var(--ed-mute); margin-left: .35em; font-size: .85em; }
