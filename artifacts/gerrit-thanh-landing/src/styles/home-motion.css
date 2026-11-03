@@ -456,3 +456,95 @@
 /* The colour button on the curve arrives with the menu during the intro. */
 .home-page .home-nav-link-colors { --nav-cue-delay: 1030ms; --nav-light-delay: 1580ms; padding: 0; border: 0; background: none; }
 
+
+/* ---------- Theme aero: Frutiger Aero glass ---------- */
+.home-page[data-palette="aero"] {
+  --aero-ink: #0b3d6e;
+  --aero-aqua: #1aa6e6;
+  --home-nav-accent: var(--aero-ink);
+  --home-nav-hover-ink: var(--aero-ink);
+}
+
+/* welcome.: glossy aqua glass letters with a white rim and a soft halo */
+.home-page[data-palette="aero"] .welcome-face {
+  background-image:
+    repeating-linear-gradient(180deg, rgba(255, 255, 255, 0) 0 calc(1.4 * var(--u)), rgba(255, 255, 255, .45) calc(1.4 * var(--u)) calc(2 * var(--u))),
+    linear-gradient(180deg, #e9fbff 0%, #7fd8ff 30%, #1c9be0 50%, #0a5ea8 76%, #2aa8ea 100%);
+  filter:
+    drop-shadow(0 0 calc(.7 * var(--u)) rgba(255, 255, 255, 1))
+    drop-shadow(0 0 calc(.4 * var(--u)) rgba(255, 255, 255, 1))
+    drop-shadow(0 calc(1.2 * var(--u)) calc(1.6 * var(--u)) rgba(0, 60, 130, .5))
+    drop-shadow(0 0 calc(6 * var(--u)) rgba(130, 220, 255, .8));
+}
+.home-page[data-palette="aero"] .welcome-trail {
+  text-shadow:
+    calc(-26 * var(--u)) 0 calc(10 * var(--u)) rgba(255, 255, 255, .7),
+    calc(-11 * var(--u)) 0 calc(4.5 * var(--u)) rgba(140, 220, 255, .7);
+}
+
+/* body text: deep blue ink with a white glow, and the screen lines run through it */
+.home-page[data-palette="aero"] .center-copy {
+  --color-accent-red: #0a8fd6;
+  color: var(--aero-ink) !important;
+  text-shadow: none;
+}
+.home-page[data-palette="aero"] .center-copy > div:first-child > div:last-child {
+  background-image: linear-gradient(to right, rgba(11, 61, 110, .45), transparent) !important;
+}
+.home-page[data-palette="aero"] .home-copy-body {
+  background-image: repeating-linear-gradient(180deg,
+    var(--aero-ink) 0 calc(1.5 * var(--u)),
+    rgba(11, 61, 110, .62) calc(1.5 * var(--u)) calc(2.2 * var(--u)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  filter:
+    drop-shadow(0 0 calc(1.2 * var(--u)) rgba(255, 255, 255, .95))
+    drop-shadow(0 0 calc(4 * var(--u)) rgba(255, 255, 255, .7));
+}
+.home-page[data-palette="aero"] .home-copy-body span { -webkit-text-fill-color: #0a8fd6; }
+.home-page[data-palette="aero"] .home-copy-body p > svg { opacity: .5; }
+
+/* nav labels: small glass capsules you can see the lines through */
+.home-page[data-palette="aero"] .home-nav-title {
+  color: var(--aero-ink);
+  text-decoration: none;
+  text-shadow: 0 calc(.5 * var(--u)) 0 rgba(255, 255, 255, .9);
+  padding: calc(.6 * var(--u)) calc(5 * var(--u)) calc(.9 * var(--u));
+  border-radius: calc(20 * var(--u)) !important;
+  border: calc(.5 * var(--u)) solid rgba(255, 255, 255, .95);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .85) 0%, rgba(255, 255, 255, .35) 48%, rgba(255, 255, 255, .06) 52%, rgba(160, 225, 255, .35) 100%),
+    repeating-linear-gradient(180deg, rgba(255, 255, 255, .0) 0 calc(1.4 * var(--u)), rgba(0, 60, 120, .07) calc(1.4 * var(--u)) calc(2.2 * var(--u)));
+  box-shadow:
+    0 calc(.8 * var(--u)) calc(2.4 * var(--u)) rgba(0, 70, 140, .22),
+    inset 0 calc(-.8 * var(--u)) calc(1.6 * var(--u)) rgba(80, 190, 240, .35),
+    0 0 calc(5 * var(--u)) rgba(255, 255, 255, .6);
+  -webkit-backdrop-filter: blur(calc(1.5 * var(--u)));
+  backdrop-filter: blur(calc(1.5 * var(--u)));
+}
+.home-page[data-palette="aero"] .home-nav-link:is(:hover, :focus-visible) .home-nav-title {
+  color: #003056;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .95) 0%, rgba(220, 248, 255, .7) 48%, rgba(120, 215, 255, .55) 52%, rgba(90, 205, 255, .8) 100%);
+  box-shadow:
+    0 0 calc(8 * var(--u)) rgba(120, 215, 255, .95),
+    0 0 calc(3 * var(--u)) rgba(255, 255, 255, 1),
+    inset 0 calc(-.8 * var(--u)) calc(1.6 * var(--u)) rgba(40, 160, 230, .5);
+  text-shadow: 0 calc(.5 * var(--u)) 0 rgba(255, 255, 255, .9);
+}
+
+/* the spheres turn into aqua glass marbles */
+.home-page[data-palette="aero"] .home-nav-sphere {
+  --sphere-light: #ffffff;
+  --sphere-color: #46c4f4;
+  --sphere-shade: #0b6fb5;
+  box-shadow:
+    inset calc(-1 * var(--u)) calc(-2 * var(--u)) calc(2 * var(--u)) rgba(0, 60, 130, .3),
+    0 0 calc(5 * var(--u)) rgba(120, 215, 255, .9);
+}
+.home-page[data-palette="aero"] .nav-orb {
+  filter: invert(.62) sepia(1) saturate(6) hue-rotate(165deg) brightness(1.15) drop-shadow(0 0 calc(4 * var(--u)) rgba(120, 215, 255, .9)) !important;
+}
+.home-page[data-palette="aero"] .home-marker-red { fill: #29b6f0; filter: drop-shadow(0 0 3px rgba(120, 215, 255, .9)); }
