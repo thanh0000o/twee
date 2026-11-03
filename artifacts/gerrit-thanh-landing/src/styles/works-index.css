@@ -260,8 +260,7 @@ main.ed .wi-preview-card:has(img)::after {
   main.ed .wi-preview-card:has(img)::after { animation: none; }
 }
 
-/* Flash-site touches: a ruled header like the landing page, rows that build in one by one,
-   and a glossy light that runs over the row you point at. */
+/* Flash-site touches: a ruled header like the landing page and a glossy light that runs over the row you point at. */
 main.ed .wi-intro.wi-ruled {
   grid-column: 1 / -1;
   margin-top: 0;
@@ -275,23 +274,10 @@ main.ed .wi-intro.wi-ruled {
 main.ed .wi-intro.wi-ruled p { max-width: none; }
 main.ed .wi-count { font-variant-numeric: tabular-nums; }
 
-main.ed .wi-intro.wi-ruled {
-  animation: wi-rule-in 900ms cubic-bezier(.3,.55,.2,1) both;
-}
-@keyframes wi-rule-in {
-  from { clip-path: inset(0 100% 0 0); }
-  to { clip-path: inset(0 0 0 0); }
-}
-main.ed .wi-head { animation: wi-row-in 600ms ease-out 350ms both; }
+/* The page opens static; only hovering a work moves. */
 main.ed .wi-rows > li > .wi-row {
   position: relative;
   overflow: hidden;
-  animation: wi-row-in 650ms cubic-bezier(.2,.65,.25,1) both;
-  animation-delay: calc(450ms + var(--row) * 70ms);
-}
-@keyframes wi-row-in {
-  from { opacity: 0; transform: translateX(-10px); filter: blur(2px); }
-  to { opacity: 1; transform: none; filter: blur(0); }
 }
 
 /* The number lights up in the project's own colour. */
@@ -318,6 +304,5 @@ main.ed .wi-rows > li > .wi-row[data-active]::after {
   main.ed .wi-intro.wi-ruled { flex-direction: row; display: flex; }
 }
 @media (prefers-reduced-motion: reduce) {
-  main.ed .wi-intro.wi-ruled, main.ed .wi-head, main.ed .wi-rows > li > .wi-row { animation: none; }
   main.ed .wi-rows > li > .wi-row[data-active]::after { animation: none; }
 }

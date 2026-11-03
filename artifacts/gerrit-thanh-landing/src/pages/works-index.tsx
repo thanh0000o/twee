@@ -87,7 +87,7 @@ export const WorksIndex: FC = () => {
           {works.map((work, index) => {
             const { name } = workTitleParts(work.title);
             return (
-              <li key={work.cover.file} style={{ '--row': index } as CSSProperties}>
+              <li key={work.cover.file}>
                 {workLink(index, <>
                   <span className="wi-number" style={{ '--dot': work.accent } as CSSProperties}>{number(index)}</span>
                   <span className="wi-name">
