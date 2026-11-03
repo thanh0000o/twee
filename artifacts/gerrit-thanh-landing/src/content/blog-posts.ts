@@ -80,7 +80,6 @@ export const BLOG_POSTS: BlogPost[] = [
         ' also pointed out that in the same conversation Verhaeghe said sick people are "not all really sick" and called paternity leave not essential for creating wealth. He also linked how much someone pays to how much they should count. In a democracy every vote weighs the same, whatever you contribute.',
       ],
       { heading: 'where I stand' },
-      ["I still want a fairer split of the load, even now that I understand the other side better."],
       ["We live in a capitalist society, and that's fine in itself. But not everyone gets the chance to start a business, and not everyone wants to. Most people just want a decent life, with a steady job and some breathing room at the end of the month. A society has to work for them too, even if they never start a business."],
       ["That idea is basically what Belgian social security is built on. Those who are stronger carry more, so those who are weaker don't fall. Anyone who succeeds also owes that to what society around them makes possible: education, roads, healthy workers, legal certainty."],
       ["So I think it's a shame that the bill now threatens to land mostly on ordinary workers and sick people, while setups like management companies and an ever wider flexi-job system leave contributions on the table. Someone doing exactly the same work next to a flexi-jobber does pay full tax. That doesn't feel fair."],
