@@ -68,12 +68,14 @@ export const WorksIndex: FC = () => {
         <h1>{'{works}'}</h1>
       </header>
 
-      <section className="wi-intro" aria-label="About this index">
-        <p>Selected work by Thành Lambeets</p>
-      </section>
 
       <section className="wi-table" aria-labelledby="wi-table-title">
         <h2 id="wi-table-title" className="visually-hidden">Projects</h2>
+        {/* A header rule like the landing page, exactly as wide as the table. */}
+        <div className="wi-intro wi-ruled">
+          <p>{'{selected work by thành lambeets}'}</p>
+          <p className="wi-count">{`{${works.length} projects}`}</p>
+        </div>
         <div className="wi-row wi-head" aria-hidden="true">
           <span>{'{no.}'}</span>
           <span>{'{project}'}</span>
@@ -85,9 +87,9 @@ export const WorksIndex: FC = () => {
           {works.map((work, index) => {
             const { name } = workTitleParts(work.title);
             return (
-              <li key={work.cover.file}>
+              <li key={work.cover.file} style={{ '--row': index } as CSSProperties}>
                 {workLink(index, <>
-                  <span className="wi-number">{number(index)}</span>
+                  <span className="wi-number" style={{ '--dot': work.accent } as CSSProperties}>{number(index)}</span>
                   <span className="wi-name">
                     <span className="wi-sphere" style={{ '--dot': work.accent } as CSSProperties} aria-hidden="true" />
                     <span className="wi-title">{name}</span>

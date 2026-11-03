@@ -206,7 +206,7 @@ main.ed .wi-preview-dot {
   main.ed .wi-rows > li { display: block; }
   main.ed .wi-row {
     padding: calc(5 * var(--ui-px)) 0;
-    grid-template-columns: 2.4em minmax(0, 1fr) auto;
+    grid-template-columns: 3.4em minmax(0, 1fr) auto;
     grid-template-areas: "num name year" ". kind kind";
     row-gap: 2px;
   }
@@ -258,4 +258,66 @@ main.ed .wi-preview-card:has(img)::after {
 }
 @media (prefers-reduced-motion: reduce) {
   main.ed .wi-preview-card:has(img)::after { animation: none; }
+}
+
+/* Flash-site touches: a ruled header like the landing page, rows that build in one by one,
+   and a glossy light that runs over the row you point at. */
+main.ed .wi-intro.wi-ruled {
+  grid-column: 1 / -1;
+  margin-top: 0;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: calc(6 * var(--ui-px));
+  border-bottom: 1px solid var(--ed-ink);
+  margin-bottom: calc(18 * var(--ui-px));
+}
+main.ed .wi-intro.wi-ruled p { max-width: none; }
+main.ed .wi-count { font-variant-numeric: tabular-nums; }
+
+main.ed .wi-intro.wi-ruled {
+  animation: wi-rule-in 900ms cubic-bezier(.3,.55,.2,1) both;
+}
+@keyframes wi-rule-in {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+main.ed .wi-head { animation: wi-row-in 600ms ease-out 350ms both; }
+main.ed .wi-rows > li > .wi-row {
+  position: relative;
+  overflow: hidden;
+  animation: wi-row-in 650ms cubic-bezier(.2,.65,.25,1) both;
+  animation-delay: calc(450ms + var(--row) * 70ms);
+}
+@keyframes wi-row-in {
+  from { opacity: 0; transform: translateX(-10px); filter: blur(2px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+
+/* The number lights up in the project's own colour. */
+main.ed .wi-number { transition: color 200ms ease-out; }
+main.ed.works-text-index[data-hovering] .wi-row[data-active] > .wi-number { color: var(--dot); }
+
+/* A soft glass shine sweeps across the hovered row once. */
+main.ed .wi-rows > li > .wi-row::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,0) 35%, rgba(255,255,255,.85) 50%, rgba(255,255,255,0) 65%, transparent 100%);
+  transform: translateX(-100%);
+}
+main.ed .wi-rows > li > .wi-row[data-active]::after {
+  animation: wi-shine 700ms ease-out;
+}
+@keyframes wi-shine {
+  to { transform: translateX(100%); }
+}
+
+@media (max-width: 620px) {
+  main.ed .wi-intro.wi-ruled { flex-direction: row; display: flex; }
+}
+@media (prefers-reduced-motion: reduce) {
+  main.ed .wi-intro.wi-ruled, main.ed .wi-head, main.ed .wi-rows > li > .wi-row { animation: none; }
+  main.ed .wi-rows > li > .wi-row[data-active]::after { animation: none; }
 }
