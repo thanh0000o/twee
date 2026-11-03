@@ -374,9 +374,8 @@ export const Home: FC = () => {
 
             {showScanlines && (
               <g className="home-scan" clipPath="url(#blue-panel-clip)" pointerEvents="none" aria-hidden="true">
-                {/* The lines crawl down one step at a time and a soft bright band rolls over the screen. */}
+                {/* The lines crawl down one step at a time. */}
                 <rect className="home-scan-lines" x="232" y="126" width="591" height="324" fill="url(#home-scanlines)" />
-                <rect className="home-scan-band" x="232" y="60" width="591" height="46" fill="url(#home-scan-band)" />
               </g>
             )}
 
@@ -487,7 +486,7 @@ export const Home: FC = () => {
               aria-label={`Change colors. Now ${palette.name}, next ${nextPalette.name}.`}>
               <div className="absolute whitespace-nowrap transition-none cursor-pointer"
                    style={{ left: 'calc(132.6 * var(--u))', top: 'calc(261.13 * var(--u))', width: 'calc(140 * var(--u))', textAlign: 'right', transform: 'translateY(-75%) scaleX(1.55)', transformOrigin: 'right top', color: 'var(--color-border)', fontSize: 'calc(10.5 * var(--u))', letterSpacing: 'calc(.7 * var(--u))', fontFamily: 'var(--font-micro)' }}>
-                <span className="home-nav-title" aria-live="polite">{`{colors: ${palette.name}}`}</span>
+                <span className="home-nav-title" aria-live="polite">{`{${palette.name}}`}</span>
               </div>
               {/* A glossy sphere in the theme's own colour: the palette filter on this layer tints it. */}
               <span className="home-nav-sphere home-nav-sphere-blue absolute cursor-pointer" aria-hidden="true"

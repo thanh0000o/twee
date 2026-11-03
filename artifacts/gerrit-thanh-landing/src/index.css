@@ -2568,3 +2568,17 @@
 .viz-lightbox-arrow-prev { left: calc(14 * var(--ui-px)); }
 .viz-lightbox-arrow-next { right: calc(14 * var(--ui-px)); }
 .viz-lightbox-arrow svg { width: calc(22 * var(--ui-px)); height: calc(22 * var(--ui-px)); }
+
+/* Classic pixel cursors, drawn for this site in the style of a 2000s desktop. */
+html, body, #root {
+  cursor: url('/cursors/arrow.png') 0 0, auto;
+  cursor: image-set(url('/cursors/arrow.png') 1x, url('/cursors/arrow@2x.png') 2x) 0 0, auto;
+}
+a, button, [role='button'], label, select, summary, input[type='range'], input[type='checkbox'], input[type='radio'], .cursor-pointer {
+  cursor: url('/cursors/hand.png') 5 0, pointer;
+  cursor: image-set(url('/cursors/hand.png') 1x, url('/cursors/hand@2x.png') 2x) 5 0, pointer;
+}
+input[type='text'], input[type='password'], input[type='email'], input[type='search'], input:not([type]), textarea, [contenteditable='true'] {
+  cursor: url('/cursors/text.png') 3 8, text;
+  cursor: image-set(url('/cursors/text.png') 1x, url('/cursors/text@2x.png') 2x) 3 8, text;
+}
