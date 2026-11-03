@@ -4,6 +4,8 @@ export const PALETTES = [
   { name: 'violet', filter: 'hue-rotate(55deg)', highlight: '#d8b4ff' },
   { name: 'rose', filter: 'hue-rotate(115deg)', highlight: '#ffb9db' },
   { name: 'lime', filter: 'hue-rotate(-130deg)', highlight: '#e0ff83' },
+  // Frutiger Aero: a painted sky panel instead of a tinted gradient, so no colour filter.
+  { name: 'aero', filter: 'none', highlight: '#8fdcff' },
 ];
 
 export const PALETTE_STORAGE_KEY = 'thanh-landing-palette';
