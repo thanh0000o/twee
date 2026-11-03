@@ -1,4 +1,4 @@
-import { type FC, useEffect, useState } from 'react';
+import { type FC, useEffect, useRef, useState } from 'react';
 import { Link } from 'wouter';
 import asset9 from '@assets/Asset_9_1788291702405.png';
 import ovalSignal from '../assets/oval-signal-transparent.png';
@@ -59,7 +59,7 @@ export const Home: FC = () => {
   const [swapping, setSwapping] = useState(false);
   useEffect(() => {
     if (!swapping) return;
-    const timer = window.setTimeout(() => setSwapping(false), 600);
+    const timer = window.setTimeout(() => setSwapping(false), 1100);
     return () => window.clearTimeout(timer);
   }, [swapping, paletteIndex]);
   const cyclePalette = () => {
@@ -68,6 +68,24 @@ export const Home: FC = () => {
     setPaletteIndex(nextIndex);
     savePaletteIndex(nextIndex);
   };
+  // After 12 seconds on the landing page the colours move on by themselves, again and again.
+  // The timer restarts after every change, so a click on the colour button is never followed by a quick jump.
+  const cycleRef = useRef(cyclePalette);
+  cycleRef.current = cyclePalette;
+  useEffect(() => {
+    if (opening || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let timer = 0;
+    const schedule = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        // Only change while someone is actually looking at the page.
+        if (document.visibilityState === 'visible') cycleRef.current();
+        else schedule();
+      }, 12000);
+    };
+    schedule();
+    return () => window.clearTimeout(timer);
+  }, [opening, paletteIndex]);
   return (
     <div className="home-page min-h-screen w-full flex items-center justify-center overflow-hidden bg-white" data-palette={palette.name} data-opening={opening} data-swapping={swapping || undefined}>
       <div 
@@ -86,7 +104,7 @@ export const Home: FC = () => {
             transform: 'translate(9.3%, 3%)',
             filter: palette.filter,
             // Theme changes glide instead of jumping.
-            transition: 'filter 420ms ease-in-out',
+            transition: 'filter 900ms ease-in-out',
             willChange: 'filter',
           } as React.CSSProperties}
         >
