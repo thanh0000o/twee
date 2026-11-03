@@ -114,3 +114,42 @@ main.ed .radio-hover {
   main.ed .radio-caption { display: none; }
   main.ed .radio-hover { display: none; }
 }
+
+/* pin lock */
+main.ed.radio-lock { display: flex; flex-direction: column; }
+main.ed .radio-lock-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin: auto 0;
+  padding-bottom: 12vh;
+  max-width: 320px;
+}
+main.ed .radio-lock-form p { margin: 0; }
+main.ed .radio-lock-field { display: flex; align-items: baseline; gap: 10px; }
+main.ed .radio-lock-field input {
+  width: 9ch;
+  border: 0;
+  border-bottom: 1px solid var(--ed-ink);
+  background: none;
+  padding: 2px 0;
+  font: inherit;
+  letter-spacing: 0.3em;
+  color: var(--ed-ink);
+  border-radius: 0;
+}
+main.ed .radio-lock-field input:focus-visible { outline: 1px solid var(--ed-ink); outline-offset: 3px; }
+main.ed .radio-lock-form button {
+  appearance: none;
+  border: 0;
+  background: none;
+  padding: 0 1px;
+  font: inherit;
+  color: var(--ed-ink);
+  cursor: pointer;
+}
+main.ed .radio-lock-form button:hover { text-decoration: underline; text-underline-offset: 2px; }
+main.ed .radio-lock-form button:disabled { color: var(--ed-mute); cursor: default; }
+main.ed .radio-lock .radio-mute-text { color: var(--ed-mute); }
+main.ed .radio-lock .radio-error { color: #c4141f; min-height: 1.3em; }
