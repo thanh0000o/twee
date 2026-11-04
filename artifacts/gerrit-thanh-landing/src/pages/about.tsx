@@ -114,10 +114,10 @@ export const About: FC = () => {
             </dd></div>
             <div><dt>2024</dt><dd>OneBonsai, intern: marketing, research and client presentations.
               <ul>
-                <li>Audited the company website (UX issues, broken buttons, language versions) and led the session that turned it into a brief for the developer.</li>
-                <li>Represented OneBonsai at Natural Disasters Expo Europe in Frankfurt, pitching VR training in English.</li>
-                <li>Joined client meetings at Deloitte and Evere police.</li>
-                <li>Ran a cold mail campaign to 100+ organisations: 27 hot leads.</li>
+                <li>Website audit and brief for the developer.</li>
+                <li>VR training pitch at a trade fair in Frankfurt.</li>
+                <li>Client meetings.</li>
+                <li>Cold mail campaign: 27 hot leads.</li>
               </ul>
             </dd></div>
             <div><dt>2023</dt><dd>Make It Work, intern: youth coaching and communication.
