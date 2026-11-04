@@ -125,11 +125,14 @@ export const About: FC = () => {
                 <li>Made flyers and a data visualisation for young people and helped run team brainstorms.</li>
               </ul>
             </dd></div>
+            <div><dt>2022–2025</dt><dd>Bouf&apos;s restaurant, student kitchen helper: food preparation.</dd></div>
+            <div><dt>2021–</dt><dd>Digital artist: cover art and creative visuals.</dd></div>
             <div><dt>2019–2022</dt><dd>Scouts en Gidsen Tervuren, leader: youth coordination and project organisation.
               <ul>
                 <li>Planned activities with a team of leaders, divided tasks and kept deadlines for three years.</li>
               </ul>
             </dd></div>
+            <div><dt>2018</dt><dd>Argenta Tervuren, student intern: banking operations and certification support.</dd></div>
           </dl>
         </section>
         <div className="about-capabilities">
