@@ -159,7 +159,7 @@ export const About: FC = () => {
           </section>
           <section aria-labelledby="ab-software">
             <h3 id="ab-software" className="about-sub">{`{software}`}</h3>
-            <p>Microsoft Office (Excel), Adobe Creative Suite (basic), Blender (basic), AI tools, GitHub &amp; Vercel.</p>
+            <p>Microsoft Office, Adobe Creative Suite, Blender, AI tools.</p>
           </section>
         </div>
         <section className="about-languages" aria-labelledby="ab-languages">
