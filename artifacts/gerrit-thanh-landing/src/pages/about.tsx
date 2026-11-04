@@ -7,7 +7,7 @@ import '../styles/about-details.css';
 import { useSavedPalette } from '../hooks/use-saved-palette';
 
 const DESCRIPTION =
-  'About Thành Lambeets from Brussels, looking for work as a digital project manager between the client and the developers and designers.';
+  'About Thành Lambeets, a Brussels-based visual thinker and builder exploring art, technology, design, and what makes us human.';
 
 const base = import.meta.env.BASE_URL;
 
@@ -42,7 +42,7 @@ export const About: FC = () => {
     const metaDescription = document.querySelector<HTMLMetaElement>('meta[name="description"]');
     const previousDescription = metaDescription?.content;
 
-    document.title = 'about Thành Lambeets, digital project management in Brussels';
+    document.title = 'about Thành Lambeets — visual thinker in Brussels';
     if (metaDescription) metaDescription.content = DESCRIPTION;
 
     return () => {
@@ -64,15 +64,36 @@ export const About: FC = () => {
       <div className="ed-cols">
         <article className="ed-col about-biography">
           <p>
-            I taught myself Blender and Photoshop to get the pictures in my head onto a screen,
-            and found out how much work sits between an idea and a finished product<SentenceDot /> I want
-            to work in that space, close to the client, helping the team build what they have
-            in mind<SentenceDot /> Most of what I know I learned by doing, and I'd like to keep learning that way.
+            Thành Lambeets is based in Brussels<SentenceDot /> He sees art,
+            technology, and design as a chance to constantly explore what makes us human, how
+            we see the world, and what we can achieve.
           </p>
           <p>
-            I'm looking for a job as a digital project manager, the person between the client
-            and the developers and designers<SentenceDot /> I have a bachelor's in Idea &amp; Innovation
-            Management and I live in Brussels.
+            His process always starts with observing things carefully, a slow, thoughtful way
+            of thinking that allows ideas to form naturally<SentenceDot /> This quiet focus leads to a strong
+            interest in how we move between the real, physical world and the forces we can’t
+            see but feel every day: things like memory, desire, change, and the subtle urge to
+            be more than ordinary.
+          </p>
+          <p>
+            With a background in Innovation Management and self-taught experience in design,
+            3D and digital tools, Thành is comfortable moving between big concepts and the
+            technical work needed to finish a project<SentenceDot /> He is always curious about new
+            technologies and digital ways of working, and how they change the environments we
+            live in, both personally and together.
+          </p>
+          <p>
+            He works with empathy, clear thinking, and discipline, qualities shaped by years of
+            research and hands-on making<SentenceDot /> Growth, for him, means constantly learning and
+            giving every idea the time it needs to become something solid<SentenceDot /> He treats good ideas
+            less as a flash of genius and more as a conversation between people, between tools,
+            and between the world as it is and the world we imagine it could be.
+          </p>
+          <p>
+            In all his work, Thành wants to create chances for people to pause, reflect, and
+            find the simple beauty hidden inside complex things<SentenceDot /> His goal is to build
+            thoughtful, impactful experiences that successfully mix imagination, technology,
+            and human understanding into work that truly connects with people.
           </p>
         </article>
         <section className="ed-col about-portrait-column" aria-label="Portrait and résumé">

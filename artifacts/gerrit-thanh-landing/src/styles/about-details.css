@@ -29,7 +29,7 @@ main.ed-about .about-paper-print img {
 }
 @media (min-width: 1001px) {
   main.ed-about > .ed-cols { row-gap: calc(10 * var(--ui-px)); }
-  main.ed-about .about-biography { grid-row: 1; margin-bottom: 0; min-height: clamp(200px, 30svh, 270px); }
+  main.ed-about .about-biography { grid-row: 1; margin-bottom: 0; }
   main.ed-about .about-portrait-column {
     display: grid;
     grid-row: span 2;
