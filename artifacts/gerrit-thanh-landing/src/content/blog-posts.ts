@@ -39,6 +39,31 @@ const SRC = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: 'breendonk-and-a-radio',
+    title: 'photos, a radio and new pieces',
+    category: 'site-update',
+    dateTime: '2026-11-04T20:47:00+01:00',
+    dateLabel: '4 November 2026, 20:47 CET',
+    author: 'Thành Lambeets',
+    body: [
+      [
+        'There are new photos on the ',
+        { text: 'visualisations', href: '/visualisations?from=blog-links', kind: 'visualisations' },
+        ' page. I visited Fort Breendonk, edited the pictures I took there and spread them between the other pieces.',
+      ],
+      [
+        "I'm also building a radio station for the world wide web, with a retro 3D player and a live chat. It isn't live yet, but the {radio} button on the home page already leads to it. And I'm writing new opinion pieces, so expect a few more of those here soon.",
+      ],
+      [
+        'Today I updated my ',
+        { text: 'about', href: '/about?from=blog-links', kind: 'about' },
+        ' page to match my new CV. I also rewrote the texts on two of my ',
+        { text: 'works', href: '/works?from=blog-links', kind: 'works' },
+        ", the drone strategy thesis and the Flex Delivery trend report, so they're easier to read. On the home page, a thin white line along the curve is gone.",
+      ],
+    ],
+  },
+  {
     slug: 'who-carries-the-load',
     title: 'a fair share',
     category: 'opinion',
