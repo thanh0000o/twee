@@ -47,21 +47,21 @@ export const BLOG_POSTS: BlogPost[] = [
     author: 'Thành Lambeets',
     body: [
       [
-        'I went to Fort Breendonk and took some pictures there. After editing them I put them on the ',
+        'New photos on the ',
         { text: 'visualisations', href: '/visualisations?from=blog-links', kind: 'visualisations' },
-        ' page, mixed in with the other pieces.',
+        ' page. I went to Fort Breendonk and edited the pictures.',
       ],
       [
-        "I'm building my own radio station for the world wide web. The player is a 3D remake of my own sound system, a ",
+        "I'm making a radio station for the world wide web. The player is a 3D remake of my own sound system, a ",
         ext('Sony LBT-D305', 'https://www.radiomuseum.org/r/sony_compact_hifi_stereo_system_lbt_d305_hst_d305_ps_lx46.html#collection'),
-        ", and there's a live chat next to it. It's not live yet, but the {radio} button on the home page already points to it. I'm also working on a few new opinion pieces, and they'll show up here when they're done.",
+        ". It's not live yet. New opinion pieces are coming too.",
       ],
       [
-        'Smaller things from today: my ',
+        'I also updated my ',
         { text: 'about', href: '/about?from=blog-links', kind: 'about' },
-        ' page now matches my new CV, and the texts for my drone strategy thesis and the Flex Delivery trend report in ',
+        ' page to match my new CV and rewrote the texts of two ',
         { text: 'works', href: '/works?from=blog-links', kind: 'works' },
-        ' read a lot easier. The thin white line along the curve on the home page is gone too.',
+        ': the drone strategy and Flex Delivery.',
       ],
     ],
   },
