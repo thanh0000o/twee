@@ -155,7 +155,7 @@ export const About: FC = () => {
         <div className="about-capabilities">
           <section aria-labelledby="ab-skills">
             <h3 id="ab-skills">{`{skills}`}</h3>
-            <p>Client communication; project planning &amp; follow-up; Scrum &amp; Agile; leading brainstorms &amp; workshops; website audits &amp; UX feedback; market &amp; trend research; business case development.</p>
+            <p>Client communication; project planning &amp; follow-up; Scrum &amp; Agile; leading brainstorms &amp; workshops; website audits &amp; UX feedback; market &amp; trend research; business case development; trend-to-concept translation; brand &amp; rebranding strategy; visual &amp; conceptual creativity; AI-driven workflow &amp; tooling exploration; empathetic collaboration; self-directed with high personal standards.</p>
           </section>
           <section aria-labelledby="ab-software">
             <h3 id="ab-software" className="about-sub">{`{software}`}</h3>
