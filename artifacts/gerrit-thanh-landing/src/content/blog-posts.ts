@@ -56,13 +56,6 @@ export const BLOG_POSTS: BlogPost[] = [
         ext('Sony LBT-D305', 'https://www.radiomuseum.org/r/sony_compact_hifi_stereo_system_lbt_d305_hst_d305_ps_lx46.html#collection'),
         ". It's not live yet. New opinion pieces are coming too.",
       ],
-      [
-        'I also updated my ',
-        { text: 'about', href: '/about?from=blog-links', kind: 'about' },
-        ' page to match my new CV and rewrote the texts of two ',
-        { text: 'works', href: '/works?from=blog-links', kind: 'works' },
-        ': the drone strategy and Flex Delivery.',
-      ],
     ],
   },
   {
