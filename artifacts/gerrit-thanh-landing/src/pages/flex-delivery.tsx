@@ -23,8 +23,8 @@ export const FlexDelivery: FC = () => {
   useEffect(() => {
     const previousTitle = document.title;
     const meta = [
-      { selector: 'meta[name="description"]', content: 'An English overview and conclusion of Gerrit Thành Lambeets’s 2021–2022 trend report on Flex Delivery, circularity and food packaging.' },
-      { selector: 'meta[property="og:title"]', content: 'Flex Delivery — Trend Report | Gerrit Thành Lambeets' },
+      { selector: 'meta[name="description"]', content: "An English overview and conclusion of Gerrit Thành Lambeets's 2021–2022 trend report on Flex Delivery, circularity and food packaging." },
+      { selector: 'meta[property="og:title"]', content: "Flex Delivery, trend report | Gerrit Thành Lambeets" },
       { selector: 'meta[property="og:description"]', content: 'A trend report on Flex Delivery, the circular economy and ideas to reduce food waste.' },
     ].map(({ selector, content }) => {
       const element = document.querySelector<HTMLMetaElement>(selector);
@@ -33,7 +33,7 @@ export const FlexDelivery: FC = () => {
       return { element, previousContent };
     });
 
-    document.title = 'Flex Delivery — Trend Report | Gerrit Thành Lambeets';
+    document.title = "Flex Delivery, trend report | Gerrit Thành Lambeets";
     return () => {
       document.title = previousTitle;
       meta.forEach(({ element, previousContent }) => {
@@ -51,53 +51,50 @@ export const FlexDelivery: FC = () => {
 
       <div className="ed-cols">
         <article className="ed-col">
-          <h2>Flex Delivery — Eco Circular Everything</h2>
+          <h2>Flex Delivery, Eco Circular Everything</h2>
           <p>
-            I wrote this 2021–2022 trend report for a Trendwatching course in Idea &amp; Innovation Management<SentenceDot />
-            It examines how Flex Delivery’s local grocery and drink delivery model fits into the shift
-            towards a circular economy<SentenceDot /> At the time, the company worked with nearby producers and shops,
-            delivered by electric vehicles and cargo bikes, and used returnable glass bottles and reusable
-            bags to limit waste.
+            I wrote this trend report in 2021–2022 for a Trendwatching course in Idea &amp; Innovation
+            Management<SentenceDot /> It looks at how Flex Delivery, a local grocery and drinks delivery service,
+            fits into the move towards a circular economy<SentenceDot /> Back then the company bought from producers
+            and shops nearby and delivered with electric vehicles and cargo bikes<SentenceDot /> Drinks came in
+            returnable glass bottles, groceries in reusable bags.
           </p>
         </article>
         <div className="ed-col">
           <p>
-            The report focuses on the gap between that ambition and the plastic packaging still used for
-            some products, especially items sourced through a local SPAR shop<SentenceDot /> I explored the business
-            through a SWOT analysis, examined demographic, economic, social, technological, ecological and
-            political factors through a DESTEP analysis, and looked at five examples of circular design for
-            ideas that could help close that gap.
+            The report is about the gap between that ambition and the plastic some products still came
+            in, mostly the ones from a local SPAR shop<SentenceDot /> I did a SWOT analysis of the business and a DESTEP
+            analysis of the world around it, and looked at five examples of circular design for ideas
+            that could close the gap.
           </p>
           <p>
-            My proposed direction draws on Rui Xu’s FreshTag: a colour-changing indicator that could
-            communicate a food product’s actual freshness rather than relying only on a printed expiry
-            date<SentenceDot /> The concept also considers natural-pigment printing and a QR code showing where a product
-            comes from<SentenceDot /> This was a proposal, not a product Flex Delivery had launched<SentenceDot /> The report notes
-            that developing and using such packaging would require investment and food-safety approval.
+            The idea I proposed builds on Rui Xu's FreshTag, a label that changes colour to show how
+            fresh the food really is, so you don't have to rely on the printed date alone<SentenceDot /> I also
+            suggested printing with natural pigments and adding a QR code that shows where a product
+            comes from<SentenceDot /> It stayed a proposal; Flex Delivery never launched it<SentenceDot /> The report also says
+            packaging like this would need investment and food-safety approval first.
           </p>
         </div>
         <section className="ed-col works-project-conclusion" aria-labelledby="flex-conclusion">
-          <h3 id="flex-conclusion">Conclusion — rewritten in English</h3>
+          <h3 id="flex-conclusion">Conclusion, rewritten in English</h3>
           <p>
-            I chose Flex Delivery because it had taken a more demanding path than conventional grocery
-            delivery: working with local producers, using lower-energy transport and trying to reduce
-            waste<SentenceDot /> Yet its sustainability ambitions were not fully reflected in the plastic packaging
-            of some products, particularly those supplied through its SPAR partner<SentenceDot /> The SWOT and DESTEP
-            analyses suggest that this challenge is also an opportunity.
+            I picked Flex Delivery because it chose a harder road than regular grocery delivery, with
+            local producers and cleaner transport<SentenceDot /> But the plastic around some products, mostly the
+            ones from SPAR, didn't match those ambitions<SentenceDot /> The SWOT and DESTEP analyses showed that this
+            weak spot was also a chance.
           </p>
         </section>
         <div className="ed-col">
           <p>
-            As consumers look for reusable or biodegradable packaging and clearer information about
-            their food, Flex Delivery could distinguish itself by exploring ideas such as FreshTag<SentenceDot />
-            Colour-changing freshness indicators might help people use food while it is still good,
-            instead of discarding it solely because of a printed date<SentenceDot /> Combined with more responsible
-            packaging and transparent sourcing, this approach could reduce waste and encourage larger
-            distributors to rethink their practices<SentenceDot /> It remains a concept needing further development
-            and approval, but points towards a more circular way to deliver everyday groceries.
+            People want packaging they can reuse or compost, and they want to know more about their
+            food<SentenceDot /> Flex Delivery could stand out by trying ideas like FreshTag<SentenceDot /> A label that changes
+            colour could help people eat food while it's still good, so they don't throw it away just
+            because of the date<SentenceDot /> Together with better packaging and clear sourcing, that could cut
+            waste and maybe push bigger distributors to change too<SentenceDot /> It's still a concept that needs
+            more work and approval, and it shows one way to make grocery delivery more circular.
           </p>
           <p className="ed-note works-project-cover-note">
-            The original document cover was required for the report; the portfolio cover below is a simpler redesign.
+            The report had to use the original cover. The portfolio cover below is a simpler redesign of it.
           </p>
         </div>
       </div>
