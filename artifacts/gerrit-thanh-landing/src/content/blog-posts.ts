@@ -47,19 +47,19 @@ export const BLOG_POSTS: BlogPost[] = [
     author: 'Thành Lambeets',
     body: [
       [
-        'There are new photos on the ',
+        'I went to Fort Breendonk and took some pictures there. After editing them I put them on the ',
         { text: 'visualisations', href: '/visualisations?from=blog-links', kind: 'visualisations' },
-        ' page. I visited Fort Breendonk, edited the pictures I took there and spread them between the other pieces.',
+        ' page, mixed in with the other pieces.',
       ],
       [
-        "I'm also building a radio station for the world wide web, with a retro 3D player and a live chat. It isn't live yet, but the {radio} button on the home page already leads to it. And I'm writing new opinion pieces, so expect a few more of those here soon.",
+        "I'm building my own radio station for the world wide web. It has a retro 3D player and a live chat. It's not live yet, but the {radio} button on the home page already points to it. I'm also working on a few new opinion pieces, and they'll show up here when they're done.",
       ],
       [
-        'Today I updated my ',
+        'Smaller things from today: my ',
         { text: 'about', href: '/about?from=blog-links', kind: 'about' },
-        ' page to match my new CV. I also rewrote the texts on two of my ',
+        ' page now matches my new CV, and the texts for my drone strategy thesis and the Flex Delivery trend report in ',
         { text: 'works', href: '/works?from=blog-links', kind: 'works' },
-        ", the drone strategy thesis and the Flex Delivery trend report, so they're easier to read. On the home page, a thin white line along the curve is gone.",
+        ' read a lot easier. The thin white line along the curve on the home page is gone too.',
       ],
     ],
   },
