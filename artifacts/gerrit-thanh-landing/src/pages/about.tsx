@@ -107,7 +107,7 @@ export const About: FC = () => {
           <dl>
             <div><dt>2025–2026</dt><dd>Sabbatical year, travel and learning.
               <ul>
-                <li>Put my portfolio site online (GitHub &amp; Vercel) by writing briefs for AI tools and testing every version.</li>
+                <li>Put my portfolio site online.</li>
                 <li>Set up AI agents that check company websites for new vacancies and mail me the ones that fit.</li>
                 <li>Working on my own online radio station with a retro 3D player and a live chat, launch coming soon.</li>
               </ul>
