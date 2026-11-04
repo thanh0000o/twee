@@ -39,7 +39,7 @@ export const FirstPortfolio: FC = () => {
         <article className="ed-col">
           <h2>First Portfolio — Windows 95 Desktop</h2>
           <p>
-            This was my first portfolio, and a project I was proud of for a long time. It is still online. Instead of simply listing projects, I built a personal desktop that brought my work, ideas and personality together.
+            This was my first portfolio, and a project I was proud of for a long time. Instead of simply listing projects, I built a personal desktop that brought my work, ideas and personality together.
           </p>
           <p>
             Visitors explore work and personal information as files and applications. Folders open into draggable windows, with art collections, a music player, a guestbook and other personal file-like sections.
@@ -51,7 +51,6 @@ export const FirstPortfolio: FC = () => {
             The site is fully inspired by early-2000s webdesign and the personal-web culture of Neocities. Windows 95-style frames, pixel icons and a workspace inspired by older design software make browsing feel like a small exploration.
           </p>
           <div className="ed-links">
-            <a href="https://thanhlambeets.com/" target="_blank" rel="noopener noreferrer" data-testid="link-first-portfolio-live">Visit the original portfolio</a>
             <a href="https://neocities.org/" target="_blank" rel="noopener noreferrer" data-testid="link-neocities">Explore Neocities</a>
           </div>
         </section>

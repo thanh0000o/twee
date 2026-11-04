@@ -29,7 +29,7 @@ main.ed-about .about-paper-print img {
 }
 @media (min-width: 1001px) {
   main.ed-about > .ed-cols { row-gap: calc(10 * var(--ui-px)); }
-  main.ed-about .about-biography { grid-row: 1; margin-bottom: 0; }
+  main.ed-about .about-biography { grid-row: 1; margin-bottom: 0; min-height: clamp(200px, 30svh, 270px); }
   main.ed-about .about-portrait-column {
     display: grid;
     grid-row: span 2;
@@ -63,6 +63,8 @@ main.ed-about .about-details dl { margin: 0; }
 main.ed-about .about-details dl > div { display: grid; grid-template-columns: 5.4em 1fr; gap: 0 calc(8 * var(--ui-px)); margin-bottom: calc(7 * var(--ui-px)); }
 main.ed-about .about-details dt { color: var(--ed-ink); white-space: nowrap; }
 main.ed-about .about-details dd { margin: 0; }
+main.ed-about .about-details dd ul { margin: calc(3 * var(--ui-px)) 0 0; padding-left: 1em; list-style: disc; }
+main.ed-about .about-details dd li { margin-bottom: calc(2 * var(--ui-px)); line-height: 1.32; }
 main.ed-about .about-details .about-lang > div { grid-template-columns: 1fr auto; gap: calc(6 * var(--ui-px)); margin-bottom: 2px; }
 main.ed-about .about-details > * { margin-bottom: 0; min-width: 0; }
 main.ed-about .about-details > .about-languages { width: min(100%, var(--about-portrait-width, 100%)); }
