@@ -52,7 +52,9 @@ export const BLOG_POSTS: BlogPost[] = [
         ' page, mixed in with the other pieces.',
       ],
       [
-        "I'm building my own radio station for the world wide web. It has a retro 3D player and a live chat. It's not live yet, but the {radio} button on the home page already points to it. I'm also working on a few new opinion pieces, and they'll show up here when they're done.",
+        "I'm building my own radio station for the world wide web. The player is a 3D remake of my own sound system, a ",
+        ext('Sony LBT-D305', 'https://www.radiomuseum.org/r/sony_compact_hifi_stereo_system_lbt_d305_hst_d305_ps_lx46.html#collection'),
+        ", and there's a live chat next to it. It's not live yet, but the {radio} button on the home page already points to it. I'm also working on a few new opinion pieces, and they'll show up here when they're done.",
       ],
       [
         'Smaller things from today: my ',
