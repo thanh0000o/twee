@@ -143,7 +143,6 @@ export const BLOG_POSTS: BlogPost[] = [
           ' wees er in een reactie nog op dat Verhaeghe in hetzelfde gesprek zei dat zieken "eigenlijk niet echt allemaal ziek zijn" en vaderschapsverlof niet essentieel vond voor welvaartscreatie. Hij koppelde wie meer betaalt ook aan wie meer zou moeten meetellen. In een democratie telt elke stem even zwaar, wat je ook bijdraagt.',
         ],
         { heading: 'waar ik sta' },
-        ['Ik sta achter een eerlijkere verdeling van de lasten, ook nu ik de andere kant beter begrijp.'],
         ['We leven in een kapitalistische samenleving, en dat is op zich oké. Maar niet iedereen heeft de kans om een bedrijf te starten, en niet iedereen wil dat. De meeste mensen willen gewoon een degelijk leven, met een vaste job en wat ademruimte op het einde van de maand. Een samenleving moet ook voor hen werken, ook als ze nooit een bedrijf starten.'],
         ['Dat idee zit eigenlijk in de kern van de Belgische sociale zekerheid. Wie sterker staat, draagt meer, zodat wie zwakker staat niet valt. Wie succes heeft, dankt dat ook aan wat de samenleving rondom hem mogelijk maakt: onderwijs, wegen, gezonde werknemers, rechtszekerheid.'],
         ['Ik vind het daarom jammer dat de factuur nu vooral bij gewone werknemers en zieken terecht dreigt te komen, terwijl constructies als managementvennootschappen en een steeds ruimer flexi-jobsysteem bijdragen laten liggen. Iemand die naast een flexi-jobber exact hetzelfde werk doet, betaalt wel volle belastingen. Dat voelt niet eerlijk.'],
