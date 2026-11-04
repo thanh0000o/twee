@@ -97,3 +97,24 @@ main.ed-about .about-details > .about-languages { width: min(100%, var(--about-p
   main.ed-about .about-details, main.ed-about .about-details p { font-size: calc(13 * var(--ui-px)); line-height: 1.38; }
   main.ed-about .about-portrait { max-width: calc(230 * var(--ui-px)); }
 }
+
+/* Inline links in the résumé details, styled like links inside blog posts. */
+main.ed-about .about-details a.about-inline-link {
+  display: inline;
+  font-family: var(--font-micro);
+  letter-spacing: .7px;
+  text-decoration: underline;
+  text-decoration-thickness: .65px;
+  text-underline-offset: 2px;
+  text-shadow: none;
+  transition: background-color 240ms ease-out, box-shadow 280ms ease-out, color 240ms ease-out;
+}
+main.ed-about .about-details a.about-inline-link:is(:hover, :focus-visible) {
+  color: var(--home-nav-hover-ink, #000) !important;
+  background-color: var(--home-nav-glow, var(--nav-blog-links-glow));
+  box-shadow: 0 0 4px var(--home-nav-glow, var(--nav-blog-links-glow));
+  outline: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  main.ed-about .about-details a.about-inline-link { transition: none; }
+}
