@@ -108,8 +108,8 @@ export const About: FC = () => {
             <div><dt>2025–2026</dt><dd>Sabbatical year, travel and learning.
               <ul>
                 <li>Put my portfolio site online.</li>
-                <li>Set up AI agents that check company websites for new vacancies and mail me the ones that fit.</li>
-                <li>Working on my own online radio station with a retro 3D player and a live chat, launch coming soon.</li>
+                <li>AI agents that mail me fitting vacancies.</li>
+                <li>My own online radio station, launching soon.</li>
               </ul>
             </dd></div>
             <div><dt>2024</dt><dd>OneBonsai, intern: marketing, research and client presentations.
@@ -122,14 +122,15 @@ export const About: FC = () => {
             </dd></div>
             <div><dt>2023</dt><dd>Make It Work, intern: youth coaching and communication.
               <ul>
-                <li>Made flyers and a data visualisation for young people and helped run team brainstorms.</li>
+                <li>Flyers and a data visualisation.</li>
+                <li>Team brainstorms.</li>
               </ul>
             </dd></div>
             <div><dt>2022–2025</dt><dd>Bouf&apos;s restaurant, student kitchen helper: food preparation.</dd></div>
             <div><dt>2021–</dt><dd>Digital artist: cover art and creative visuals.</dd></div>
             <div><dt>2019–2022</dt><dd>Scouts en Gidsen Tervuren, leader: youth coordination and project organisation.
               <ul>
-                <li>Planned activities with a team of leaders, divided tasks and kept deadlines for three years.</li>
+                <li>Planned activities and divided tasks in a team of leaders.</li>
               </ul>
             </dd></div>
             <div><dt>2018</dt><dd>Argenta Tervuren, student intern: banking operations and certification support.</dd></div>
