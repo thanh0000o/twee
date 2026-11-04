@@ -98,7 +98,7 @@ export const About: FC = () => {
         <section aria-labelledby="ab-edu">
           <h3 id="ab-edu">{`{education}`}</h3>
           <dl>
-            <div><dt>2021–2024</dt><dd>Bachelor, Idea &amp; Innovation Management, Erasmushogeschool Brussel. Graduated cum laude. Thesis: phased implementation plan for a drone hub in Dún Laoghaire, graded 16/20.</dd></div>
+            <div><dt>2021–2024</dt><dd>Bachelor, Idea &amp; Innovation Management, Erasmushogeschool Brussel. Graduated cum laude. <Link href="/works/drone-strategie" className="ed-resume-link">Thesis: phased implementation plan for a drone hub in Dún Laoghaire</Link>, graded 16/20.</dd></div>
             <div><dt>2012–2018</dt><dd>Secondary education, Accounting &amp; Computer Science, Koninklijk Atheneum Tervuren.</dd></div>
           </dl>
         </section>
