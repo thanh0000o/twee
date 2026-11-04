@@ -64,36 +64,16 @@ export const About: FC = () => {
       <div className="ed-cols">
         <article className="ed-col about-biography">
           <p>
-            Thành Lambeets is based in Brussels<SentenceDot /> He sees art,
-            technology, and design as a chance to constantly explore what makes us human, how
-            we see the world, and what we can achieve.
+            Thành Lambeets lives in Brussels<SentenceDot /> He uses art, technology and design to look at how people see the world and what they're capable of.
           </p>
           <p>
-            His process always starts with observing things carefully, a slow, thoughtful way
-            of thinking that allows ideas to form naturally<SentenceDot /> This quiet focus leads to a strong
-            interest in how we move between the real, physical world and the forces we can’t
-            see but feel every day: things like memory, desire, change, and the subtle urge to
-            be more than ordinary.
+            He starts by looking, and he takes his time with it, so ideas can form on their own<SentenceDot /> What keeps pulling him in is the space between the physical world and the things we feel but can't see, like memory, or the urge to be more than ordinary.
           </p>
           <p>
-            With a background in Innovation Management and self-taught experience in design,
-            3D and digital tools, Thành is comfortable moving between big concepts and the
-            technical work needed to finish a project<SentenceDot /> He is always curious about new
-            technologies and digital ways of working, and how they change the environments we
-            live in, both personally and together.
+            He studied Innovation Management and taught himself design, 3D and a range of digital tools<SentenceDot /> That lets him follow a project from the first idea down to the work it takes to finish it<SentenceDot /> New technology interests him mostly for what it changes in the places where we live and work.
           </p>
           <p>
-            He works with empathy, clear thinking, and discipline, qualities shaped by years of
-            research and hands-on making<SentenceDot /> Growth, for him, means constantly learning and
-            giving every idea the time it needs to become something solid<SentenceDot /> He treats good ideas
-            less as a flash of genius and more as a conversation between people, between tools,
-            and between the world as it is and the world we imagine it could be.
-          </p>
-          <p>
-            In all his work, Thành wants to create chances for people to pause, reflect, and
-            find the simple beauty hidden inside complex things<SentenceDot /> His goal is to build
-            thoughtful, impactful experiences that successfully mix imagination, technology,
-            and human understanding into work that truly connects with people.
+            He works with care and discipline, picked up through years of research and making things himself<SentenceDot /> Growing, for him, means learning all the time and giving an idea the time it needs to become solid<SentenceDot /> In his experience, good ideas come out of conversation: between people, and between the world as it is and the one we imagine<SentenceDot /> That's also why he wants to work close to clients and the teams that build for them, because that's where those conversations happen every day.
           </p>
         </article>
         <section className="ed-col about-portrait-column" aria-label="Portrait and résumé">
