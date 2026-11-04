@@ -117,7 +117,7 @@ export const About: FC = () => {
                 <li>Website audit and brief for the developer.</li>
                 <li>VR training pitch at a trade fair in Frankfurt.</li>
                 <li>Client meetings.</li>
-                <li>Cold mail campaign: 27 hot leads.</li>
+                <li>Cold mail campaign.</li>
               </ul>
             </dd></div>
             <div><dt>2023</dt><dd>Make It Work, intern: youth coaching and communication.
