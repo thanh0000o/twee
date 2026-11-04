@@ -123,7 +123,7 @@ export const About: FC = () => {
             <div><dt>2023</dt><dd>Make It Work, intern: youth coaching and communication.
               <ul>
                 <li>Flyers and a data visualisation.</li>
-                <li>Team brainstorms.</li>
+                <li>Facilitated team brainstorms.</li>
               </ul>
             </dd></div>
             <div><dt>2022–2025</dt><dd>Bouf&apos;s restaurant, student kitchen helper: food preparation.</dd></div>
