@@ -39,6 +39,20 @@ const SRC = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: 'reworking-my-opinion-pieces',
+    title: 'reworking my opinion pieces',
+    category: 'site-update',
+    dateTime: '2026-11-07T13:40:00+01:00',
+    dateLabel: '7 November 2026, 13:40 CET',
+    author: 'Thành Lambeets',
+    body: [
+      [
+        "I've put my opinion pieces behind a lock for now, because I'm rewriting them. Reading them back, I noticed some things are missing. I don't explain where the question came from, why I wanted to write about it, or who helped me think it through. I want to add that, so the pieces are stronger and it's clearer to you where they come from. They'll be back when they're done.",
+      ],
+      ["I'm also writing two new ones."],
+    ],
+  },
+  {
     slug: 'breendonk-and-a-radio',
     title: 'photos, a radio and new pieces',
     category: 'site-update',
