@@ -223,11 +223,23 @@ const BlogPosts: FC<{ posts: BlogPost[] }> = ({ posts }) => {
         <section className="blog-post-group" aria-labelledby="opinion-pieces-heading">
           <div className="blog-extra-heading-row blog-opinion-heading-row">
             <h2 id="opinion-pieces-heading">{'{opinion pieces}'}</h2>
-            <LangToggle lang={lang} onChange={changeLang} />
           </div>
-          <BlogScrollPanel id="blog-opinion-stream" label="opinion pieces" testid="blog-opinion-pieces">
-            {renderPosts(opinions, lang)}
-          </BlogScrollPanel>
+          {/* Opinion pieces are being reworked: shown blurred behind a lock until they're back. */}
+          <div className="blog-opinion-locked">
+            <div className="blog-opinion-locked-content" aria-hidden="true" inert>
+              <BlogScrollPanel id="blog-opinion-stream" label="opinion pieces" testid="blog-opinion-pieces">
+                {renderPosts(opinions, lang)}
+              </BlogScrollPanel>
+            </div>
+            <div className="blog-opinion-lock" role="status">
+              <svg className="blog-opinion-lock-icon" viewBox="0 0 16 20" width="22" height="28" aria-hidden="true">
+                <path d="M4 9V6a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" strokeWidth="1.6" />
+                <rect x="1.5" y="9" width="13" height="10" rx="1.2" fill="currentColor" />
+                <rect x="7.2" y="12.4" width="1.6" height="3.4" fill="#fff" />
+              </svg>
+              <span>reworking opinion pieces</span>
+            </div>
+          </div>
         </section>
         <div className="blog-bottom-extras" aria-label="More from the blog">
           <section className="blog-extra-group" aria-labelledby="blog-favourite-links-heading">
