@@ -107,27 +107,11 @@ export const About: FC = () => {
           <h3 id="ab-exp">{`{experience}`}</h3>
           <dl>
             <div><dt>2025–2026</dt><dd>Sabbatical year, travel and learning.</dd></div>
-            <div><dt>2024</dt><dd>OneBonsai, intern: marketing, research and client presentations.
-              <ul>
-                <li>Website audit and brief for the developer.</li>
-                <li>VR training pitch at a trade fair in Frankfurt.</li>
-                <li>Client meetings.</li>
-                <li>Cold mail campaign.</li>
-              </ul>
-            </dd></div>
-            <div><dt>2023</dt><dd>Make It Work, intern: youth coaching and communication.
-              <ul>
-                <li>Flyers and a data visualisation.</li>
-                <li>Facilitated team brainstorms.</li>
-              </ul>
-            </dd></div>
+            <div><dt>2024</dt><dd>OneBonsai, intern: marketing, research and client presentations.</dd></div>
+            <div><dt>2023</dt><dd>Make It Work, intern: youth coaching and communication.</dd></div>
             <div><dt>2022–2025</dt><dd>Bouf&apos;s restaurant, student kitchen helper: food preparation.</dd></div>
             <div><dt>2021–</dt><dd>Digital artist: cover art and creative visuals.</dd></div>
-            <div><dt>2019–2022</dt><dd>Scouts en Gidsen Tervuren, leader: youth coordination and project organisation.
-              <ul>
-                <li>Planned activities and divided tasks in a team of leaders.</li>
-              </ul>
-            </dd></div>
+            <div><dt>2019–2022</dt><dd>Scouts en Gidsen Tervuren, leader: youth coordination and project organisation.</dd></div>
             <div><dt>2018</dt><dd>Argenta Tervuren, student intern: banking operations and certification support.</dd></div>
           </dl>
         </section>
