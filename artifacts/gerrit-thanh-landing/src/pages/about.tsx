@@ -106,13 +106,7 @@ export const About: FC = () => {
         <section aria-labelledby="ab-exp">
           <h3 id="ab-exp">{`{experience}`}</h3>
           <dl>
-            <div><dt>2025–2026</dt><dd>Sabbatical year, travel and learning.
-              <ul>
-                <li>Put my portfolio site online.</li>
-                <li>AI agents that mail me fitting vacancies.</li>
-                <li>My own online radio station, launching soon.</li>
-              </ul>
-            </dd></div>
+            <div><dt>2025–2026</dt><dd>Sabbatical year, travel and learning.</dd></div>
             <div><dt>2024</dt><dd>OneBonsai, intern: marketing, research and client presentations.
               <ul>
                 <li>Website audit and brief for the developer.</li>
