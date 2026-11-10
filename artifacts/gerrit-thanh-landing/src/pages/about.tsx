@@ -90,8 +90,8 @@ export const About: FC = () => {
             </span>
           </figure>
           <p className="ed-links">
-            <a href={`${base}resume/Thanh-Lambeets-CV-2026-10.pdf`} style={{ filter: palette.filter }} download="Thanh-Lambeets-Resume.pdf">{`{download résumé, pdf}`}</a>
-            <a href={`${base}resume/Thanh-Lambeets-CV-2026-10.pdf`} style={{ filter: palette.filter }} target="_blank" rel="noopener noreferrer">{`{open in new tab}`}</a>
+            <a href={`${base}resume/Thanh-Lambeets-CV-2026-11.pdf`} style={{ filter: palette.filter }} download="Thanh-Lambeets-Resume.pdf">{`{download résumé, pdf}`}</a>
+            <a href={`${base}resume/Thanh-Lambeets-CV-2026-11.pdf`} style={{ filter: palette.filter }} target="_blank" rel="noopener noreferrer">{`{open in new tab}`}</a>
           </p>
         </section>
       </div>
