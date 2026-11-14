@@ -39,6 +39,27 @@ const SRC = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: 'mushrooms-and-a-dj-usb',
+    title: 'mushrooms, a dj usb and a new app',
+    category: 'site-update',
+    dateTime: '2026-11-15T00:13:00+01:00',
+    dateLabel: '15 November 2026, 00:13 CET',
+    author: 'Thành Lambeets',
+    body: [
+      ["I'm still working on my opinion pieces. I've also started on a new app, more about that later."],
+      [
+        "My DJ USB was a mess. I'm pretty disorganised, so my music was spread over folders all over my computer. A while ago I also deleted a big part of my music by accident. I got it back, but after that Rekordbox couldn't find a lot of my tracks, and relocating them by hand didn't work. So I wrote a script that found every track again and put my music in order. The USB works again.",
+      ],
+      [
+        'Today I walked for more than five hours in the Zoniënwoud in Tervuren. I found a lot of mushrooms on the way. I edited the photos and put them on the ',
+        { text: 'visualisations', href: '/visualisations?from=blog-links', kind: 'visualisations' },
+        ' page, under the ',
+        { text: 'mushrooms & lichen', href: '/visualisations?from=blog-links&filter=mushrooms', kind: 'visualisations' },
+        ' filter.',
+      ],
+    ],
+  },
+  {
     slug: 'reworking-my-opinion-pieces',
     title: 'reworking my opinion pieces',
     category: 'site-update',
