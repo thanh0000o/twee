@@ -1866,7 +1866,9 @@
   gap: 4px 12px;
   max-width: min(980px, calc(100vw - 32px));
   margin: 0;
-  padding: 44px 16px 0;
+  /* starts just under the fixed white strip behind {return home}, which grows with the screen */
+  padding: calc(var(--ui-edge, 16px) + var(--ui-fs, 13px) * 2.2 + 6px) var(--ui-edge, 16px) 0;
+  font-size: var(--ui-fs, 13px);
   line-height: 1.3;
 }
 
