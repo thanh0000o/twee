@@ -41,7 +41,8 @@ export const GetMusicCollectionResponse = zod.object({
   "format": zod.string(),
   "url": zod.string(),
   "styles": zod.array(zod.string()),
-  "labels": zod.array(zod.string())
+  "labels": zod.array(zod.string()),
+  "added": zod.string().optional().describe('When this copy was added to the Discogs collection (ISO 8601).')
 }))
 })
 

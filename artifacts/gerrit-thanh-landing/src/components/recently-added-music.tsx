@@ -14,10 +14,10 @@ const normalise = (title: string) => title.toLowerCase().replace(/[^a-z0-9]+/g, 
 // Everything added on Discogs from Ambient Lounge 7 on shows up here by itself, newest first.
 // Discogs gives each copy a rising id when it is added, so no list needs updating by hand.
 const NEW_FROM_ID = 2200755978;
-const MAX_RECORDS = 5;
+const MAX_RECORDS = 10;
 
 // Bought recently but catalogued on Discogs earlier, so they can't be found by their id.
-// They fill the list after the automatic ones, in this order.
+// They are always included; the list is then filled with the next newest additions.
 const earlierPurchaseRules: Array<(record: MusicRecord) => boolean> = [
   record => normalise(record.title) === 'the future sound of jazz vol 4' && /\bcd\b/i.test(record.format),
   record =>
@@ -30,6 +30,13 @@ const earlierPurchaseRules: Array<(record: MusicRecord) => boolean> = [
     && /\bcd\b/i.test(record.format)
     && record.labels.some(label => label.trim().toLowerCase() === 'blue note'),
 ];
+
+const addedFormat = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Europe/Brussels' });
+const addedLabel = (record: MusicRecord) => {
+  if (!record.added) return '';
+  const date = new Date(record.added);
+  return Number.isNaN(date.getTime()) ? '' : addedFormat.format(date);
+};
 
 const Cover: FC<{ record: MusicRecord }> = ({ record }) => {
   const [failed, setFailed] = useState(false);
@@ -49,14 +56,16 @@ const Cover: FC<{ record: MusicRecord }> = ({ record }) => {
 };
 
 function selectRecentRecords(records: MusicRecord[]): { picked: MusicRecord[]; complete: boolean } {
-  const automatic = records.filter(record => record.id >= NEW_FROM_ID).sort((a, b) => b.id - a.id);
+  const automatic = records.filter(record => record.id >= NEW_FROM_ID);
   const earlier = earlierPurchaseRules.map(rule => records.find(rule));
   const picked = [...automatic];
-  for (const record of earlier) {
+  for (const record of [...earlier, ...[...records].sort((a, b) => b.id - a.id)]) {
+    if (picked.length >= MAX_RECORDS) break;
     if (record && !picked.some(item => item.id === record.id)) picked.push(record);
   }
-  const complete = picked.length >= MAX_RECORDS || earlier.every(record => record !== undefined);
-  return { picked: picked.slice(0, MAX_RECORDS), complete };
+  // Newest first, by the moment it was added to Discogs (a higher copy id means added later).
+  picked.sort((a, b) => b.id - a.id);
+  return { picked: picked.slice(0, MAX_RECORDS), complete: earlier.every(record => record !== undefined) };
 }
 
 async function loadRecentRecords(signal: AbortSignal): Promise<MusicRecord[]> {
@@ -84,7 +93,7 @@ async function loadRecentRecords(signal: AbortSignal): Promise<MusicRecord[]> {
 
 export const RecentlyAddedMusic = () => {
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ['/api/music/collection', 'recent-additions', MAX_RECORDS],
+    queryKey: ['/api/music/collection', 'recent-additions-dated', MAX_RECORDS],
     queryFn: ({ signal }) => loadRecentRecords(signal),
     staleTime: 5 * 60 * 1000,
     refetchOnMount: true,
@@ -135,6 +144,7 @@ export const RecentlyAddedMusic = () => {
                 <span className="music-sub">
                   {[record.year > 0 ? record.year : null, record.format].filter(Boolean).join(' · ')}
                 </span>
+                {addedLabel(record) && <span className="blog-recent-music-added">added {addedLabel(record)}</span>}
               </div>
             </a>
           </li>

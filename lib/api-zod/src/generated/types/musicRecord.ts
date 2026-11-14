@@ -16,4 +16,6 @@ export interface MusicRecord {
   url: string;
   styles: string[];
   labels: string[];
+  /** When this copy was added to the Discogs collection (ISO 8601). */
+  added?: string;
 }
