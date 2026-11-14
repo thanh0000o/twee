@@ -371,6 +371,31 @@ const FILTER_LABELS: [VizFilter, string][] = [
   ['plants', 'flowers & plants'],
   ['textures', 'textures'],
 ];
+// Each filter has its own web address (?filter=mushrooms), so a filtered view can be shared
+// and the browser's back button returns to the previous filter.
+const FILTER_SLUGS: Record<VizFilter, string> = {
+  all: '',
+  fungi: 'mushrooms',
+  architecture: 'architecture',
+  churches: 'churches',
+  forests: 'forests',
+  landscapes: 'landscapes',
+  plants: 'flowers',
+  textures: 'textures',
+};
+const filterFromUrl = (): VizFilter => {
+  const slug = new URLSearchParams(window.location.search).get('filter') ?? '';
+  const match = (Object.entries(FILTER_SLUGS) as [VizFilter, string][]).find(([, value]) => value && value === slug);
+  return match ? match[0] : 'all';
+};
+const urlForFilter = (next: VizFilter) => {
+  const params = new URLSearchParams(window.location.search);
+  if (FILTER_SLUGS[next]) params.set('filter', FILTER_SLUGS[next]);
+  else params.delete('filter');
+  const query = params.toString();
+  return `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`;
+};
+
 const FILTERS = FILTER_LABELS.map(([id, label]) => ({ id, label, count: SOURCES[id].length }));
 
 const CHUNK_SIZE = 10;
@@ -425,7 +450,15 @@ const LANDSCAPE_IMAGES = new Set([
 
 export const Visualisations: FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const [filter, setFilter] = useState<VizFilter>('all');
+  const [filter, setFilter] = useState<VizFilter>(filterFromUrl);
+  useEffect(() => {
+    const onPopState = () => {
+      setActiveIndex(null);
+      setFilter(filterFromUrl());
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
   const galleryRef = useRef<HTMLDivElement>(null);
   useFitLastSection(galleryRef, [filter]);
   const shown = SOURCES[filter];
@@ -437,6 +470,7 @@ export const Visualisations: FC = () => {
     if (next === filter) return;
     setActiveIndex(null);
     setFilter(next);
+    window.history.pushState(window.history.state, '', urlForFilter(next));
     window.scrollTo({ top: 0 });
   };
 
