@@ -28,7 +28,7 @@ const stackedUnder = (box: Box, other: Box) => {
   const sharedWidth = Math.min(box.right, other.right) - Math.max(box.left, other.left);
   const narrow = Math.min(box.right - box.left, other.right - other.left);
   const gapBelow = box.top - other.bottom;
-  return sharedWidth > narrow * 0.5 && gapBelow >= 0 && gapBelow < 220;
+  return sharedWidth > narrow * 0.3 && gapBelow >= -PHOTO_GAP && gapBelow < 520;
 };
 
 function layoutSection(section: HTMLElement, isLast: boolean, above: Box[]) {
@@ -67,13 +67,13 @@ function layoutSection(section: HTMLElement, isLast: boolean, above: Box[]) {
       for (let dx = minX - start.left; start.left + dx + width <= maxX; dx += stepX) {
         const box = { left: start.left + dx, right: start.right + dx, top: start.top + dy, bottom: start.bottom + dy };
         if (!free(box)) continue;
-        const score = Math.abs(dx) + dy * 2.5 + (placed.some((other) => stackedUnder(box, other)) ? 600 : 0);
+        const score = Math.abs(dx) + dy * 2.5 + (placed.some((other) => stackedUnder(box, other)) ? 1200 : 0);
         if (score < best.score) best = { dx, dy, score };
       }
       // Also try the original column exactly, which the stepping can skip.
       const box = { ...start, top: start.top + dy, bottom: start.bottom + dy };
       if (free(box)) {
-        const score = dy * 2.5 + (placed.some((other) => stackedUnder(box, other)) ? 600 : 0);
+        const score = dy * 2.5 + (placed.some((other) => stackedUnder(box, other)) ? 1200 : 0);
         if (score < best.score) best = { dx: 0, dy, score };
       }
     }
