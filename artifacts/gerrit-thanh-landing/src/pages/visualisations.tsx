@@ -383,6 +383,18 @@ const CHUNKS = Object.fromEntries(
   Object.entries(SOURCES).map(([id, items]) => [id, toChunks(items)]),
 ) as Record<VizFilter, string[][]>;
 
+// Names for the four older mushroom shots, identified from the photos (not in Gerrit's list).
+const OLD_FUNGI_NAMES: [number, FungusName][] = [
+  [78, { nl: 'Gewone zwavelkop (?)', en: 'Sulphur tuft', la: 'Hypholoma fasciculare' }],
+  [100, { nl: 'Vergane paddenstoel met schimmel (niet te bepalen)', en: 'Decaying mushroom with mould', la: 'Niet te bepalen' }],
+  [101, { nl: 'Vergane paddenstoel met schimmel (niet te bepalen)', en: 'Decaying mushroom with mould', la: 'Niet te bepalen' }],
+  [128, { nl: 'Glimmerinktzwam (?)', en: 'Glistening ink cap', la: 'Coprinellus micaceus' }],
+];
+const fungusNameBySrc = new Map<string, FungusName>([
+  ...[...fungusBySrc].map(([src, item]) => [src, item.name] as [string, FungusName]),
+  ...OLD_FUNGI_NAMES.map(([n, name]) => [byNumber(n), name] as [string, FungusName]),
+]);
+
 const FungusCaption: FC<{ name: FungusName; className: string }> = ({ name, className }) => (
   <span className={className}>
     <span className="viz-fungus-nl">{name.nl}</span>
@@ -419,7 +431,7 @@ export const Visualisations: FC = () => {
   const shown = SOURCES[filter];
   const chunks = CHUNKS[filter];
   const showNames = filter === 'fungi';
-  const activeFungus = activeIndex !== null && showNames ? fungusBySrc.get(shown[activeIndex]) : undefined;
+  const activeFungus = activeIndex !== null && showNames ? fungusNameBySrc.get(shown[activeIndex]) : undefined;
 
   const chooseFilter = (next: VizFilter) => {
     if (next === filter) return;
@@ -487,14 +499,14 @@ export const Visualisations: FC = () => {
             {chunk.map((src, itemIndex) => {
               const absoluteIndex = chunkIndex * CHUNK_SIZE + itemIndex;
               const scatter = SCATTER[(itemIndex + chunkIndex * 3) % SCATTER.length];
-              const fungus = showNames ? fungusBySrc.get(src) : undefined;
+              const fungus = showNames ? fungusNameBySrc.get(src) : undefined;
               return (
                 <div className="viz-scatter-cell" key={src}>
                   <button
                     type="button"
                     className={`viz-item-container ${LANDSCAPE_IMAGES.has(src) ? 'is-landscape' : ''}`}
                     onClick={() => setActiveIndex(absoluteIndex)}
-                    aria-label={fungus ? `Open photo: ${fungus.name.nl}` : `Open visualisation ${absoluteIndex + 1}`}
+                    aria-label={fungus ? `Open photo: ${fungus.nl}` : `Open visualisation ${absoluteIndex + 1}`}
                     style={{
                       '--scatter-x': `${scatter.x}px`,
                       '--scatter-y': `${scatter.y}px`,
@@ -504,7 +516,7 @@ export const Visualisations: FC = () => {
                     <div className="viz-plate" aria-hidden="true" />
                     <img
                       src={src}
-                      alt={fungus ? `${fungus.name.nl}, ${fungus.name.la}` : `Visualisation ${absoluteIndex + 1}`}
+                      alt={fungus ? `${fungus.nl}, ${fungus.la}` : `Visualisation ${absoluteIndex + 1}`}
                       className="viz-img"
                       loading={absoluteIndex > 9 ? 'lazy' : 'eager'}
                     />
@@ -517,7 +529,7 @@ export const Visualisations: FC = () => {
                         '--scatter-r': `${scatter.r}deg`,
                       } as React.CSSProperties}
                     >
-                      <FungusCaption name={fungus.name} className="viz-fungus-caption" />
+                      <FungusCaption name={fungus} className="viz-fungus-caption" />
                     </div>
                   )}
                 </div>
@@ -564,10 +576,10 @@ export const Visualisations: FC = () => {
           <div className="viz-lightbox-stage" onClick={(event) => event.stopPropagation()}>
             <img
               src={shown[activeIndex]}
-              alt={activeFungus ? `${activeFungus.name.nl}, ${activeFungus.name.la}` : `Visualisation ${activeIndex + 1}`}
+              alt={activeFungus ? `${activeFungus.nl}, ${activeFungus.la}` : `Visualisation ${activeIndex + 1}`}
               className="viz-lightbox-image"
             />
-            {activeFungus && <FungusCaption name={activeFungus.name} className="viz-fungus-caption viz-fungus-caption--lightbox" />}
+            {activeFungus && <FungusCaption name={activeFungus} className="viz-fungus-caption viz-fungus-caption--lightbox" />}
             <div className="viz-lightbox-actions">
               <a
                 className="viz-lightbox-close"
