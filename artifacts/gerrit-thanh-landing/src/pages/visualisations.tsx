@@ -285,21 +285,8 @@ function seededShuffle(items: readonly string[], seed: number): string[] {
 
 const fungiSources = fungiPhotos.map((item) => item.src);
 
-// A new random order for every visit. The seed is kept for the rest of the visit (this browser tab),
-// so a refresh shows the same order: if someone mentions "the third photo", it is still the third.
-const VISIT_SEED_KEY = 'thanh-visualisations-order';
-function getVisitSeed(): number {
-  const fresh = Math.floor(Math.random() * 4294967296);
-  try {
-    const saved = window.sessionStorage.getItem(VISIT_SEED_KEY);
-    if (saved !== null && /^\d+$/.test(saved)) return Number(saved);
-    window.sessionStorage.setItem(VISIT_SEED_KEY, String(fresh));
-  } catch {
-    // Storage blocked: still random, just not kept over a refresh.
-  }
-  return fresh;
-}
-const visitSeed = getVisitSeed();
+// A new random order every time the page loads, also on a refresh.
+const visitSeed = Math.floor(Math.random() * 4294967296);
 
 // Existing visualisations by their file number (01–233; 223 does not exist).
 const byNumber = (n: number) => {
@@ -343,7 +330,7 @@ const CATEGORY_SETS = [
   groupSet(GROUPS.textures),
 ];
 
-// {all}: shuffled for this visit, and it opens with one photo from every category (in random order),
+// {all}: shuffled on every load, and it opens with one photo from every category (in random order),
 // so the first screen shows a bit of everything.
 const allVisualisations = (() => {
   const shuffled = seededShuffle([...visualisationSources, img222, ...fungiSources], visitSeed);
@@ -376,12 +363,12 @@ const SOURCES: Record<VizFilter, string[]> = {
 
 const FILTER_LABELS: [VizFilter, string][] = [
   ['all', 'all'],
+  ['fungi', 'mushrooms & lichen'],
   ['architecture', 'architecture'],
   ['churches', 'churches & temples'],
   ['forests', 'forests'],
   ['landscapes', 'landscapes'],
   ['plants', 'flowers & plants'],
-  ['fungi', 'mushrooms & lichen'],
   ['textures', 'textures'],
 ];
 const FILTERS = FILTER_LABELS.map(([id, label]) => ({ id, label, count: SOURCES[id].length }));
