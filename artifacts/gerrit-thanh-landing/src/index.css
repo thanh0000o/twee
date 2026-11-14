@@ -1873,6 +1873,12 @@
   --return-glow: var(--nav-visualisations-glow);
 }
 
+.viz-camera {
+  flex: 0 0 100%;
+  margin: 0 0 4px;
+  color: #888;
+}
+
 .viz-filter-label {
   min-width: 5ch;
   color: #888;

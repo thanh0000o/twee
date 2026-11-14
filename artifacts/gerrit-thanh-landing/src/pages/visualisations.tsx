@@ -459,6 +459,7 @@ export const Visualisations: FC = () => {
       </nav>
       <h1 className="viz-page-title">{`{visualisations}`}</h1>
       <div className="viz-filter" role="group" aria-label="Filter the visualisations" style={{ '--viz-filter-palette': getSavedPaletteFilter() } as CSSProperties}>
+        <p className="viz-camera">current camera: Panasonic Lumix DMC-LX15</p>
         <span className="viz-filter-label">show</span>
         {FILTERS.map((option) => (
           <button
