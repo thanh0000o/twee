@@ -1920,7 +1920,7 @@
 
 .viz-fungus-caption-wrap {
   width: clamp(calc(200 * var(--ui-px)), 18vw, calc(250 * var(--ui-px)));
-  transform: translateX(calc(var(--scatter-x) * .35)) rotate(var(--scatter-r));
+  transform: translateX(calc(var(--scatter-x) * .35));
 }
 
 .viz-fungus-caption-wrap.is-landscape {
@@ -1977,7 +1977,7 @@
   font: inherit;
   text-align: left;
   cursor: zoom-in;
-  transform: translateX(calc(var(--scatter-x) * .35)) rotate(var(--scatter-r));
+  transform: translateX(calc(var(--scatter-x) * .35));
   transition: transform .35s ease;
 }
 
@@ -1988,6 +1988,11 @@
 .viz-gallery {
   width: calc(100% - 16px);
   margin: 0 8px;
+  padding-top: 64px;
+}
+
+/* On the visualisations page the filter already sits above the gallery. */
+.visualisations-page .viz-gallery {
   padding-top: 24px;
 }
 
@@ -2344,9 +2349,7 @@
 
   .viz-item-container {
     width: min(38vw, 180px);
-    transform:
-      translateX(calc(var(--scatter-x) * .18))
-      rotate(var(--scatter-r));
+    transform: translateX(calc(var(--scatter-x) * .18));
   }
 
   .viz-item-container.is-landscape {

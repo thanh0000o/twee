@@ -441,6 +441,11 @@
   from { opacity: 0; }
   to { opacity: 1; }
 }
+/* The rose figure breathes on the same layer that fades in. Keep the breathing running during
+   the fade, otherwise it starts again at its smallest size when the fade ends and the figure jumps. */
+.home-page[data-palette="rose"][data-swapping] .home-dots-swap > .home-dots-inner {
+  animation: home-dots-swap 1000ms ease-out both, home-dots-breathe 9s ease-in-out infinite;
+}
 .home-page .home-nav-title,
 .home-page .welcome-face,
 .home-page .center-copy span { transition: color 900ms ease-in-out; }
