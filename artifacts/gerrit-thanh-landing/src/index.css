@@ -1870,6 +1870,7 @@
   padding: calc(var(--ui-edge, 16px) + var(--ui-fs, 13px) * 2.2 + 6px) var(--ui-edge, 16px) 0;
   font-size: var(--ui-fs, 13px);
   line-height: 1.3;
+  --return-glow: var(--nav-visualisations-glow);
 }
 
 .viz-filter-label {
@@ -1887,17 +1888,9 @@
   outline: none;
 }
 
+/* highlight size, glow and black ink come from navigation-highlights.css, shared with {return home} */
 .viz-filter-title {
-  display: inline-block;
-  padding: 0 2px;
   filter: var(--viz-filter-palette, none);
-}
-
-.viz-filter button:hover .viz-filter-title,
-.viz-filter button:focus-visible .viz-filter-title {
-  background: var(--nav-visualisations-glow);
-  color: #fff;
-  box-shadow: 0 0 4px var(--nav-visualisations-glow);
 }
 
 .viz-filter button[aria-pressed='true'] .viz-filter-title {
