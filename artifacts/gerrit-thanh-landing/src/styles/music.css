@@ -18,7 +18,8 @@ main.ed .music-grid {
 main.ed .music-card { min-width: 0; }
 main.ed .music-card > a { display: block; color: inherit; text-decoration: none; }
 main.ed .music-card .ed-stage { aspect-ratio: 1 / 1; }
-main.ed .music-card .ed-stage img { position: relative; z-index: 1; }
+/* covers that are not quite square are stretched to fill the frame, so no empty strip shows */
+main.ed .music-card .ed-stage img { position: relative; z-index: 1; object-fit: fill; }
 main.ed .music-card .music-fallback { display: grid; place-items: center; color: var(--ed-ink); text-align: center; padding: calc(8 * var(--ui-px)); position: relative; z-index: 1; }
 main.ed .music-card figcaption, main.ed .music-meta { margin-top: calc(12 * var(--ui-px)); }
 main.ed .music-meta span { display: block; overflow-wrap: anywhere; }
@@ -42,11 +43,8 @@ main.ed .music-filter-label { color: var(--ed-mute); min-width: 5ch; }
 main.ed .music-filter-row button {
   font: inherit; color: var(--ed-ink); background: none; border: 0; padding: 0; cursor: pointer; outline: none;
 }
-/* same glow as {return home}: it sits on the label, the button itself stays plain */
-main.ed .music-filter-title { padding: 0 1px; filter: var(--music-filter); }
-main.ed .music-filter-row button:hover .music-filter-title,
-main.ed .music-filter-row button:focus-visible .music-filter-title {
-  background: var(--nav-music-glow); box-shadow: 0 0 4px var(--nav-music-glow);
-}
+/* highlight size, glow and black ink come from navigation-highlights.css, shared with {return home} */
+main.ed .music-filter { --return-glow: var(--nav-music-glow); }
+main.ed .music-filter-title { filter: var(--music-filter); }
 main.ed .music-filter-row button[aria-pressed='true'] .music-filter-title { text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
 main.ed .music-filter-count { color: var(--ed-mute); margin-left: .35em; font-size: .85em; }

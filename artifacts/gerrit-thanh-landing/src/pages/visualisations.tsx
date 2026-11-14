@@ -1,7 +1,8 @@
-import { type CSSProperties, type FC, useEffect, useState } from 'react';
+import { type CSSProperties, type FC, useEffect, useRef, useState } from 'react';
 import { Link } from 'wouter';
 import { BlogReturnLink } from '../components/blog-return-link';
 import { getSavedPaletteFilter } from '../palette';
+import { useFitLastSection } from '../lib/use-fit-last-section';
 import { fungiPhotos, fungusBySrc, type FungusName } from '../lib/fungi';
 
 import img1 from '@/assets/visualisations/01.jpg';
@@ -266,10 +267,6 @@ const visualisationSources = [
   img224, img225, img226, img227, img228, img229, img230, img231, img232, img233
 ];
 
-const FIXED_PREFIX_COUNT = 30;
-const OPENING_IMAGES = [img16, img23, img22, img222];
-const openingSet = new Set(OPENING_IMAGES);
-
 function seededShuffle(items: readonly string[], seed: number): string[] {
   const shuffled = [...items];
   let state = seed >>> 0;
@@ -286,26 +283,23 @@ function seededShuffle(items: readonly string[], seed: number): string[] {
   return shuffled;
 }
 
-// The mushroom photos are spread evenly through the shuffled part, so the existing order stays as it was.
-function spreadInto(base: readonly string[], extra: readonly string[]): string[] {
-  const result = [...base];
-  const step = base.length / extra.length;
-  extra.forEach((src, index) => {
-    result.splice(Math.round((index + 0.5) * step) + index, 0, src);
-  });
-  return result;
-}
-
 const fungiSources = fungiPhotos.map((item) => item.src);
 
-const allVisualisations = [
-  ...OPENING_IMAGES,
-  ...visualisationSources.slice(0, FIXED_PREFIX_COUNT).filter((src) => !openingSet.has(src)),
-  ...spreadInto(
-    seededShuffle(visualisationSources.slice(FIXED_PREFIX_COUNT), 0x51a7e),
-    seededShuffle(fungiSources, 0xf0f1),
-  ),
-];
+// A new random order for every visit. The seed is kept for the rest of the visit (this browser tab),
+// so a refresh shows the same order: if someone mentions "the third photo", it is still the third.
+const VISIT_SEED_KEY = 'thanh-visualisations-order';
+function getVisitSeed(): number {
+  const fresh = Math.floor(Math.random() * 4294967296);
+  try {
+    const saved = window.sessionStorage.getItem(VISIT_SEED_KEY);
+    if (saved !== null && /^\d+$/.test(saved)) return Number(saved);
+    window.sessionStorage.setItem(VISIT_SEED_KEY, String(fresh));
+  } catch {
+    // Storage blocked: still random, just not kept over a refresh.
+  }
+  return fresh;
+}
+const visitSeed = getVisitSeed();
 
 // Existing visualisations by their file number (01–233; 223 does not exist).
 const byNumber = (n: number) => {
@@ -338,8 +332,32 @@ const GROUPS = {
   oldFungi: [78, 100, 101, 128],
 } satisfies Record<string, number[]>;
 
+const groupSet = (numbers: number[]) => new Set(numbers.map(byNumber));
+const CATEGORY_SETS = [
+  groupSet(GROUPS.architecture),
+  groupSet(GROUPS.churches),
+  groupSet(GROUPS.forests),
+  groupSet(GROUPS.landscapes),
+  groupSet(GROUPS.plants),
+  new Set(fungiSources),
+  groupSet(GROUPS.textures),
+];
+
+// {all}: shuffled for this visit, and it opens with one photo from every category (in random order),
+// so the first screen shows a bit of everything.
+const allVisualisations = (() => {
+  const shuffled = seededShuffle([...visualisationSources, img222, ...fungiSources], visitSeed);
+  const opening: string[] = [];
+  for (const set of seededShuffle(CATEGORY_SETS.map((_, i) => String(i)), visitSeed ^ 0x9e3779b9).map(Number)) {
+    const pick = shuffled.find((src) => CATEGORY_SETS[set].has(src) && !opening.includes(src));
+    if (pick) opening.push(pick);
+  }
+  const openingSet = new Set(opening);
+  return [...opening, ...shuffled.filter((src) => !openingSet.has(src))];
+})();
+
 const inGalleryOrder = (numbers: number[]) => {
-  const wanted = new Set(numbers.map(byNumber));
+  const wanted = groupSet(numbers);
   return allVisualisations.filter((src) => wanted.has(src));
 };
 
@@ -409,6 +427,8 @@ const LANDSCAPE_IMAGES = new Set([
 export const Visualisations: FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [filter, setFilter] = useState<VizFilter>('all');
+  const galleryRef = useRef<HTMLDivElement>(null);
+  useFitLastSection(galleryRef, [filter]);
   const shown = SOURCES[filter];
   const chunks = CHUNKS[filter];
   const showNames = filter === 'fungi';
@@ -474,7 +494,7 @@ export const Visualisations: FC = () => {
         ))}
       </div>
       
-      <div className={`viz-gallery ${showNames ? 'is-named' : ''}`} key={filter}>
+      <div ref={galleryRef} className={`viz-gallery ${showNames ? 'is-named' : ''}`} key={filter}>
         {chunks.map((chunk, chunkIndex) => (
           <section className="viz-grid-section" key={chunkIndex}>
             {chunk.map((src, itemIndex) => {

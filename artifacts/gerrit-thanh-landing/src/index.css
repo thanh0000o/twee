@@ -1836,6 +1836,8 @@
 
 /* Visualisations */
 .viz-page {
+  /* scattered photos may stick out a few pixels on the right; never let that scroll sideways */
+  overflow-x: clip;
   min-height: 100vh;
   padding: 10px;
   background: #fff;

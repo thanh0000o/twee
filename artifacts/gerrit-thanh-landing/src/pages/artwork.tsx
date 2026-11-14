@@ -1,4 +1,5 @@
 import { type CSSProperties, type FC, useEffect, useRef, useState } from 'react';
+import { useFitLastSection } from '../lib/use-fit-last-section';
 import { Link } from 'wouter';
 import { BlogReturnLink } from '../components/blog-return-link';
 import { getSavedPaletteFilter } from '../palette';
@@ -243,6 +244,8 @@ const ArtworkVideoPlayer: FC<{ src: string; index: number }> = ({ src, index }) 
 };
 
 export const Artwork: FC = () => {
+  const galleryRef = useRef<HTMLDivElement>(null);
+  useFitLastSection(galleryRef);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   useEffect(() => {
@@ -283,7 +286,7 @@ export const Artwork: FC = () => {
       </nav>
       <h1 className="viz-page-title">{`{artwork}`}</h1>
 
-      <div className="viz-gallery">
+      <div ref={galleryRef} className="viz-gallery">
         {chunks.map((chunk, chunkIndex) => (
           <section
             className="viz-grid-section"
