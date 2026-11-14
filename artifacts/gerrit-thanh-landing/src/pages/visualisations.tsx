@@ -307,12 +307,66 @@ const allVisualisations = [
   ),
 ];
 
-type VizFilter = 'all' | 'fungi';
+// Existing visualisations by their file number (01–233; 223 does not exist).
+const byNumber = (n: number) => {
+  if (n === 222) return img222;
+  const src = n <= 221 ? visualisationSources[n - 1] : visualisationSources[221 + (n - 224)];
+  if (!src) throw new Error(`No visualisation ${n}`);
+  return src;
+};
+const range = (from: number, to: number) => Array.from({ length: to - from + 1 }, (_, i) => from + i);
 
-const FILTERS: { id: VizFilter; label: string; count: number }[] = [
-  { id: 'all', label: 'all', count: allVisualisations.length },
-  { id: 'fungi', label: 'mushrooms & lichen', count: fungiSources.length },
+// One photo can sit in more than one group (the churches are also architecture).
+const GROUPS = {
+  architecture: [
+    5, 6, 7, 9, 16, 20, 24, 25, 26, 27, 36, ...range(37, 62), 90, 91, 92, 93, 94, 95, 96, 97, 117, 132, 134, 136, 137,
+    138, 141, 151, 153, 165, 166, 167, 174, 186, 187, 192, 193, 195, 196, 197, 199, 200, 207, 209, 214, 215,
+    ...range(224, 231), 232,
+  ],
+  churches: [5, 6, 7, 22, 90, 91, 92, 93, 96, 97, 124, 133, 134, 153, 160, 174, 184, 201, 202, 203, 205, 206, 210],
+  forests: [
+    1, 2, 3, 4, 10, 11, 21, 31, 32, 33, 34, 35, ...range(64, 77), ...range(79, 87), 102, 105, 106, 107, 108,
+    ...range(109, 116), 189, 190, 191, 211, 212, 220, 221,
+  ],
+  landscapes: [
+    12, 13, 14, 15, 17, 18, 19, 23, 29, 30, 88, 89, 103, 104, 118, 119, ...range(121, 127), 129, 135, 139, 148,
+    ...range(154, 159), 161, 162, 169, 170, 171, 172, 173, ...range(175, 183), 185, 198, 204, 222, 233,
+  ],
+  plants: [98, 120, 130, 145, 146, 149, 188, 213],
+  textures: [8, 28, 45, 99, 144, 152, 176, 216, 217, 218, 219, 225],
+  // Older mushroom shots without a name; they come after the named ones.
+  oldFungi: [78, 100, 101, 128],
+} satisfies Record<string, number[]>;
+
+const inGalleryOrder = (numbers: number[]) => {
+  const wanted = new Set(numbers.map(byNumber));
+  return allVisualisations.filter((src) => wanted.has(src));
+};
+
+type VizFilter = 'all' | 'architecture' | 'churches' | 'forests' | 'landscapes' | 'plants' | 'fungi' | 'textures';
+
+const SOURCES: Record<VizFilter, string[]> = {
+  all: allVisualisations,
+  architecture: inGalleryOrder(GROUPS.architecture),
+  churches: inGalleryOrder(GROUPS.churches),
+  forests: inGalleryOrder(GROUPS.forests),
+  landscapes: inGalleryOrder(GROUPS.landscapes),
+  plants: inGalleryOrder(GROUPS.plants),
+  fungi: [...fungiSources, ...GROUPS.oldFungi.map(byNumber)],
+  textures: inGalleryOrder(GROUPS.textures),
+};
+
+const FILTER_LABELS: [VizFilter, string][] = [
+  ['all', 'all'],
+  ['architecture', 'architecture'],
+  ['churches', 'churches & temples'],
+  ['forests', 'forests'],
+  ['landscapes', 'landscapes'],
+  ['plants', 'flowers & plants'],
+  ['fungi', 'mushrooms & lichen'],
+  ['textures', 'textures'],
 ];
+const FILTERS = FILTER_LABELS.map(([id, label]) => ({ id, label, count: SOURCES[id].length }));
 
 const CHUNK_SIZE = 10;
 const toChunks = (items: readonly string[]) => {
@@ -320,11 +374,9 @@ const toChunks = (items: readonly string[]) => {
   for (let i = 0; i < items.length; i += CHUNK_SIZE) result.push(items.slice(i, i + CHUNK_SIZE));
   return result;
 };
-const CHUNKS: Record<VizFilter, string[][]> = {
-  all: toChunks(allVisualisations),
-  fungi: toChunks(fungiSources),
-};
-const SOURCES: Record<VizFilter, string[]> = { all: allVisualisations, fungi: fungiSources };
+const CHUNKS = Object.fromEntries(
+  Object.entries(SOURCES).map(([id, items]) => [id, toChunks(items)]),
+) as Record<VizFilter, string[][]>;
 
 const FungusCaption: FC<{ name: FungusName; className: string }> = ({ name, className }) => (
   <span className={className}>
@@ -407,6 +459,7 @@ export const Visualisations: FC = () => {
       </nav>
       <h1 className="viz-page-title">{`{visualisations}`}</h1>
       <div className="viz-filter" role="group" aria-label="Filter the visualisations" style={{ '--viz-filter-palette': getSavedPaletteFilter() } as CSSProperties}>
+        <span className="viz-filter-label">show</span>
         {FILTERS.map((option) => (
           <button
             key={option.id}
