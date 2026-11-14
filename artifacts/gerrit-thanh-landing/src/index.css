@@ -1876,19 +1876,19 @@
 .viz-camera {
   flex: 0 0 100%;
   margin: 0 0 4px;
-  color: #888;
+  color: #161616;
 }
 
 .viz-filter-label {
   min-width: 5ch;
-  color: #888;
+  color: #6f6f6c;
 }
 
 .viz-filter button {
   padding: 0;
   border: 0;
   background: none;
-  color: #000;
+  color: #161616;
   font: inherit;
   cursor: pointer;
   outline: none;
@@ -1906,8 +1906,8 @@
 }
 
 .viz-filter-count {
-  margin-left: .3em;
-  color: #888;
+  margin-left: .35em;
+  color: #6f6f6c;
   font-size: .85em;
 }
 
