@@ -2,6 +2,7 @@ import { type CSSProperties, type FC, useEffect, useState } from 'react';
 import { Link } from 'wouter';
 import { BlogReturnLink } from '../components/blog-return-link';
 import { getSavedPaletteFilter } from '../palette';
+import { fungiPhotos, fungusBySrc, type FungusName } from '../lib/fungi';
 
 import img1 from '@/assets/visualisations/01.jpg';
 import img2 from '@/assets/visualisations/02.jpg';
@@ -285,17 +286,53 @@ function seededShuffle(items: readonly string[], seed: number): string[] {
   return shuffled;
 }
 
+// The mushroom photos are spread evenly through the shuffled part, so the existing order stays as it was.
+function spreadInto(base: readonly string[], extra: readonly string[]): string[] {
+  const result = [...base];
+  const step = base.length / extra.length;
+  extra.forEach((src, index) => {
+    result.splice(Math.round((index + 0.5) * step) + index, 0, src);
+  });
+  return result;
+}
+
+const fungiSources = fungiPhotos.map((item) => item.src);
+
 const allVisualisations = [
   ...OPENING_IMAGES,
   ...visualisationSources.slice(0, FIXED_PREFIX_COUNT).filter((src) => !openingSet.has(src)),
-  ...seededShuffle(visualisationSources.slice(FIXED_PREFIX_COUNT), 0x51a7e),
+  ...spreadInto(
+    seededShuffle(visualisationSources.slice(FIXED_PREFIX_COUNT), 0x51a7e),
+    seededShuffle(fungiSources, 0xf0f1),
+  ),
+];
+
+type VizFilter = 'all' | 'fungi';
+
+const FILTERS: { id: VizFilter; label: string; count: number }[] = [
+  { id: 'all', label: 'all', count: allVisualisations.length },
+  { id: 'fungi', label: 'mushrooms & lichen', count: fungiSources.length },
 ];
 
 const CHUNK_SIZE = 10;
-const chunks: string[][] = [];
-for (let i = 0; i < allVisualisations.length; i += CHUNK_SIZE) {
-  chunks.push(allVisualisations.slice(i, i + CHUNK_SIZE));
-}
+const toChunks = (items: readonly string[]) => {
+  const result: string[][] = [];
+  for (let i = 0; i < items.length; i += CHUNK_SIZE) result.push(items.slice(i, i + CHUNK_SIZE));
+  return result;
+};
+const CHUNKS: Record<VizFilter, string[][]> = {
+  all: toChunks(allVisualisations),
+  fungi: toChunks(fungiSources),
+};
+const SOURCES: Record<VizFilter, string[]> = { all: allVisualisations, fungi: fungiSources };
+
+const FungusCaption: FC<{ name: FungusName; className: string }> = ({ name, className }) => (
+  <span className={className}>
+    <span className="viz-fungus-nl">{name.nl}</span>
+    <span className="viz-fungus-en">{name.en}</span>
+    <span className="viz-fungus-la">{name.la}</span>
+  </span>
+);
 
 const SCATTER = [
   { x: -18, y: -22, r: -0.7 },
@@ -311,12 +348,26 @@ const SCATTER = [
 ];
 
 const LANDSCAPE_INDICES = new Set([8, 14, 16, 17, 19, 23, 24, 26, 27, 29, 30, 32, 54, 88, 103, 104, 105, 122, 123, 128, 131, 135, 139, 141, 143, 144, 148, 150, 152, 154, 155, 156, 157, 158, 159, 161, 162, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 194, 196, 197, 199, 204, 206, 207, 208, 209, 213, 214, 215, 216, 217, 218, 219, 221]);
-const LANDSCAPE_IMAGES = new Set(
-  [img222, ...[...LANDSCAPE_INDICES].map((index) => visualisationSources[index - 1])],
-);
+const LANDSCAPE_IMAGES = new Set([
+  img222,
+  ...[...LANDSCAPE_INDICES].map((index) => visualisationSources[index - 1]),
+  ...fungiPhotos.filter((item) => item.landscape).map((item) => item.src),
+]);
 
 export const Visualisations: FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [filter, setFilter] = useState<VizFilter>('all');
+  const shown = SOURCES[filter];
+  const chunks = CHUNKS[filter];
+  const showNames = filter === 'fungi';
+  const activeFungus = activeIndex !== null && showNames ? fungusBySrc.get(shown[activeIndex]) : undefined;
+
+  const chooseFilter = (next: VizFilter) => {
+    if (next === filter) return;
+    setActiveIndex(null);
+    setFilter(next);
+    window.scrollTo({ top: 0 });
+  };
 
   useEffect(() => {
     const previousTitle = document.title;
@@ -335,8 +386,8 @@ export const Visualisations: FC = () => {
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') setActiveIndex(null);
-      if (event.key === 'ArrowLeft') setActiveIndex((current) => current === null ? null : (current - 1 + allVisualisations.length) % allVisualisations.length);
-      if (event.key === 'ArrowRight') setActiveIndex((current) => current === null ? null : (current + 1) % allVisualisations.length);
+      if (event.key === 'ArrowLeft') setActiveIndex((current) => current === null ? null : (current - 1 + shown.length) % shown.length);
+      if (event.key === 'ArrowRight') setActiveIndex((current) => current === null ? null : (current + 1) % shown.length);
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -344,7 +395,7 @@ export const Visualisations: FC = () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [activeIndex]);
+  }, [activeIndex, shown]);
 
   return (
     <main className="viz-page visualisations-page relative !p-0">
@@ -355,20 +406,34 @@ export const Visualisations: FC = () => {
         <BlogReturnLink />
       </nav>
       <h1 className="viz-page-title">{`{visualisations}`}</h1>
+      <div className="viz-filter" role="group" aria-label="Filter the visualisations" style={{ '--viz-filter-palette': getSavedPaletteFilter() } as CSSProperties}>
+        {FILTERS.map((option) => (
+          <button
+            key={option.id}
+            type="button"
+            aria-pressed={filter === option.id}
+            onClick={() => chooseFilter(option.id)}
+          >
+            <span className="viz-filter-title">{`{${option.label}}`}</span>
+            <span className="viz-filter-count">{option.count}</span>
+          </button>
+        ))}
+      </div>
       
-      <div className="viz-gallery">
+      <div className={`viz-gallery ${showNames ? 'is-named' : ''}`} key={filter}>
         {chunks.map((chunk, chunkIndex) => (
           <section className="viz-grid-section" key={chunkIndex}>
             {chunk.map((src, itemIndex) => {
               const absoluteIndex = chunkIndex * CHUNK_SIZE + itemIndex;
               const scatter = SCATTER[(itemIndex + chunkIndex * 3) % SCATTER.length];
+              const fungus = showNames ? fungusBySrc.get(src) : undefined;
               return (
                 <div className="viz-scatter-cell" key={src}>
                   <button
                     type="button"
                     className={`viz-item-container ${LANDSCAPE_IMAGES.has(src) ? 'is-landscape' : ''}`}
                     onClick={() => setActiveIndex(absoluteIndex)}
-                    aria-label={`Open visualisation ${absoluteIndex + 1}`}
+                    aria-label={fungus ? `Open photo: ${fungus.name.nl}` : `Open visualisation ${absoluteIndex + 1}`}
                     style={{
                       '--scatter-x': `${scatter.x}px`,
                       '--scatter-y': `${scatter.y}px`,
@@ -378,11 +443,22 @@ export const Visualisations: FC = () => {
                     <div className="viz-plate" aria-hidden="true" />
                     <img
                       src={src}
-                      alt={`Visualisation ${absoluteIndex + 1}`}
+                      alt={fungus ? `${fungus.name.nl}, ${fungus.name.la}` : `Visualisation ${absoluteIndex + 1}`}
                       className="viz-img"
                       loading={absoluteIndex > 9 ? 'lazy' : 'eager'}
                     />
                   </button>
+                  {fungus && (
+                    <div
+                      className={`viz-fungus-caption-wrap ${LANDSCAPE_IMAGES.has(src) ? 'is-landscape' : ''}`}
+                      style={{
+                        '--scatter-x': `${scatter.x}px`,
+                        '--scatter-r': `${scatter.r}deg`,
+                      } as React.CSSProperties}
+                    >
+                      <FungusCaption name={fungus.name} className="viz-fungus-caption" />
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -395,7 +471,7 @@ export const Visualisations: FC = () => {
           className="viz-lightbox"
           role="dialog"
           aria-modal="true"
-          aria-label={`Visualisation ${activeIndex + 1} of ${allVisualisations.length}`}
+          aria-label={`Visualisation ${activeIndex + 1} of ${shown.length}`}
           onClick={() => setActiveIndex(null)}
         >
           <button
@@ -403,7 +479,7 @@ export const Visualisations: FC = () => {
             className="works-arrow viz-lightbox-arrow viz-lightbox-arrow-prev"
             style={{ '--nav-works-glow': 'var(--nav-visualisations-glow)', filter: getSavedPaletteFilter() } as CSSProperties}
             aria-label="Previous"
-            onClick={(event) => { event.stopPropagation(); setActiveIndex((current) => current === null ? null : (current - 1 + allVisualisations.length) % allVisualisations.length); }}
+            onClick={(event) => { event.stopPropagation(); setActiveIndex((current) => current === null ? null : (current - 1 + shown.length) % shown.length); }}
           >
             <span aria-hidden="true">
               <svg viewBox="0 0 18 18" fill="none" stroke="#000" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -416,7 +492,7 @@ export const Visualisations: FC = () => {
             className="works-arrow viz-lightbox-arrow viz-lightbox-arrow-next"
             style={{ '--nav-works-glow': 'var(--nav-visualisations-glow)', filter: getSavedPaletteFilter() } as CSSProperties}
             aria-label="Next"
-            onClick={(event) => { event.stopPropagation(); setActiveIndex((current) => current === null ? null : (current + 1 + allVisualisations.length) % allVisualisations.length); }}
+            onClick={(event) => { event.stopPropagation(); setActiveIndex((current) => current === null ? null : (current + 1 + shown.length) % shown.length); }}
           >
             <span aria-hidden="true">
               <svg viewBox="0 0 18 18" fill="none" stroke="#000" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -426,15 +502,18 @@ export const Visualisations: FC = () => {
           </button>
           <div className="viz-lightbox-stage" onClick={(event) => event.stopPropagation()}>
             <img
-              src={allVisualisations[activeIndex]}
-              alt={`Visualisation ${activeIndex + 1}`}
+              src={shown[activeIndex]}
+              alt={activeFungus ? `${activeFungus.name.nl}, ${activeFungus.name.la}` : `Visualisation ${activeIndex + 1}`}
               className="viz-lightbox-image"
             />
+            {activeFungus && <FungusCaption name={activeFungus.name} className="viz-fungus-caption viz-fungus-caption--lightbox" />}
             <div className="viz-lightbox-actions">
               <a
                 className="viz-lightbox-close"
-                href={allVisualisations[activeIndex]}
-                download={`thanh-lambeets-visualisation-${String(activeIndex + 1).padStart(3, '0')}.${allVisualisations[activeIndex].split('?')[0].split('.').pop()}`}
+                href={shown[activeIndex]}
+                download={fungusBySrc.has(shown[activeIndex])
+                  ? `thanh-lambeets-${fungusBySrc.get(shown[activeIndex])!.photo}.webp`
+                  : `thanh-lambeets-visualisation-${String(activeIndex + 1).padStart(3, '0')}.${shown[activeIndex].split('?')[0].split('.').pop()}`}
               >
                 {`{download}`}
               </a>
