@@ -11,35 +11,24 @@ const COLLECTION_QUERY = {
 
 const normalise = (title: string) => title.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 
-const featuredRecordRules: Array<{ matches: (record: MusicRecord) => boolean }> = [
-  {
-    matches: record =>
-      normalise(record.title) === 'freezone 4 dangerous lullabies'
-      && /\bcd\b/i.test(record.format),
-  },
-  {
-    matches: record =>
-      normalise(record.title) === 'ambient lounge 7'
-      && /\bcd\b/i.test(record.format),
-  },
-  {
-    matches: record =>
-      normalise(record.title) === 'the future sound of jazz vol 4'
-      && /\bcd\b/i.test(record.format),
-  },
-  {
-    matches: record =>
-      record.artist.toLowerCase() === 'brian eno'
-      && normalise(record.title) === 'ambient 1 music for airports'
-      && /\b(?:vinyl|lp)\b/i.test(record.format),
-  },
-  {
-    matches: record =>
-      record.artist.toLowerCase() === 'maestro'
-      && normalise(record.title) === 'blue note trip sunset sunrise'
-      && /\bcd\b/i.test(record.format)
-      && record.labels.some(label => label.trim().toLowerCase() === 'blue note'),
-  },
+// Everything added on Discogs from Ambient Lounge 7 on shows up here by itself, newest first.
+// Discogs gives each copy a rising id when it is added, so no list needs updating by hand.
+const NEW_FROM_ID = 2200755978;
+const MAX_RECORDS = 8;
+
+// Bought recently but catalogued on Discogs earlier, so they can't be found by their id.
+// They fill the list after the automatic ones, in this order.
+const earlierPurchaseRules: Array<(record: MusicRecord) => boolean> = [
+  record => normalise(record.title) === 'the future sound of jazz vol 4' && /\bcd\b/i.test(record.format),
+  record =>
+    record.artist.toLowerCase() === 'brian eno'
+    && normalise(record.title) === 'ambient 1 music for airports'
+    && /\b(?:vinyl|lp)\b/i.test(record.format),
+  record =>
+    record.artist.toLowerCase() === 'maestro'
+    && normalise(record.title) === 'blue note trip sunset sunrise'
+    && /\bcd\b/i.test(record.format)
+    && record.labels.some(label => label.trim().toLowerCase() === 'blue note'),
 ];
 
 const Cover: FC<{ record: MusicRecord }> = ({ record }) => {
@@ -59,21 +48,26 @@ const Cover: FC<{ record: MusicRecord }> = ({ record }) => {
   );
 };
 
-function selectFeaturedRecords(records: MusicRecord[]): MusicRecord[] {
-  return featuredRecordRules
-    .map(rule => records.find(rule.matches))
-    .filter((record): record is MusicRecord => record !== undefined);
+function selectRecentRecords(records: MusicRecord[]): { picked: MusicRecord[]; complete: boolean } {
+  const automatic = records.filter(record => record.id >= NEW_FROM_ID).sort((a, b) => b.id - a.id);
+  const earlier = earlierPurchaseRules.map(rule => records.find(rule));
+  const picked = [...automatic];
+  for (const record of earlier) {
+    if (record && !picked.some(item => item.id === record.id)) picked.push(record);
+  }
+  const complete = picked.length >= MAX_RECORDS || earlier.every(record => record !== undefined);
+  return { picked: picked.slice(0, MAX_RECORDS), complete };
 }
 
-async function loadFeaturedRecords(signal: AbortSignal): Promise<MusicRecord[]> {
+async function loadRecentRecords(signal: AbortSignal): Promise<MusicRecord[]> {
   const firstPage = await getMusicCollection(
     { ...COLLECTION_QUERY, page: 1 },
     { signal, cache: 'no-cache' },
   );
   const records = [...firstPage.records];
-  let selected = selectFeaturedRecords(records);
+  let selected = selectRecentRecords(records);
 
-  for (let page = 2; selected.length < featuredRecordRules.length && page <= firstPage.pages; page += 1) {
+  for (let page = 2; !selected.complete && page <= firstPage.pages; page += 1) {
     const nextPage = await getMusicCollection(
       { ...COLLECTION_QUERY, page },
       { signal, cache: 'no-cache' },
@@ -82,26 +76,23 @@ async function loadFeaturedRecords(signal: AbortSignal): Promise<MusicRecord[]> 
       throw new Error('The collection changed while loading. Please try again.');
     }
     records.push(...nextPage.records);
-    selected = selectFeaturedRecords(records);
+    selected = selectRecentRecords(records);
   }
 
-  if (selected.length !== featuredRecordRules.length) {
-    throw new Error('The selected recent additions were not found in the collection.');
-  }
-  return selected.map(record => correctMusicRecord(record, import.meta.env.BASE_URL));
+  return selected.picked.map(record => correctMusicRecord(record, import.meta.env.BASE_URL));
 }
 
 export const RecentlyAddedMusic = () => {
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ['/api/music/collection', 'recent-additions-highlights', featuredRecordRules.length],
-    queryFn: ({ signal }) => loadFeaturedRecords(signal),
+    queryKey: ['/api/music/collection', 'recent-additions', MAX_RECORDS],
+    queryFn: ({ signal }) => loadRecentRecords(signal),
     staleTime: 5 * 60 * 1000,
     refetchOnMount: true,
     retry: 1,
   });
 
   if (isLoading && !data) {
-    return <p className="blog-recent-music-status" aria-busy="true">Loading highlighted additions…</p>;
+    return <p className="blog-recent-music-status" aria-busy="true">Loading recent additions…</p>;
   }
 
   if (isError && !data) {
@@ -126,7 +117,7 @@ export const RecentlyAddedMusic = () => {
           Discogs could not refresh; showing the last loaded records.
         </p>
       )}
-      <ul className="music-grid blog-recent-music-list" aria-label="Five highlighted recent additions">
+      <ul className="music-grid blog-recent-music-list" aria-label="Recently added records">
         {data.map((record) => (
           <li key={record.id} className="music-card blog-recent-music-record">
             <a
