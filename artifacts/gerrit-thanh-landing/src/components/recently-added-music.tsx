@@ -14,7 +14,7 @@ const normalise = (title: string) => title.toLowerCase().replace(/[^a-z0-9]+/g, 
 // Everything added on Discogs from Ambient Lounge 7 on shows up here by itself, newest first.
 // Discogs gives each copy a rising id when it is added, so no list needs updating by hand.
 const NEW_FROM_ID = 2200755978;
-const MAX_RECORDS = 8;
+const MAX_RECORDS = 5;
 
 // Bought recently but catalogued on Discogs earlier, so they can't be found by their id.
 // They fill the list after the automatic ones, in this order.
