@@ -80,7 +80,10 @@ const Paragraph: FC<{ p: PostParagraph }> = ({ p }) => (
 type Lang = 'en' | 'nl';
 const LANG_KEY = 'blog-opinion-lang';
 
+// ?lang=nl in the web address wins, so a link can open the opinion pieces in Dutch.
 const readLang = (): Lang => {
+  const fromUrl = new URLSearchParams(window.location.search).get('lang');
+  if (fromUrl === 'nl' || fromUrl === 'en') return fromUrl;
   try {
     return window.localStorage.getItem(LANG_KEY) === 'nl' ? 'nl' : 'en';
   } catch {
@@ -164,6 +167,10 @@ const BlogPosts: FC<{ posts: BlogPost[] }> = ({ posts }) => {
   const [lang, setLang] = useState<Lang>(readLang);
   const changeLang = (next: Lang) => {
     setLang(next);
+    const params = new URLSearchParams(window.location.search);
+    if (next === 'nl') params.set('lang', 'nl'); else params.delete('lang');
+    const query = params.toString();
+    window.history.replaceState(window.history.state, '', `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`);
     try {
       window.localStorage.setItem(LANG_KEY, next);
     } catch {
@@ -176,7 +183,7 @@ const BlogPosts: FC<{ posts: BlogPost[] }> = ({ posts }) => {
     const body = translated?.body ?? post.body;
     const sources = translated?.sources ?? post.sources;
     return (
-      <article key={post.slug} className="blog-post" aria-labelledby={`title-${post.slug}`} data-testid={`blog-post-${post.slug}`} lang={translated ? 'nl' : 'en'}>
+      <article key={post.slug} id={post.slug} className="blog-post" aria-labelledby={`title-${post.slug}`} data-testid={`blog-post-${post.slug}`} lang={translated ? 'nl' : 'en'}>
         <header>
           <h2 id={`title-${post.slug}`} lang="en">{`{${post.title}}`}</h2>
           <Meta post={post} />
@@ -269,10 +276,12 @@ export const BlogLinks: FC = () => {
   const posts = sortedPosts();
   usePageMeta('blog+links — Thành Lambeets', DESCRIPTION);
 
+  // #guestbook and #<post-slug> in the web address jump straight to that part of the page.
   useEffect(() => {
-    if (window.location.hash !== '#guestbook') return;
+    const target = decodeURIComponent(window.location.hash.slice(1));
+    if (!target) return;
     const frame = requestAnimationFrame(() => {
-      document.getElementById('guestbook')?.scrollIntoView({ block: 'start' });
+      document.getElementById(target)?.scrollIntoView({ block: 'start' });
     });
     return () => cancelAnimationFrame(frame);
   }, []);

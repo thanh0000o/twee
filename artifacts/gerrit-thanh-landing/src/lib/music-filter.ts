@@ -22,6 +22,8 @@ const GENRES: { id: string; label: string; styles: string[] }[] = [
   { id: 'hiphop', label: 'hip hop / soul', styles: ['hiphop', 'boombap', 'instrumental', 'soul', 'funk', 'rnbswing', 'neosoul'] },
 ];
 
+export const GENRE_IDS = GENRES.map((genre) => genre.id);
+
 const key = (style: string) => style.toLowerCase().replace(/[^a-z]/g, '');
 
 export const genresOf = (record: MusicRecord) => {

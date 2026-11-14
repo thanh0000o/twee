@@ -5,7 +5,7 @@ import { getMusicCollection } from '@workspace/api-client-react';
 import { BlogReturnLink } from '../components/blog-return-link';
 import { useSavedPalette } from '../hooks/use-saved-palette';
 import { orderMusicCollection } from '../lib/music-groups';
-import { availableGenres, viewRecords, VIEWS, type MusicView } from '../lib/music-filter';
+import { availableGenres, GENRE_IDS, viewRecords, VIEWS, type MusicView } from '../lib/music-filter';
 import { loadCompleteMusicCollection } from '../lib/load-music-collection';
 import { correctMusicRecord, musicCover } from '../lib/music-cover';
 import '../styles/editorial.css';
@@ -24,6 +24,28 @@ const Cover: FC<{ src: string; alt: string; eager: boolean }> = ({ src, alt, eag
   return <img src={src} alt={alt} width="150" height="150" decoding="async"
     loading={eager ? 'eager' : 'lazy'} fetchPriority={eager ? 'high' : 'auto'}
     onError={() => setFailed(true)} />;
+};
+
+
+const ORDER_SLUGS: Record<MusicView, string> = { mine: '', recent: 'recent', artist: 'artist', year: 'oldest' };
+
+const readMusicUrl = (): { view: MusicView; genre: string | null } => {
+  const params = new URLSearchParams(window.location.search);
+  const order = params.get('order') ?? '';
+  const view = (Object.entries(ORDER_SLUGS) as [MusicView, string][]).find(([, slug]) => slug && slug === order)?.[0] ?? 'mine';
+  const genre = params.get('genre');
+  return { view, genre: genre && GENRE_IDS.includes(genre) ? genre : null };
+};
+
+const writeMusicUrl = (view: MusicView, genre: string | null) => {
+  const params = new URLSearchParams(window.location.search);
+  if (ORDER_SLUGS[view]) params.set('order', ORDER_SLUGS[view]); else params.delete('order');
+  if (genre) params.set('genre', genre); else params.delete('genre');
+  const query = params.toString();
+  const url = `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`;
+  if (url !== `${window.location.pathname}${window.location.search}${window.location.hash}`) {
+    window.history.pushState(window.history.state, '', url);
+  }
 };
 
 export const Music: FC = () => {
@@ -45,8 +67,27 @@ export const Music: FC = () => {
     [data?.records],
   );
 
-  const [view, setView] = useState<MusicView>('mine');
-  const [genre, setGenre] = useState<string | null>(null);
+  // The filters live in the web address (?order=recent&genre=dnb), so a filtered view can be linked
+  // and the back button steps through earlier choices.
+  const [view, setViewState] = useState<MusicView>(() => readMusicUrl().view);
+  const [genre, setGenreState] = useState<string | null>(() => readMusicUrl().genre);
+  useEffect(() => {
+    const onPopState = () => {
+      const next = readMusicUrl();
+      setViewState(next.view);
+      setGenreState(next.genre);
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+  const setView = (next: MusicView) => {
+    setViewState(next);
+    writeMusicUrl(next, genre);
+  };
+  const setGenre = (next: string | null) => {
+    setGenreState(next);
+    writeMusicUrl(view, next);
+  };
   const genres = useMemo(() => availableGenres(orderedRecords), [orderedRecords]);
   const shownRecords = useMemo(() => viewRecords(orderedRecords, view, genre), [orderedRecords, view, genre]);
   const filtered = view !== 'mine' || genre !== null;
@@ -101,7 +142,7 @@ export const Music: FC = () => {
             <p className="music-filter-state">
               {shownRecords.length} of {orderedRecords.length}
               {' · '}
-              <button type="button" className="music-link" onClick={() => { setView('mine'); setGenre(null); }}>reset</button>
+              <button type="button" className="music-link" onClick={() => { setViewState('mine'); setGenreState(null); writeMusicUrl('mine', null); }}>reset</button>
             </p>
           )}
           <div className="music-filter-panel">
