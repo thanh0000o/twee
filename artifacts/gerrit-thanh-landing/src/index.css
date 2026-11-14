@@ -2006,7 +2006,7 @@
 
 .viz-grid-section {
   position: relative;
-  min-height: calc(2180 * var(--ui-px));
+  min-height: calc(2180 * var(--ui-px) * var(--viz-y, 1));
   padding: 70px 0;
 }
 
@@ -2016,27 +2016,49 @@
   margin: 0;
 }
 
-.viz-scatter-cell:nth-child(1)  { left: 2%;  top: calc(25 * var(--ui-px)); }
-.viz-scatter-cell:nth-child(2)  { left: 61%; top: calc(150 * var(--ui-px)); }
-.viz-scatter-cell:nth-child(3)  { left: 29%; top: calc(430 * var(--ui-px)); }
-.viz-scatter-cell:nth-child(4)  { right: 0; top: calc(585 * var(--ui-px)); }
-.viz-scatter-cell:nth-child(5)  { left: 4%;  top: calc(790 * var(--ui-px)); }
-.viz-scatter-cell:nth-child(6)  { left: 49%; top: calc(900 * var(--ui-px)); }
-.viz-scatter-cell:nth-child(7)  { left: 72%; top: calc(1190 * var(--ui-px)); }
-.viz-scatter-cell:nth-child(8)  { left: 17%; top: calc(1300 * var(--ui-px)); }
-.viz-scatter-cell:nth-child(9)  { left: 51%; top: calc(1580 * var(--ui-px)); }
-.viz-scatter-cell:nth-child(10) { left: 2%;  top: calc(1760 * var(--ui-px)); }
+.viz-scatter-cell:nth-child(1)  { left: 2%;  top: calc(25 * var(--ui-px) * var(--viz-y, 1)); }
+.viz-scatter-cell:nth-child(2)  { left: 61%; top: calc(150 * var(--ui-px) * var(--viz-y, 1)); }
+.viz-scatter-cell:nth-child(3)  { left: 29%; top: calc(430 * var(--ui-px) * var(--viz-y, 1)); }
+.viz-scatter-cell:nth-child(4)  { right: 0; top: calc(585 * var(--ui-px) * var(--viz-y, 1)); }
+.viz-scatter-cell:nth-child(5)  { left: 4%;  top: calc(790 * var(--ui-px) * var(--viz-y, 1)); }
+.viz-scatter-cell:nth-child(6)  { left: 49%; top: calc(900 * var(--ui-px) * var(--viz-y, 1)); }
+.viz-scatter-cell:nth-child(7)  { left: 72%; top: calc(1190 * var(--ui-px) * var(--viz-y, 1)); }
+.viz-scatter-cell:nth-child(8)  { left: 17%; top: calc(1300 * var(--ui-px) * var(--viz-y, 1)); }
+.viz-scatter-cell:nth-child(9)  { left: 51%; top: calc(1580 * var(--ui-px) * var(--viz-y, 1)); }
+.viz-scatter-cell:nth-child(10) { left: 2%;  top: calc(1760 * var(--ui-px) * var(--viz-y, 1)); }
 
-.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(1)  { right: 2%; left: auto; top: calc(35 * var(--ui-px)); }
-.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(2)  { left: 24%; top: calc(180 * var(--ui-px)); }
-.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(3)  { left: 58%; top: calc(440 * var(--ui-px)); }
-.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(4)  { left: 1%; right: auto; top: calc(570 * var(--ui-px)); }
-.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(5)  { left: 37%; top: calc(825 * var(--ui-px)); }
-.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(6)  { right: 1%; left: auto; top: calc(940 * var(--ui-px)); }
-.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(7)  { left: 8%; top: calc(1195 * var(--ui-px)); }
-.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(8)  { left: 55%; right: auto; top: calc(1330 * var(--ui-px)); }
-.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(9)  { left: 28%; top: calc(1605 * var(--ui-px)); }
-.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(10) { right: 3%; left: auto; top: calc(1790 * var(--ui-px)); }
+.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(1)  { right: 2%; left: auto; top: calc(35 * var(--ui-px) * var(--viz-y, 1)); }
+.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(2)  { left: 24%; top: calc(180 * var(--ui-px) * var(--viz-y, 1)); }
+.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(3)  { left: 58%; top: calc(440 * var(--ui-px) * var(--viz-y, 1)); }
+.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(4)  { left: 1%; right: auto; top: calc(570 * var(--ui-px) * var(--viz-y, 1)); }
+.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(5)  { left: 37%; top: calc(825 * var(--ui-px) * var(--viz-y, 1)); }
+.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(6)  { right: 1%; left: auto; top: calc(940 * var(--ui-px) * var(--viz-y, 1)); }
+.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(7)  { left: 8%; top: calc(1195 * var(--ui-px) * var(--viz-y, 1)); }
+.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(8)  { left: 55%; right: auto; top: calc(1330 * var(--ui-px) * var(--viz-y, 1)); }
+.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(9)  { left: 28%; top: calc(1605 * var(--ui-px) * var(--viz-y, 1)); }
+.viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(10) { right: 3%; left: auto; top: calc(1790 * var(--ui-px) * var(--viz-y, 1)); }
+
+/* Visualisations use the same, larger photo size as the artwork page. */
+.visualisations-page .viz-scatter-cell {
+  width: calc(430 * var(--ui-px));
+}
+
+.visualisations-page .viz-item-container {
+  width: clamp(calc(240 * var(--ui-px)), 22vw, calc(300 * var(--ui-px)));
+}
+
+.visualisations-page .viz-item-container.is-landscape,
+.visualisations-page .viz-fungus-caption-wrap.is-landscape {
+  width: clamp(calc(340 * var(--ui-px)), 36vw, calc(430 * var(--ui-px)));
+}
+
+.visualisations-page .viz-fungus-caption-wrap {
+  width: clamp(calc(240 * var(--ui-px)), 22vw, calc(300 * var(--ui-px)));
+}
+
+/* More room between rows, so the bigger photos never overlap. */
+.visualisations-page { --viz-y: 1.25; }
+.artwork-page { --viz-y: 1.25; }
 
 .artwork-page .viz-item-container {
   width: clamp(calc(240 * var(--ui-px)), 22vw, calc(300 * var(--ui-px)));
@@ -2046,46 +2068,48 @@
   width: clamp(calc(340 * var(--ui-px)), 36vw, calc(430 * var(--ui-px)));
 }
 
-.artwork-page .viz-grid-section {
-  min-height: calc(1980 * var(--ui-px));
+:is(.artwork-page, .visualisations-page) .viz-grid-section {
+  min-height: calc(1980 * var(--ui-px) * var(--viz-y, 1));
 }
 
 .artwork-page .viz-scatter-cell {
   width: calc(430 * var(--ui-px));
 }
 
-.artwork-page .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(2),
-.artwork-page .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(4),
-.artwork-page .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(7),
-.artwork-page .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(1),
-.artwork-page .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(6),
-.artwork-page .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(8),
-.artwork-page .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(10) {
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(2),
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(4),
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(7),
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(1),
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(6),
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(8),
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(10) {
+  /* right-aligned photo, with its name (mushroom filter) underneath instead of beside it */
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
-.artwork-page .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(1)  { left: 1%; right: auto; top: calc(20 * var(--ui-px)); }
-.artwork-page .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(2)  { right: 1%; left: auto; top: calc(120 * var(--ui-px)); }
-.artwork-page .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(3)  { left: 29%; right: auto; top: calc(400 * var(--ui-px)); }
-.artwork-page .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(4)  { right: 1%; left: auto; top: calc(540 * var(--ui-px)); }
-.artwork-page .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(5)  { left: 2%; right: auto; top: calc(740 * var(--ui-px)); }
-.artwork-page .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(6)  { left: 53%; right: auto; top: calc(850 * var(--ui-px)); }
-.artwork-page .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(7)  { right: 2%; left: auto; top: calc(1120 * var(--ui-px)); }
-.artwork-page .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(8)  { left: 15%; right: auto; top: calc(1240 * var(--ui-px)); }
-.artwork-page .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(9)  { left: 48%; right: auto; top: calc(1490 * var(--ui-px)); }
-.artwork-page .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(10) { left: 2%; right: auto; top: calc(1650 * var(--ui-px)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(1)  { left: 1%; right: auto; top: calc(20 * var(--ui-px) * var(--viz-y, 1)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(2)  { right: 1%; left: auto; top: calc(120 * var(--ui-px) * var(--viz-y, 1)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(3)  { left: 29%; right: auto; top: calc(400 * var(--ui-px) * var(--viz-y, 1)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(4)  { right: 1%; left: auto; top: calc(540 * var(--ui-px) * var(--viz-y, 1)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(5)  { left: 2%; right: auto; top: calc(740 * var(--ui-px) * var(--viz-y, 1)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(6)  { left: 53%; right: auto; top: calc(850 * var(--ui-px) * var(--viz-y, 1)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(7)  { right: 2%; left: auto; top: calc(1120 * var(--ui-px) * var(--viz-y, 1)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(8)  { left: 15%; right: auto; top: calc(1240 * var(--ui-px) * var(--viz-y, 1)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(9)  { left: 48%; right: auto; top: calc(1490 * var(--ui-px) * var(--viz-y, 1)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(odd) .viz-scatter-cell:nth-child(10) { left: 2%; right: auto; top: calc(1650 * var(--ui-px) * var(--viz-y, 1)); }
 
-.artwork-page .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(1)  { right: 1%; left: auto; top: calc(30 * var(--ui-px)); }
-.artwork-page .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(2)  { left: 12%; right: auto; top: calc(140 * var(--ui-px)); }
-.artwork-page .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(3)  { left: 54%; right: auto; top: calc(405 * var(--ui-px)); }
-.artwork-page .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(4)  { left: 1%; right: auto; top: calc(555 * var(--ui-px)); }
-.artwork-page .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(5)  { left: 26%; right: auto; top: calc(755 * var(--ui-px)); }
-.artwork-page .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(6)  { right: 0; left: auto; top: calc(875 * var(--ui-px)); }
-.artwork-page .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(7)  { left: 3%; right: auto; top: calc(1130 * var(--ui-px)); }
-.artwork-page .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(8)  { right: 3%; left: auto; top: calc(1260 * var(--ui-px)); }
-.artwork-page .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(9)  { left: 45%; right: auto; top: calc(1510 * var(--ui-px)); }
-.artwork-page .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(10) { left: 5%; right: auto; top: calc(1670 * var(--ui-px)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(1)  { right: 1%; left: auto; top: calc(30 * var(--ui-px) * var(--viz-y, 1)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(2)  { left: 12%; right: auto; top: calc(140 * var(--ui-px) * var(--viz-y, 1)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(3)  { left: 54%; right: auto; top: calc(405 * var(--ui-px) * var(--viz-y, 1)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(4)  { left: 1%; right: auto; top: calc(555 * var(--ui-px) * var(--viz-y, 1)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(5)  { left: 26%; right: auto; top: calc(755 * var(--ui-px) * var(--viz-y, 1)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(6)  { right: 0; left: auto; top: calc(875 * var(--ui-px) * var(--viz-y, 1)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(7)  { left: 3%; right: auto; top: calc(1130 * var(--ui-px) * var(--viz-y, 1)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(8)  { right: 3%; left: auto; top: calc(1260 * var(--ui-px) * var(--viz-y, 1)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(9)  { left: 45%; right: auto; top: calc(1510 * var(--ui-px) * var(--viz-y, 1)); }
+:is(.artwork-page, .visualisations-page) .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(10) { left: 5%; right: auto; top: calc(1670 * var(--ui-px) * var(--viz-y, 1)); }
 
 .artwork-page .viz-grid-section:last-child {
   min-height: calc(1120 * var(--ui-px));
