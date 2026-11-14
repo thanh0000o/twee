@@ -20,17 +20,19 @@ const SPECIES: { photos: string[]; name: FungusName }[] = [
   { photos: ['P1110891'], name: { nl: 'Botercollybia (?)', en: 'Butter cap', la: 'Rhodocollybia butyracea' } },
   { photos: ['P1110352'], name: { nl: 'Breedplaatstreepzwam', en: 'Whitelaced shank', la: 'Megacollybia platyphylla' } },
   { photos: ['P1110342', 'P1110347'], name: { nl: 'Bundelfranjehoed', en: 'Common stump brittlestem', la: 'Psathyrella piluliformis' } },
-  { photos: ['P1110803'], name: { nl: 'Gewoon eekhoorntjesbrood', en: 'Penny bun / cep', la: 'Boletus edulis' } },
+  { photos: ['P1110806'], name: { nl: 'Gewoon eekhoorntjesbrood', en: 'Penny bun / cep', la: 'Boletus edulis' } },
   { photos: ['P1110311'], name: { nl: 'Fluweelboleet (?)', en: 'Suede bolete', la: 'Xerocomus subtomentosus' } },
   { photos: ['P1110801', 'P1110802'], name: { nl: 'Gele knolamaniet, witte vorm (?)', en: 'False deathcap', la: 'Amanita citrina var. alba' } },
-  { photos: ['P1110832'], name: { nl: 'Gele korstzwam (?)', en: 'Hairy curtain crust', la: 'Stereum hirsutum' } },
+  { photos: ['P1110832'], name: { nl: 'Gele korstzwam', en: 'Hairy curtain crust', la: 'Stereum hirsutum' } },
   { photos: ['P1110848'], name: { nl: 'Geschubde inktzwam', en: 'Shaggy ink cap', la: 'Coprinus comatus' } },
-  { photos: ['P1110360', 'P1110735'], name: { nl: 'Gewone aardappelbovist', en: 'Common earthball', la: 'Scleroderma citrinum' } },
-  { photos: ['P1110353'], name: { nl: 'Gewone hertenzwam (?)', en: 'Deer shield', la: 'Pluteus cervinus' } },
+  { photos: ['P1110353', 'P1110735', 'P1110712'], name: { nl: 'Gewone aardappelbovist', en: 'Common earthball', la: 'Scleroderma citrinum' } },
+  { photos: ['P1110711'], name: { nl: 'Gewone aardappelbovist (?)', en: 'Common earthball', la: 'Scleroderma citrinum' } },
+  { photos: ['P1110360'], name: { nl: 'Gewone hertenzwam (?)', en: 'Deer shield', la: 'Pluteus cervinus' } },
   { photos: ['P1110815'], name: { nl: 'Gewone traanzwam (?)', en: 'Common jellyspot', la: 'Dacrymyces stillatus' } },
   { photos: ['P1110337'], name: { nl: 'Gewone zwavelkop', en: 'Sulphur tuft', la: 'Hypholoma fasciculare' } },
   { photos: ['P1110870'], name: { nl: 'Gewoon groenkopje', en: 'Green elfcup', la: 'Chlorociboria aeruginascens' } },
-  { photos: ['P1110308', 'P1110312', 'P1110336'], name: { nl: 'Goudgele zwameter', en: 'Bolete eater', la: 'Hypomyces chrysospermus' } },
+  { photos: ['P1110308'], name: { nl: 'Goudgele zwameter, witte beginfase (?)', en: 'Bolete eater', la: 'Hypomyces chrysospermus' } },
+  { photos: ['P1110312', 'P1110336'], name: { nl: 'Goudgele zwameter', en: 'Bolete eater', la: 'Hypomyces chrysospermus' } },
   { photos: ['P1110715'], name: { nl: 'Grofplaatrussula', en: 'Blackening brittlegill', la: 'Russula nigricans' } },
   { photos: ['P1110723'], name: { nl: 'Grote knoflooktaailing', en: 'Garlic parachute', la: 'Marasmius alliaceus' } },
   { photos: ['P1110889'], name: { nl: 'Grote knoflooktaailing (?)', en: 'Garlic parachute', la: 'Marasmius alliaceus' } },
@@ -40,26 +42,35 @@ const SPECIES: { photos: string[]; name: FungusName }[] = [
   { photos: ['P1110366'], name: { nl: 'Kastanjeboleet', en: 'Bay bolete', la: 'Imleria badia' } },
   { photos: ['P1110853'], name: { nl: 'Kleverig koraalzwammetje', en: 'Yellow stagshorn', la: 'Calocera viscosa' } },
   { photos: ['P1110362'], name: { nl: 'Knolparasolzwam', en: 'Shaggy parasol', la: 'Chlorophyllum rhacodes' } },
-  { photos: ['P1110711', 'P1110813', 'P1110814'], name: { nl: 'Parelstuifzwam', en: 'Common puffball', la: 'Lycoperdon perlatum' } },
+  { photos: ['P1110813', 'P1110814'], name: { nl: 'Parelstuifzwam', en: 'Common puffball', la: 'Lycoperdon perlatum' } },
   { photos: ['P1110779', 'P1110785', 'P1110880', 'P1110885'], name: { nl: 'Porseleinzwam', en: 'Porcelain fungus', la: 'Oudemansiella mucida' } },
   { photos: ['P1110381', 'P1110388'], name: { nl: 'Reuzenzwam', en: 'Giant polypore', la: 'Meripilus giganteus' } },
   { photos: ['P1110835'], name: { nl: 'Reuzenzwam (?)', en: 'Giant polypore', la: 'Meripilus giganteus' } },
   { photos: ['P1110883'], name: { nl: 'Ruig elfenbankje (?)', en: 'Hairy bracket', la: 'Trametes hirsuta' } },
-  { photos: ['P1110557', 'P1110561', 'P1110795', 'P1110796', 'P1110798', 'P1110806'], name: { nl: 'Vliegenzwam', en: 'Fly agaric', la: 'Amanita muscaria' } },
+  { photos: ['P1110557', 'P1110561', 'P1110795', 'P1110796', 'P1110798', 'P1110803'], name: { nl: 'Vliegenzwam', en: 'Fly agaric', la: 'Amanita muscaria' } },
   { photos: ['P1110789', 'P1110791'], name: { nl: 'Waaiertje', en: 'Split gill', la: 'Schizophyllum commune' } },
   { photos: ['P1110887'], name: { nl: 'Witte trilzwam (?)', en: 'White brain', la: 'Exidia thuretiana' } },
-  { photos: ['P1110712'], name: { nl: 'Parelstuifzwam of aardappelbovist (?)', en: 'Puffball / earthball', la: 'Lycoperdon / Scleroderma' } },
-  { photos: ['P1110727'], name: { nl: 'Korstmos (geen paddenstoel)', en: 'Lichen', la: 'Niet te bepalen' } },
+  { photos: ['P1110727'], name: { nl: 'Korstmos op beukenschors (geen paddenstoel)', en: 'Lichen on beech bark', la: 'Niet te bepalen' } },
   { photos: ['P1110793'], name: { nl: 'Oorzwammetje (?)', en: 'Oysterling', la: 'Crepidotus sp.' } },
-  { photos: ['P1110879'], name: { nl: 'Niet te bepalen', en: 'Niet te bepalen', la: 'Niet te bepalen' } },
+  { photos: ['P1110879'], name: { nl: 'Vergane paddenstoelen met schimmel (niet te bepalen)', en: 'Decaying mushrooms with mould', la: 'Niet te bepalen' } },
 ];
 
 const LANDSCAPE = new Set(['P1110308', 'P1110337', 'P1110388', 'P1110727', 'P1110789', 'P1110815', 'P1110832']);
 
 export type FungusPhoto = { photo: string; src: string; name: FungusName; landscape: boolean };
 
+// Order in the {mushrooms & lichen} view: the amethyst deceiver and Gerrit's ten favourites first, then the rest from most to least striking.
+const ORDER = [
+  'P1110720', 'P1110803', 'P1110779', 'P1110723', 'P1110673', 'P1110813', 'P1110801', 'P1110887', 'P1110883', 'P1110789', 'P1110791',
+  'P1110870', 'P1110853', 'P1110796', 'P1110795', 'P1110885', 'P1110875', 'P1110814', 'P1110848', 'P1110785',
+  'P1110880', 'P1110715', 'P1110721', 'P1110729', 'P1110362', 'P1110557', 'P1110561', 'P1110798', 'P1110806', 'P1110342',
+  'P1110347', 'P1110337', 'P1110381', 'P1110388', 'P1110312', 'P1110336', 'P1110832', 'P1110815', 'P1110835', 'P1110889',
+  'P1110891', 'P1110366', 'P1110311', 'P1110802', 'P1110711', 'P1110735', 'P1110749', 'P1110352', 'P1110360', 'P1110353',
+  'P1110712', 'P1110793', 'P1110308', 'P1110727', 'P1110879',
+];
+
 export const fungiPhotos: FungusPhoto[] = SPECIES.flatMap(({ photos, name }) =>
   photos.map((photo) => ({ photo, src: srcFor(photo), name, landscape: LANDSCAPE.has(photo) })),
-);
+).sort((a, b) => ORDER.indexOf(a.photo) - ORDER.indexOf(b.photo));
 
 export const fungusBySrc = new Map(fungiPhotos.map((item) => [item.src, item]));
