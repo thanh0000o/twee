@@ -2038,23 +2038,7 @@
 .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(9)  { left: 28%; top: calc(1605 * var(--ui-px) * var(--viz-y, 1)); }
 .viz-grid-section:nth-child(even) .viz-scatter-cell:nth-child(10) { right: 3%; left: auto; top: calc(1790 * var(--ui-px) * var(--viz-y, 1)); }
 
-/* Visualisations use the same, larger photo size as the artwork page. */
-.visualisations-page .viz-scatter-cell {
-  width: calc(430 * var(--ui-px));
-}
-
-.visualisations-page .viz-item-container {
-  width: clamp(calc(240 * var(--ui-px)), 22vw, calc(300 * var(--ui-px)));
-}
-
-.visualisations-page .viz-item-container.is-landscape,
-.visualisations-page .viz-fungus-caption-wrap.is-landscape {
-  width: clamp(calc(340 * var(--ui-px)), 36vw, calc(430 * var(--ui-px)));
-}
-
-.visualisations-page .viz-fungus-caption-wrap {
-  width: clamp(calc(240 * var(--ui-px)), 22vw, calc(300 * var(--ui-px)));
-}
+/* Visualisation photo sizes on desktop are set in the min-width: 901px block at the end. */
 
 /* More room between rows, so the bigger photos never overlap. */
 .visualisations-page { --viz-y: var(--viz-y-desktop, 1.25); }

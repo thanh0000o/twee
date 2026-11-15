@@ -1,132 +1,141 @@
 import { type RefObject, useLayoutEffect } from 'react';
 
-// Keeps the scattered gallery clean on desktop:
-// 1. No two photos overlap. The scattered positions are fixed in CSS, but the photo order is random
-//    and wide photos take more room, so a photo that would touch another one moves to the nearest free
-//    spot, preferably sideways, and not straight under another photo.
-// 2. The last section ends a short gap after its last photo, instead of keeping the full height
-//    made for ten photos.
-const PHOTO_GAP = 28;
+// Lays out the scattered gallery on desktop.
+// Every photo goes to the highest free spot, so there are no big empty areas, and has a random
+// preferred position sideways, so it still looks scattered instead of like a grid. A photo never
+// overlaps another one, and landing straight under another photo is avoided where possible.
+// All photo sizes are known before they load (media-ratios.ts), so this runs once and nothing jumps
+// while scrolling; it only runs again when the window gets wider or narrower.
+const GAP_X = 90;
+const GAP_Y = 60;
 const BOTTOM_GAP = 80;
+const STEPS = 14;
 
 type Box = { left: number; right: number; top: number; bottom: number };
+type Size = { width: number; height: number; offsetX: number; offsetY: number };
 
-const photoBox = (cell: HTMLElement): Box | null => {
+const overlaps = (a: Box, b: Box) =>
+  a.left < b.right + GAP_X && b.left < a.right + GAP_X && a.top < b.bottom + GAP_Y && b.top < a.bottom + GAP_Y;
+
+const stackedUnder = (box: Box, other: Box) => {
+  const shared = Math.min(box.right, other.right) - Math.max(box.left, other.left);
+  const narrow = Math.min(box.right - box.left, other.right - other.left);
+  const gap = box.top - other.bottom;
+  return shared > narrow * 0.3 && gap >= 0 && gap < 480;
+};
+
+// Seeded random numbers, so the same photo always prefers the same spot.
+const seeded = (n: number) => {
+  const x = Math.sin(n * 12.9898 + 78.233) * 43758.5453;
+  return x - Math.floor(x);
+};
+
+function measure(cell: HTMLElement): Size | null {
   const photo = cell.querySelector<HTMLElement>('.viz-item-container');
   if (!photo) return null;
   const caption = cell.querySelector<HTMLElement>('.viz-fungus-caption-wrap');
-  const a = photo.getBoundingClientRect();
-  const bottom = caption ? Math.max(a.bottom, caption.getBoundingClientRect().bottom) : a.bottom;
-  return { left: a.left, right: a.right, top: a.top, bottom };
-};
+  const c = cell.getBoundingClientRect();
+  const p = photo.getBoundingClientRect();
+  const bottom = caption ? Math.max(p.bottom, caption.getBoundingClientRect().bottom) : p.bottom;
+  return { width: p.width, height: bottom - p.top, offsetX: p.left - c.left, offsetY: p.top - c.top };
+}
 
-const overlaps = (a: Box, b: Box) =>
-  a.left < b.right + PHOTO_GAP && b.left < a.right + PHOTO_GAP && a.top < b.bottom + PHOTO_GAP && b.top < a.bottom + PHOTO_GAP;
-
-// Photos stacked right under each other look like a column, which breaks the scattered look.
-const stackedUnder = (box: Box, other: Box) => {
-  const sharedWidth = Math.min(box.right, other.right) - Math.max(box.left, other.left);
-  const narrow = Math.min(box.right - box.left, other.right - other.left);
-  const gapBelow = box.top - other.bottom;
-  return sharedWidth > narrow * 0.3 && gapBelow >= -PHOTO_GAP && gapBelow < 520;
-};
-
-function layoutSection(section: HTMLElement, isLast: boolean, above: Box[]) {
-  const cells = Array.from(section.children) as HTMLElement[];
-  for (const cell of cells) {
-    cell.style.top = '';
-    cell.style.left = '';
-    cell.style.right = '';
+function reset(gallery: HTMLElement) {
+  for (const section of Array.from(gallery.querySelectorAll<HTMLElement>(':scope > section'))) {
+    section.style.minHeight = '';
+    section.style.height = '';
+    section.style.padding = '';
+    for (const cell of Array.from(section.children) as HTMLElement[]) {
+      cell.style.top = '';
+      cell.style.left = '';
+      cell.style.right = '';
+    }
   }
-  section.style.minHeight = '';
-  section.style.height = '';
+}
+
+function layoutGallery(gallery: HTMLElement) {
+  reset(gallery);
+  const sections = Array.from(gallery.querySelectorAll<HTMLElement>(':scope > section'));
   // On phones the sections are a normal grid that already ends at its last photo.
-  if (getComputedStyle(section).position === 'static') return [];
+  if (sections.length === 0 || getComputedStyle(sections[0]).position === 'static') return;
 
-  const area = section.getBoundingClientRect();
-  const minX = area.left + 8;
-  const maxX = area.right - 8;
-  // Photos of the sections above count too, so nothing lines up under them across the boundary.
-  const placed: Box[] = [...above];
-  const ordered = cells
-    .map((cell) => ({ cell, top: cell.getBoundingClientRect().top }))
-    .sort((a, b) => a.top - b.top);
+  const width = gallery.getBoundingClientRect().width;
+  const items = sections.flatMap((section) =>
+    (Array.from(section.children) as HTMLElement[]).map((cell) => ({ cell, section, size: measure(cell) })),
+  );
 
-  let bottom = 0;
-  for (const { cell } of ordered) {
-    const start = photoBox(cell);
-    if (!start) continue;
-    const width = start.right - start.left;
-    const free = (box: Box) => box.left >= minX && box.right <= maxX && !placed.some((other) => overlaps(box, other));
+  // Place every photo, in gallery coordinates (y = 0 is the top of the first section).
+  const placed: { cell: HTMLElement; section: HTMLElement; box: Box; size: Size }[] = [];
+  let floor = 0;
+  items.forEach(({ cell, section, size }, index) => {
+    if (!size) return;
+    const span = Math.max(1, width - size.width);
+    const preferred = seeded(index + 1) * span;
+    const near = placed.map((item) => item.box).filter((box) => box.bottom + GAP_Y > floor);
 
-    // Look for the free spot closest to where the photo was meant to be. Moving sideways is cheap,
-    // moving down costs more, and landing right under another photo costs most.
-    let best = { dx: 0, dy: 0, score: Infinity };
-    const stepX = Math.max(24, width / 6);
-    for (let dy = 0; dy <= 1600 && dy * 2.5 < best.score; dy += 40) {
-      for (let dx = minX - start.left; start.left + dx + width <= maxX; dx += stepX) {
-        const box = { left: start.left + dx, right: start.right + dx, top: start.top + dy, bottom: start.bottom + dy };
-        if (!free(box)) continue;
-        const score = Math.abs(dx) + dy * 2.5 + (placed.some((other) => stackedUnder(box, other)) ? 1200 : 0);
-        if (score < best.score) best = { dx, dy, score };
-      }
-      // Also try the original column exactly, which the stepping can skip.
-      const box = { ...start, top: start.top + dy, bottom: start.bottom + dy };
-      if (free(box)) {
-        const score = dy * 2.5 + (placed.some((other) => stackedUnder(box, other)) ? 1200 : 0);
-        if (score < best.score) best = { dx: 0, dy, score };
+    let best: { x: number; y: number; score: number } | null = null;
+    // A random extra drop per photo keeps the rows from lining up.
+    const drop = seeded(index + 101) * 110;
+    const ys = [floor, ...near.map((box) => box.bottom + GAP_Y)]
+      .map((y) => y + drop)
+      .filter((y) => y >= floor)
+      .sort((a, b) => a - b);
+    for (let step = 0; step <= STEPS; step++) {
+      const x = (span * step) / STEPS;
+      for (const y of ys) {
+        const box = { left: x, right: x + size.width, top: y, bottom: y + size.height };
+        if (near.some((other) => overlaps(box, other))) continue;
+        const stacked = near.some((other) => stackedUnder(box, other));
+        const score = y + Math.abs(x - preferred) * 0.35 + (stacked ? 340 : 0);
+        if (!best || score < best.score) best = { x, y, score };
+        break; // the lowest free spot for this x
       }
     }
-    if (best.score === Infinity) best = { dx: 0, dy: 0, score: 0 };
+    if (!best) best = { x: preferred, y: Math.max(floor, ...near.map((box) => box.bottom + GAP_Y)), score: 0 };
+    const box = { left: best.x, right: best.x + size.width, top: best.y, bottom: best.y + size.height };
+    placed.push({ cell, section, box, size });
+    // Keep the order roughly top to bottom: a photo can't go much higher than the last few.
+    floor = Math.max(floor, Math.min(...placed.slice(-5).map((item) => item.box.top)) - 120);
+  });
 
-    const style = getComputedStyle(cell);
-    if (best.dy) cell.style.top = `${(parseFloat(style.top) || 0) + best.dy}px`;
-    if (best.dx) {
-      const left = cell.getBoundingClientRect().left - area.left;
+  // Each section gets the height of its own photos; the photos are positioned inside it.
+  for (const section of sections) section.style.padding = '0';
+  let start = 0;
+  sections.forEach((section, index) => {
+    const mine = placed.filter((item) => item.section === section);
+    const end = mine.length ? Math.max(...mine.map((item) => item.box.bottom)) : start;
+    const isLast = index === sections.length - 1;
+    const height = Math.max(0, Math.ceil(end - start + (isLast ? BOTTOM_GAP : 0)));
+    section.style.minHeight = `${height}px`;
+    section.style.height = `${height}px`;
+    for (const { cell, box, size } of mine) {
       cell.style.right = 'auto';
-      cell.style.left = `${left + best.dx}px`;
+      cell.style.left = `${box.left - size.offsetX}px`;
+      cell.style.top = `${box.top - start - size.offsetY}px`;
     }
-    const box = { left: start.left + best.dx, right: start.right + best.dx, top: start.top + best.dy, bottom: start.bottom + best.dy };
-    placed.push(box);
-    bottom = Math.max(bottom, box.bottom - area.top);
-  }
-
-  // Each section ends right after its lowest photo, so there's no empty band before the next one.
-  const height = Math.ceil(bottom + (isLast ? BOTTOM_GAP : PHOTO_GAP * 2));
-  section.style.minHeight = `${height}px`;
-  section.style.height = `${height}px`;
-  return placed;
+    start += height;
+  });
 }
 
 export function useFitLastSection(galleryRef: RefObject<HTMLElement | null>, deps: unknown[] = []) {
   useLayoutEffect(() => {
     const gallery = galleryRef.current;
     if (!gallery) return;
-    const sections = Array.from(gallery.querySelectorAll<HTMLElement>(':scope > section'));
-    if (sections.length === 0) return;
 
     let frame = 0;
     const layout = () => {
       cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        let above: Box[] = [];
-        sections.forEach((section, index) => {
-          // Boxes are in viewport coordinates; later sections only move after this one is final.
-          above = layoutSection(section, index === sections.length - 1, above).slice(-12);
-        });
-      });
+      frame = requestAnimationFrame(() => layoutGallery(gallery));
     };
 
     layout();
-    // Every photo has its size reserved before it loads (see media-ratios.ts), so the layout is set
-    // once and stays put while scrolling. It only runs again when the window gets wider or narrower,
-    // or when a photo without a known size turns out to have a different height.
     let lastWidth = window.innerWidth;
     const onResize = () => {
       if (window.innerWidth === lastWidth) return;
       lastWidth = window.innerWidth;
       layout();
     };
+    // Only a photo without a known size can still change height after loading.
     const observer = new ResizeObserver(layout);
     for (const media of Array.from(gallery.querySelectorAll<HTMLElement>('.viz-img'))) {
       if (!media.style.aspectRatio) observer.observe(media.closest('.viz-item-container') ?? media);
@@ -136,15 +145,7 @@ export function useFitLastSection(galleryRef: RefObject<HTMLElement | null>, dep
       cancelAnimationFrame(frame);
       observer.disconnect();
       window.removeEventListener('resize', onResize);
-      for (const section of sections) {
-        section.style.minHeight = '';
-        section.style.height = '';
-        for (const cell of Array.from(section.children) as HTMLElement[]) {
-          cell.style.top = '';
-          cell.style.left = '';
-          cell.style.right = '';
-        }
-      }
+      reset(gallery);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
