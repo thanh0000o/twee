@@ -7,6 +7,7 @@ type CollectionSort = "artist" | "added";
 type CollectionSortOrder = "asc" | "desc";
 type DiscogsRelease = {
   instance_id: number;
+  date_added?: string;
   basic_information: {
     id: number;
     title: string;
@@ -131,6 +132,7 @@ async function loadCollection(
         url: `https://www.discogs.com/release/${info.id}`,
         styles: info.styles ?? [],
         labels: (info.labels ?? []).map(label => label.name),
+        ...(release.date_added ? { added: release.date_added } : {}),
       };
     }),
   });

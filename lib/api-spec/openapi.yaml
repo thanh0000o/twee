@@ -180,6 +180,9 @@ components:
           type: array
           items:
             type: string
+        added:
+          type: string
+          description: When this copy was added to the Discogs collection (ISO 8601).
     VisitorCount:
       type: object
       required: [count]

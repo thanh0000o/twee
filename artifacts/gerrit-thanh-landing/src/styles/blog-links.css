@@ -143,30 +143,31 @@ main.ed .blog-recent-music-record { min-width: 0; }
 main.ed .blog-recent-music-record .ed-stage { aspect-ratio: 1 / 1; }
 main.ed .blog-bottom-extras .blog-recent-music-list {
   grid-template-columns: minmax(0, 1fr);
-  gap: calc(12 * var(--ui-px));
-  min-height: 100%;
-  align-content: space-between;
+  gap: calc(9 * var(--ui-px));
+  align-content: start;
   box-sizing: border-box;
 }
 main.ed .blog-bottom-extras .blog-recent-music-record > a {
   display: grid;
-  grid-template-columns: 64px minmax(0, 1fr);
+  grid-template-columns: 46px minmax(0, 1fr);
   grid-template-areas: "cover meta";
   align-items: center;
   gap: calc(10 * var(--ui-px));
 }
 main.ed .blog-bottom-extras .blog-recent-music-record .ed-stage {
   grid-area: cover;
-  width: 64px;
+  width: 46px;
   aspect-ratio: 1 / 1;
 }
 main.ed .blog-bottom-extras .blog-recent-music-record .music-meta {
   grid-area: meta;
   min-width: 0;
   margin-top: 0;
-  font-size: calc(var(--ed-fs) * .9);
-  line-height: 1.25;
+  font-size: calc(var(--ed-fs) * .82);
+  line-height: 1.22;
 }
+/* When the record was added to Discogs, so visitors can see the collection is kept up to date. */
+main.ed .blog-recent-music-added { color: var(--ed-mute); }
 main.ed.blog-links-page {
   display: flex;
   flex-direction: column;
@@ -550,4 +551,17 @@ main.ed .blog-opinion-lock {
 main.ed .blog-opinion-lock span {
   padding: 2px 6px;
   background: rgba(255, 255, 255, .85);
+}
+
+/* Laptop screens: squeezing everything into one screen height made the posts, the guestbook and the
+   lists too small to read. Below this height the page scrolls instead, and every block keeps a
+   readable size: a full post, five guestbook messages above the form, and a proper list of records. */
+@media (min-width: 901px) and (max-height: 1080px) {
+  main.ed.blog-links-page { min-height: 0; }
+  main.ed .blog-posts { flex: 0 0 auto; }
+  main.ed .blog-opinion-column,
+  main.ed .blog-updates-column {
+    grid-template-rows: minmax(480px, 64vh) minmax(500px, auto);
+  }
+  :root body main.ed .gb-page.gb-embedded .gb-chat-scrollwrap { min-height: 190px; }
 }
