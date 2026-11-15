@@ -2725,3 +2725,12 @@ input[type='text'], input[type='password'], input[type='email'], input[type='sea
     width: clamp(300px, calc(170px + 14vw), 580px);
   }
 }
+
+/* Fluo "welcome.": one flat bright colour per theme with a soft glow of the same colour. */
+.welcome-fluo .welcome-face {
+  background-image: none;
+  -webkit-text-fill-color: currentColor;
+  filter:
+    drop-shadow(0 0 calc(2.5 * var(--u)) color-mix(in srgb, currentColor 45%, transparent))
+    drop-shadow(calc(.5 * var(--u)) calc(1.1 * var(--u)) calc(1.3 * var(--u)) rgba(2, 15, 44, .5));
+}
