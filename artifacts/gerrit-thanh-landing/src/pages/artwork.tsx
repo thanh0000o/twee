@@ -1,5 +1,6 @@
 import { type CSSProperties, type FC, useEffect, useRef, useState } from 'react';
 import { useFitLastSection } from '../lib/use-fit-last-section';
+import { mediaRatio } from '../lib/media-ratio-lookup';
 import { Link } from 'wouter';
 import { BlogReturnLink } from '../components/blog-return-link';
 import { getSavedPaletteFilter } from '../palette';
@@ -314,6 +315,7 @@ export const Artwork: FC = () => {
                       <video
                         src={src}
                         className="viz-img viz-video"
+                        style={{ aspectRatio: mediaRatio(src) }}
                         autoPlay
                         muted
                         loop
@@ -326,6 +328,7 @@ export const Artwork: FC = () => {
                         src={src}
                         alt={`Artwork ${absoluteIndex + 1}`}
                         className="viz-img"
+                        style={{ aspectRatio: mediaRatio(src) }}
                         loading={absoluteIndex > 9 ? 'lazy' : 'eager'}
                       />
                     )}

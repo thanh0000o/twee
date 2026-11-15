@@ -119,14 +119,24 @@ export function useFitLastSection(galleryRef: RefObject<HTMLElement | null>, dep
     };
 
     layout();
-    // Photos load lazily and only then get their real height, so lay out again when one changes size.
+    // Every photo has its size reserved before it loads (see media-ratios.ts), so the layout is set
+    // once and stays put while scrolling. It only runs again when the window gets wider or narrower,
+    // or when a photo without a known size turns out to have a different height.
+    let lastWidth = window.innerWidth;
+    const onResize = () => {
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
+      layout();
+    };
     const observer = new ResizeObserver(layout);
-    for (const photo of Array.from(gallery.querySelectorAll('.viz-item-container'))) observer.observe(photo);
-    window.addEventListener('resize', layout);
+    for (const media of Array.from(gallery.querySelectorAll<HTMLElement>('.viz-img'))) {
+      if (!media.style.aspectRatio) observer.observe(media.closest('.viz-item-container') ?? media);
+    }
+    window.addEventListener('resize', onResize);
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
-      window.removeEventListener('resize', layout);
+      window.removeEventListener('resize', onResize);
       for (const section of sections) {
         section.style.minHeight = '';
         section.style.height = '';
