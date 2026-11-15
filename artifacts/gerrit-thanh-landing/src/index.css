@@ -2726,11 +2726,11 @@ input[type='text'], input[type='password'], input[type='email'], input[type='sea
   }
 }
 
-/* Fluo "welcome.": one flat bright colour per theme with a soft glow of the same colour. */
-.welcome-fluo .welcome-face {
+/* "welcome." in one clean flat colour: the theme's own accent, lifted a little so it reads as the brightest word. */
+.home-page .welcome-face {
   background-image: none;
   -webkit-text-fill-color: currentColor;
   filter:
-    drop-shadow(0 0 calc(2.5 * var(--u)) color-mix(in srgb, currentColor 45%, transparent))
+    saturate(1.25) brightness(1.06)
     drop-shadow(calc(.5 * var(--u)) calc(1.1 * var(--u)) calc(1.3 * var(--u)) rgba(2, 15, 44, .5));
 }

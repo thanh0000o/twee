@@ -32,16 +32,6 @@ const SIGNAL_BY_PALETTE: Record<string, string> = {
   lime: patternSphere,
 };
 
-// "welcome." glows in a fluo colour per theme. It sits outside the theme's hue filter,
-// because a hue shift can't make real fluo yellow, green or cyan: those come out dull.
-const WELCOME_FLUO: Record<string, string> = {
-  blue: '#ff1f3a',
-  green: '#c25cff',
-  violet: '#ffe100',
-  rose: '#3dff2e',
-  lime: '#00ddff',
-};
-
 export const Home: FC = () => {
   const [opening, setOpening] = useState(() => !hasOpenedHome && !window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   useEffect(() => {
@@ -58,7 +48,6 @@ export const Home: FC = () => {
   const nextPalette = PALETTES[(activePaletteIndex + 1) % PALETTES.length];
   const centerAccent = activePaletteIndex === 0 ? undefined : getPaletteLinkColor(palette.name);
   const signalImage = SIGNAL_BY_PALETTE[palette.name] ?? ovalSignal;
-  const welcomeFluo = WELCOME_FLUO[palette.name] ?? WELCOME_FLUO.blue;
   // Load and decode every theme's dot figure up front, so switching themes never waits for a download.
   useEffect(() => {
     Object.values(SIGNAL_BY_PALETTE).forEach((src) => {
@@ -433,7 +422,7 @@ export const Home: FC = () => {
               
               {/* Header block */}
               <div className="flex items-end gap-[calc(14*var(--u))] mb-[calc(16*var(--u))] relative whitespace-nowrap">
-                <div className="welcome-motion" aria-hidden="true" style={{ visibility: 'hidden', color: 'var(--color-accent-red)', fontSize: 'calc(29 * var(--u))', letterSpacing: 'calc(.7 * var(--u))', transform: 'scaleX(1.53)', transformOrigin: 'left bottom', lineHeight: 0.9 }}>
+                <div className="welcome-motion" style={{ color: 'var(--color-accent-red)', fontSize: 'calc(29 * var(--u))', letterSpacing: 'calc(.7 * var(--u))', transform: 'scaleX(1.53)', transformOrigin: 'left bottom', lineHeight: 0.9 }}>
                   <span className="welcome-trail" aria-hidden="true">welcome.</span>
                   <span className="welcome-face">welcome.</span>
                 </div>
@@ -553,20 +542,6 @@ export const Home: FC = () => {
             </a>
           </div>
 
-        </div>
-        {/* Same position as the filtered layer, but without the filter, so "welcome." keeps its true fluo colour. */}
-        <div className="welcome-fluo-layer absolute inset-0 w-full h-full overflow-hidden pointer-events-none"
-          style={{ '--u': 'calc(100cqi / 1109.84)', fontFamily: 'var(--font-body)', transform: 'translate(9.3%, 3%)' } as React.CSSProperties}>
-          <div className="home-copy-reveal absolute inset-0 z-[3]">
-            <div className="center-copy absolute flex flex-col" style={{ left: 'calc(340 * var(--u))', top: 'calc(150 * var(--u))', fontSize: 'calc(13 * var(--u))', letterSpacing: 'calc(.25 * var(--u))', lineHeight: 1.42, transform: 'scaleX(1.2)', transformOrigin: 'left top', '--color-accent-red': welcomeFluo } as React.CSSProperties}>
-              <div className="flex items-end gap-[calc(14*var(--u))] mb-[calc(16*var(--u))] relative whitespace-nowrap">
-                <div className="welcome-motion welcome-fluo" style={{ color: 'var(--color-accent-red)', fontSize: 'calc(29 * var(--u))', letterSpacing: 'calc(.7 * var(--u))', transform: 'scaleX(1.53)', transformOrigin: 'left bottom', lineHeight: 0.9 }}>
-                  <span className="welcome-trail" aria-hidden="true">welcome.</span>
-                  <span className="welcome-face">welcome.</span>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <VisitorCount variant="hidden" />
