@@ -125,10 +125,10 @@ export const Home: FC = () => {
               {/* Circles theme: deep blue into the drawing's blue, green and yellow. */}
               <linearGradient id="flash-panel-circles" x1="232.67" y1="287.95" x2="822.6" y2="287.95" gradientUnits="userSpaceOnUse">
                 <stop offset="0" stopColor="#031b49" />
-                <stop offset=".3" stopColor="#0a4fc4" />
-                <stop offset=".55" stopColor="#0066ff" />
-                <stop offset=".8" stopColor="#3d9900" />
-                <stop offset="1" stopColor="#ddff00" />
+                <stop offset=".32" stopColor="#0848b8" />
+                <stop offset=".6" stopColor="#0066ff" />
+                <stop offset=".86" stopColor="#1f7a2e" />
+                <stop offset="1" stopColor="#2f8f12" />
               </linearGradient>
               <linearGradient id="flash-panel-gloss" x1="0" y1="131.35" x2="0" y2="444.55" gradientUnits="userSpaceOnUse">
                 <stop offset="0" stopColor="#ffffff" stopOpacity=".28" />
@@ -193,6 +193,15 @@ export const Home: FC = () => {
               </linearGradient>
               <mask id="oval-signal-mask" maskUnits="userSpaceOnUse" x="230" y="190" width="592" height="254">
                 <rect x="230" y="190" width="592" height="254" fill="url(#oval-signal-fade-x)" />
+              </mask>
+              <linearGradient id="circles-fade-x" x1="360" y1="0" x2="822" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stopColor="#fff" stopOpacity=".05" />
+                <stop offset=".35" stopColor="#fff" stopOpacity=".75" />
+                <stop offset=".55" stopColor="#fff" stopOpacity="1" />
+                <stop offset="1" stopColor="#fff" stopOpacity="1" />
+              </linearGradient>
+              <mask id="circles-mask" maskUnits="userSpaceOnUse" x="230" y="120" width="600" height="330">
+                <rect x="230" y="120" width="600" height="330" fill="url(#circles-fade-x)" />
               </mask>
               <mask id="oval-signal-vertical-mask" maskUnits="userSpaceOnUse" x="230" y="190" width="592" height="254">
                 <rect x="230" y="190" width="592" height="254" fill="url(#oval-signal-fade-y)" />
@@ -320,7 +329,7 @@ export const Home: FC = () => {
               <rect x="232" y="131" width="190" height="314" fill="url(#panel-curve-shade)" />
             </g>
             {/* Mirrored oval signal: fuller on the light right side, tapering into the dark left. */}
-            <g clipPath="url(#blue-panel-clip)" pointerEvents="none" aria-hidden="true" opacity=".54" style={{ mixBlendMode: 'multiply' }}>
+            {!isCircles && <g clipPath="url(#blue-panel-clip)" pointerEvents="none" aria-hidden="true" opacity=".54" style={{ mixBlendMode: 'multiply' }}>
               <g mask="url(#oval-signal-mask)">
                 <g mask="url(#oval-signal-vertical-mask)">
                   {/* Keep masks in scene coordinates; mirror only the PNG and its trails. */}
@@ -337,12 +346,12 @@ export const Home: FC = () => {
                   </g>
                 </g>
               </g>
-            </g>
+            </g>}
 
             {/* The circles theme shows its figure in its own colours, not only as a shadow in the glass. */}
             {isCircles && (
-              <g clipPath="url(#blue-panel-clip)" pointerEvents="none" aria-hidden="true" opacity=".78">
-                <g mask="url(#oval-signal-mask)">
+              <g clipPath="url(#blue-panel-clip)" pointerEvents="none" aria-hidden="true">
+                <g mask="url(#circles-mask)">
                   <g className="home-oval-drift home-dots-swap" key={`colour-${signalImage}`}>
                     <g className="home-dots-inner">
                       <g transform="translate(972 0) scale(-1 1)">
@@ -355,7 +364,7 @@ export const Home: FC = () => {
             )}
 
             {/* Soft rim light on the oval shapes */}
-            <g clipPath="url(#blue-panel-clip)" pointerEvents="none" aria-hidden="true" opacity=".45" style={{ mixBlendMode: 'screen' }}>
+            {!isCircles && <g clipPath="url(#blue-panel-clip)" pointerEvents="none" aria-hidden="true" opacity=".45" style={{ mixBlendMode: 'screen' }}>
               <g mask="url(#oval-signal-mask)">
                 <g mask="url(#oval-signal-vertical-mask)">
                   <g className="home-oval-drift home-dots-swap" key={signalImage}>
@@ -367,7 +376,7 @@ export const Home: FC = () => {
                   </g>
                 </g>
               </g>
-            </g>
+            </g>}
 
             {/* Continuous glass roll-off: one broad reflection, without narrow parallel rim bands. */}
             <g clipPath="url(#blue-panel-clip)" pointerEvents="none" aria-hidden="true" fill="none" strokeLinecap="round">

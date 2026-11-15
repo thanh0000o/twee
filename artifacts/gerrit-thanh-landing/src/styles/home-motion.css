@@ -464,6 +464,17 @@
 
 /* The circles ring turns very slowly in perspective, like a record seen from the side. */
 .home-page[data-palette="circles"] .home-oval-drift {
-  transform-origin: 600px 316px;
+  transform-origin: 615px 316px;
   animation: home-dots-spin 120s linear infinite;
+}
+
+/* Circles theme: the right-hand menu sits on the colourful drawing, so it gets white letters with a dark halo. */
+.home-page[data-palette="circles"] :is(.home-nav-link-about, .home-nav-link-works, .home-nav-link-artwork, .home-nav-link-visualisations) {
+  --home-nav-accent: #ffffff;
+}
+.home-page[data-palette="circles"] :is(.home-nav-link-about, .home-nav-link-works, .home-nav-link-artwork, .home-nav-link-visualisations) .home-nav-title {
+  text-shadow:
+    0 0 calc(1.5 * var(--u)) #021433,
+    0 0 calc(3.5 * var(--u)) #021433,
+    0 0 calc(7 * var(--u)) rgba(2, 20, 51, .8);
 }
