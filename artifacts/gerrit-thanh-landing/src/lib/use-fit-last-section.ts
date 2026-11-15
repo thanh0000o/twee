@@ -75,7 +75,7 @@ function layoutGallery(gallery: HTMLElement) {
 
     let best: { x: number; y: number; score: number } | null = null;
     // A random extra drop per photo keeps the rows from lining up.
-    const drop = seeded(index + 101) * 110;
+    const drop = seeded(index + 101) * 200;
     const ys = [floor, ...near.map((box) => box.bottom + GAP_Y)]
       .map((y) => y + drop)
       .filter((y) => y >= floor)
@@ -86,7 +86,9 @@ function layoutGallery(gallery: HTMLElement) {
         const box = { left: x, right: x + size.width, top: y, bottom: y + size.height };
         if (near.some((other) => overlaps(box, other))) continue;
         const stacked = near.some((other) => stackedUnder(box, other));
-        const score = y + Math.abs(x - preferred) * 0.35 + (stacked ? 340 : 0);
+        // Photos side by side at the same height read as a row; push them out of line.
+        const inLine = near.filter((other) => Math.abs(other.top - y) < 110 || Math.abs(other.bottom - box.bottom) < 110).length;
+        const score = y + Math.abs(x - preferred) * 0.35 + (stacked ? 340 : 0) + inLine * 170;
         if (!best || score < best.score) best = { x, y, score };
         break; // the lowest free spot for this x
       }
