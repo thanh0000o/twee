@@ -4,6 +4,8 @@ export const PALETTES = [
   { name: 'violet', filter: 'hue-rotate(55deg)', highlight: '#d8b4ff' },
   { name: 'rose', filter: 'hue-rotate(115deg)', highlight: '#ffb9db' },
   { name: 'lime', filter: 'hue-rotate(-130deg)', highlight: '#e0ff83' },
+  // Built from the circles drawing: keeps the original blue and adds its green and yellow, so no hue shift.
+  { name: 'circles', filter: 'none', highlight: '#ddff00' },
 ];
 
 export const PALETTE_STORAGE_KEY = 'thanh-landing-palette';
@@ -12,6 +14,7 @@ export const getPaletteLinkColor = (name: string) =>
   name === 'rose' ? '#ff8c7e' :
   name === 'violet' ? '#ff8e98' :
   name === 'blue' ? 'var(--color-accent-red)' :
+  name === 'circles' ? '#3d9900' :
   '#ff6070';
 
 let currentPaletteIndex = 0;

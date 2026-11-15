@@ -6,6 +6,7 @@ import patternWave from '../assets/patterns/wave.webp';
 import patternSpiral from '../assets/patterns/spiral.webp';
 import patternBurst from '../assets/patterns/burst.webp';
 import patternSphere from '../assets/patterns/sphere.webp';
+import patternCircles from '../assets/patterns/circles.webp';
 import { DepthDotPattern } from '../components/depth-dot-pattern';
 import { InkDefs } from '../components/home-ink-masks';
 import { BubbleReveal, EntryDefs } from '../components/home-entry-masks';
@@ -30,6 +31,7 @@ const SIGNAL_BY_PALETTE: Record<string, string> = {
   violet: patternSpiral,
   rose: patternBurst,
   lime: patternSphere,
+  circles: patternCircles,
 };
 
 export const Home: FC = () => {
@@ -46,7 +48,9 @@ export const Home: FC = () => {
   const activePaletteIndex = PALETTES[paletteIndex] ? paletteIndex : 0;
   const palette = PALETTES[activePaletteIndex];
   const nextPalette = PALETTES[(activePaletteIndex + 1) % PALETTES.length];
-  const centerAccent = activePaletteIndex === 0 ? undefined : getPaletteLinkColor(palette.name);
+  // On the dark panel the circles theme uses its bright yellow; on white pages it uses green.
+  const isCircles = palette.name === 'circles';
+  const centerAccent = activePaletteIndex === 0 ? undefined : isCircles ? '#ddff00' : getPaletteLinkColor(palette.name);
   const signalImage = SIGNAL_BY_PALETTE[palette.name] ?? ovalSignal;
   // Load and decode every theme's dot figure up front, so switching themes never waits for a download.
   useEffect(() => {
@@ -117,6 +121,14 @@ export const Home: FC = () => {
                 <stop offset=".58" stopColor="#176ec0" />
                 <stop offset=".82" stopColor="#42a8dc" />
                 <stop offset="1" stopColor="#d9f3ff" />
+              </linearGradient>
+              {/* Circles theme: deep blue into the drawing's blue, green and yellow. */}
+              <linearGradient id="flash-panel-circles" x1="232.67" y1="287.95" x2="822.6" y2="287.95" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stopColor="#031b49" />
+                <stop offset=".3" stopColor="#0a4fc4" />
+                <stop offset=".55" stopColor="#0066ff" />
+                <stop offset=".8" stopColor="#3d9900" />
+                <stop offset="1" stopColor="#ddff00" />
               </linearGradient>
               <linearGradient id="flash-panel-gloss" x1="0" y1="131.35" x2="0" y2="444.55" gradientUnits="userSpaceOnUse">
                 <stop offset="0" stopColor="#ffffff" stopOpacity=".28" />
@@ -299,6 +311,7 @@ export const Home: FC = () => {
             <g className="home-panel-reveal" clipPath="url(#blue-panel-clip)" mask={opening ? "url(#entry-wipe)" : undefined}>
             <g className="home-gradient-arrival" filter={showLowRes ? 'url(#home-lowres)' : undefined}>
             <path d="M822.6,444.55H232.67c3.09-40.8,15.1-133.63,74.69-219.93,32.11-46.51,67.41-75.73,93.15-93.27h422.1v313.21Z" fill="url(#flash-panel-blue)" stroke="#182c48" strokeWidth=".75" />
+            <path className="home-panel-circles" d="M822.6,444.55H232.67c3.09-40.8,15.1-133.63,74.69-219.93,32.11-46.51,67.41-75.73,93.15-93.27h422.1v313.21Z" fill="url(#flash-panel-circles)" opacity={isCircles ? 1 : 0} style={{ transition: 'opacity 900ms ease-in-out' }} />
             <path d="M822.6,444.55H232.67c3.09-40.8,15.1-133.63,74.69-219.93,32.11-46.51,67.41-75.73,93.15-93.27h422.1v313.21Z" fill="url(#flash-panel-gloss)" />
             {/* Spatial shading: soft top-right light, grounded floor shade, inner shade along the curve */}
             <g clipPath="url(#blue-panel-clip)" pointerEvents="none" aria-hidden="true">
@@ -325,6 +338,21 @@ export const Home: FC = () => {
                 </g>
               </g>
             </g>
+
+            {/* The circles theme shows its figure in its own colours, not only as a shadow in the glass. */}
+            {isCircles && (
+              <g clipPath="url(#blue-panel-clip)" pointerEvents="none" aria-hidden="true" opacity=".78">
+                <g mask="url(#oval-signal-mask)">
+                  <g className="home-oval-drift home-dots-swap" key={`colour-${signalImage}`}>
+                    <g className="home-dots-inner">
+                      <g transform="translate(972 0) scale(-1 1)">
+                        <image href={signalImage} x="114" y="188" width="744" height="256.7" preserveAspectRatio="none" />
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            )}
 
             {/* Soft rim light on the oval shapes */}
             <g clipPath="url(#blue-panel-clip)" pointerEvents="none" aria-hidden="true" opacity=".45" style={{ mixBlendMode: 'screen' }}>
@@ -448,7 +476,7 @@ export const Home: FC = () => {
           </div>
 
           {/* Interactive Navigation (<a> tags + icons) */}
-          <div className="home-nav-reveal absolute inset-0 z-[4] pointer-events-none" style={{ '--home-nav-accent': centerAccent ?? 'var(--color-accent-red)' } as React.CSSProperties}>
+          <div className="home-nav-reveal absolute inset-0 z-[4] pointer-events-none" style={{ '--home-nav-accent': isCircles ? '#2f7d00' : centerAccent ?? 'var(--color-accent-red)' } as React.CSSProperties}>
             {/* ABOUT ME */}
             <Link href="/about" className="group home-nav-link home-nav-link-about pointer-events-auto" aria-label="About me">
               <div className="home-nav-label absolute whitespace-nowrap transition-none cursor-pointer" 

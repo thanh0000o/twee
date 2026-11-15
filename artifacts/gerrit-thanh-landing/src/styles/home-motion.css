@@ -461,3 +461,9 @@
 /* The colour button on the curve arrives with the menu during the intro. */
 .home-page .home-nav-link-colors { --nav-cue-delay: 1030ms; --nav-light-delay: 1580ms; padding: 0; border: 0; background: none; }
 
+
+/* The circles ring turns very slowly in perspective, like a record seen from the side. */
+.home-page[data-palette="circles"] .home-oval-drift {
+  transform-origin: 600px 316px;
+  animation: home-dots-spin 120s linear infinite;
+}
