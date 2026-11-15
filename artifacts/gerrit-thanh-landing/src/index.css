@@ -2714,3 +2714,26 @@ input[type='text'], input[type='password'], input[type='email'], input[type='sea
     max-width: 100%;
   }
 }
+
+/* Desktop: the scattered gallery sits centred with white space on both sides, and the photos grow
+   with the screen (a bit smaller on laptops, bigger on large monitors). */
+@media (min-width: 901px) {
+  :is(.artwork-page, .visualisations-page) .viz-gallery {
+    width: min(calc(100% - 2 * clamp(40px, 6vw, 180px)), 2200px);
+    margin-inline: auto;
+  }
+
+  :is(.artwork-page, .visualisations-page) .viz-scatter-cell {
+    width: 30vw;
+  }
+
+  :is(.artwork-page, .visualisations-page) .viz-item-container,
+  .visualisations-page .viz-fungus-caption-wrap {
+    width: clamp(220px, 19vw, 560px);
+  }
+
+  :is(.artwork-page, .visualisations-page) .viz-item-container.is-landscape,
+  .visualisations-page .viz-fungus-caption-wrap.is-landscape {
+    width: clamp(300px, 27vw, 780px);
+  }
+}
