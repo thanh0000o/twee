@@ -2057,8 +2057,8 @@
 }
 
 /* More room between rows, so the bigger photos never overlap. */
-.visualisations-page { --viz-y: 1.25; }
-.artwork-page { --viz-y: 1.25; }
+.visualisations-page { --viz-y: var(--viz-y-desktop, 1.25); }
+.artwork-page { --viz-y: var(--viz-y-desktop, 1.25); }
 
 .artwork-page .viz-item-container {
   width: clamp(calc(240 * var(--ui-px)), 22vw, calc(300 * var(--ui-px)));
@@ -2726,6 +2726,10 @@ input[type='text'], input[type='password'], input[type='email'], input[type='sea
   :is(.artwork-page, .visualisations-page) .viz-scatter-cell {
     width: 30vw;
   }
+
+  /* Rows sit closer together; the photos are a bit smaller here, and no photo can overlap another
+     anyway (use-fit-last-section moves it aside). */
+  :is(.artwork-page, .visualisations-page) { --viz-y-desktop: 0.95; }
 
   :is(.artwork-page, .visualisations-page) .viz-item-container,
   .visualisations-page .viz-fungus-caption-wrap {

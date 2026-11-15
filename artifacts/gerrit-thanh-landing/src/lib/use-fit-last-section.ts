@@ -91,9 +91,8 @@ function layoutSection(section: HTMLElement, isLast: boolean, above: Box[]) {
     bottom = Math.max(bottom, box.bottom - area.top);
   }
 
-  const cssMinHeight = parseFloat(getComputedStyle(section).minHeight) || 0;
-  const needed = Math.ceil(bottom + (isLast ? BOTTOM_GAP : PHOTO_GAP * 2));
-  const height = isLast ? needed : Math.max(cssMinHeight, needed);
+  // Each section ends right after its lowest photo, so there's no empty band before the next one.
+  const height = Math.ceil(bottom + (isLast ? BOTTOM_GAP : PHOTO_GAP * 2));
   section.style.minHeight = `${height}px`;
   section.style.height = `${height}px`;
   return placed;
