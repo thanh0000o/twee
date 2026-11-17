@@ -579,10 +579,16 @@ main.ed .blog-read-more:is(:hover, :focus-visible) {
 }
 
 main.ed .blog-post-pinned {
+  display: inline-block;
   margin-left: calc(8 * var(--ui-px));
-  color: #9a9a9a;
+  padding: 0 5px;
+  border: 1px solid var(--blog-link-color);
+  color: var(--blog-link-color);
+  filter: var(--blog-link-filter);
   font-family: var(--font-micro);
   font-size: calc(var(--ed-fs) * .8);
   font-weight: 400;
   letter-spacing: .7px;
+  line-height: 1.5;
+  vertical-align: middle;
 }
