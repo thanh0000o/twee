@@ -46,11 +46,15 @@ export const BLOG_POSTS: BlogPost[] = [
     dateLabel: '17 November 2026, 17:40 CET',
     author: 'Thành Lambeets',
     body: [
-      ['These are my first opinion pieces, so I want to say something about them first. I try to look at each topic from a neutral point of view, ask critical questions and add nuance where I can. More pieces are on the way, and I learn something new every day. I pick up things I see around me, and on a random day I can suddenly want to read up on something, ask my own questions about it and write it down. If you have a question or see something I could do better, leave a note in the ', guestbook('guestbook'), '. Thanks in advance, and enjoy reading.'],
+      ["Before you read my opinion pieces, I want to be honest about something: these are the first ones I've ever written. I'm not a journalist, and I don't follow politics every day. Sometimes I see a post, a comment or a moment on TV that sticks with me, and it won't let go until I've read more about it. That's usually how a piece starts."],
+      ["When I write, I try to stay in the middle. I want to understand both sides and leave room for nuance, even when it feels like everyone online is shouting over each other. I don't always get it right, and I'm learning as I go. More pieces are coming."],
+      ["If something isn't clear or you see it differently, I'd really like to hear it. Leave a note in the ", guestbook('guestbook'), '. Thanks for reading, and enjoy.'],
     ],
     nl: {
       body: [
-        ['Dit zijn mijn eerste opiniestukken, dus ik wil er eerst iets over zeggen. Ik probeer elk onderwerp vanuit een neutraal standpunt te bekijken, kritische vragen te stellen en te nuanceren waar ik kan. Er komen er nog, en ik leer elke dag bij. Ik pik dingen op die ik rondom me zie, en op een willekeurige dag kan ik plots zin krijgen om me ergens in te lezen, er mijn eigen vragen bij te stellen en het op te schrijven. Heb je een vraag of zie je iets wat ik beter kan doen, laat dan een berichtje achter in het ', guestbook('gastenboek'), '. Alvast bedankt, en veel leesplezier.'],
+        ['Voor je mijn opiniestukken leest, wil ik eerlijk iets zeggen: dit zijn de eerste die ik ooit geschreven heb. Ik ben geen journalist, en ik volg de politiek niet elke dag. Soms zie ik een post, een reactie of een moment op tv dat blijft hangen, en dan laat het me niet los tot ik er meer over gelezen heb. Zo begint een stuk meestal.'],
+        ['Als ik schrijf, probeer ik in het midden te blijven. Ik wil beide kanten begrijpen en ruimte laten voor nuance, ook als het online voelt alsof iedereen door elkaar roept. Dat lukt niet altijd, en ik leer al doende. Er komen er nog.'],
+        ['Is iets niet duidelijk of zie je het anders, dan hoor ik dat echt graag. Laat een berichtje achter in het ', guestbook('gastenboek'), '. Bedankt om te lezen, en veel leesplezier.'],
       ],
     },
   },
