@@ -46,13 +46,13 @@ export const BLOG_POSTS: BlogPost[] = [
     dateLabel: '17 November 2026, 17:40 CET',
     author: 'Thành Lambeets',
     body: [
-      ["Before you read my opinion pieces, I want to be honest about something: these are the first ones I've ever written. I'm not a journalist, and I don't follow politics every day. Sometimes I see a post, a comment or a moment on TV that sticks with me, and it won't let go until I've read more about it. That's usually how a piece starts."],
+      ["Before you read my opinion pieces, I want to be honest about something: these are the first ones I've ever written. I'm not a journalist or an expert. I write about whatever keeps me busy, from philosophy and my own way of looking at things to culture, social issues and sometimes the news. Often it starts with a post, a conversation or a moment on TV that sticks with me and won't let go until I've read more about it."],
       ["When I write, I try to stay in the middle. I want to understand both sides and leave room for nuance, even when it feels like everyone online is shouting over each other. I don't always get it right, and I'm learning as I go. More pieces are coming."],
       ["If something isn't clear or you see it differently, I'd really like to hear it. Leave a note in the ", guestbook('guestbook'), '. Thanks for reading, and enjoy.'],
     ],
     nl: {
       body: [
-        ['Voor je mijn opiniestukken leest, wil ik eerlijk iets zeggen: dit zijn de eerste die ik ooit geschreven heb. Ik ben geen journalist, en ik volg de politiek niet elke dag. Soms zie ik een post, een reactie of een moment op tv dat blijft hangen, en dan laat het me niet los tot ik er meer over gelezen heb. Zo begint een stuk meestal.'],
+        ["Voor je mijn opiniestukken leest, wil ik eerlijk iets zeggen: dit zijn de eerste die ik ooit geschreven heb. Ik ben geen journalist of expert. Ik schrijf over wat me bezighoudt, van filosofie en mijn eigen kijk op dingen tot cultuur, sociale thema's en soms het nieuws. Vaak begint het met een post, een gesprek of een moment op tv dat blijft hangen en me niet loslaat tot ik er meer over gelezen heb."],
         ['Als ik schrijf, probeer ik in het midden te blijven. Ik wil beide kanten begrijpen en ruimte laten voor nuance, ook als het online voelt alsof iedereen door elkaar roept. Dat lukt niet altijd, en ik leer al doende. Er komen er nog.'],
         ['Is iets niet duidelijk of zie je het anders, dan hoor ik dat echt graag. Laat een berichtje achter in het ', guestbook('gastenboek'), '. Bedankt om te lezen, en veel leesplezier.'],
       ],
