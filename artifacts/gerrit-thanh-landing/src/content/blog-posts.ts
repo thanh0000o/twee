@@ -20,6 +20,8 @@ export interface BlogPost {
   nl?: { body: PostBlock[]; sources?: PostSource[] };
   /** Opinion pieces: how many blocks show before the {read more} button. Defaults to 1. */
   intro?: number;
+  /** Shown at the top of its column with a pinned label. */
+  pinned?: boolean;
   wide?: boolean;
 }
 
@@ -109,6 +111,7 @@ export const BLOG_POSTS: BlogPost[] = [
     dateTime: '2026-11-17T17:40:00+01:00',
     dateLabel: '17 November 2026, 17:40 CET',
     author: 'Thành Lambeets',
+    pinned: true,
     body: [
       ["One thing before you start: these are the first opinion pieces I've ever written. I'm not a journalist or an expert. I write about whatever is on my mind, from philosophy and my own way of looking at things to culture, social issues and sometimes the news. Often it starts with a post, a conversation or a moment on TV that sticks with me and won't let go until I've read more about it."],
       ["When I write, I try to stay in the middle. I want to understand both sides and leave room for nuance, even when it feels like everyone online is shouting over each other. I don't always manage, but I learn a bit more with every piece, and there are more on the way."],

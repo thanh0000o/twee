@@ -577,3 +577,18 @@ main.ed .blog-read-more:is(:hover, :focus-visible) {
   box-shadow: 0 0 4px var(--home-nav-glow, var(--nav-blog-links-glow));
   outline: none;
 }
+
+main.ed .blog-post-pinned {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: calc(10 * var(--ui-px));
+  padding: 0 5px;
+  background: #858585;
+  color: #fff;
+  font-family: var(--font-micro);
+  font-size: calc(var(--ed-fs) * .8);
+  font-weight: 400;
+  letter-spacing: .7px;
+  vertical-align: middle;
+}

@@ -162,7 +162,8 @@ const BlogScrollPanel: FC<{
 
 const BlogPosts: FC<{ posts: BlogPost[] }> = ({ posts }) => {
   const siteUpdates = posts.filter((post) => post.category === 'site-update');
-  const opinions = posts.filter((post) => post.category === 'opinion');
+  const opinions = posts.filter((post) => post.category === 'opinion')
+    .sort((a, b) => Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)));
 
   const [lang, setLang] = useState<Lang>(readLang);
   const changeLang = (next: Lang) => {
@@ -203,7 +204,17 @@ const BlogPosts: FC<{ posts: BlogPost[] }> = ({ posts }) => {
     return (
       <article key={post.slug} id={post.slug} className="blog-post" aria-labelledby={`title-${post.slug}`} data-testid={`blog-post-${post.slug}`} lang={translated ? 'nl' : 'en'}>
         <header>
-          <h2 id={`title-${post.slug}`} lang="en">{`{${post.title}}`}</h2>
+          <h2 id={`title-${post.slug}`} lang="en">
+            {`{${post.title}}`}
+            {post.pinned && (
+              <span className="blog-post-pinned" title="pinned">
+                <svg aria-hidden="true" viewBox="0 0 12 16" width="9" height="12">
+                  <path d="M3 1h6v1.5L8 4v3.5l2.5 2V11H6.75v4.25L6 16l-.75-.75V11H1.5V9.5L4 7.5V4L3 2.5Z" fill="currentColor" />
+                </svg>
+                pinned
+              </span>
+            )}
+          </h2>
           <Meta post={post} />
         </header>
         {language === 'nl' && !translated && (
