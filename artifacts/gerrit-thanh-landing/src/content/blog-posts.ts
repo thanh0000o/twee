@@ -292,9 +292,9 @@ export const BLOG_POSTS: BlogPost[] = [
     wide: true,
     body: [
       [
-        'I came across ',
+        "This piece is about how people talk to each other, not about who has the right numbers. I came across ",
         { text: 'this post', href: SEPPE_POST_URL, kind: 'external' },
-        " by chance while scrolling, and since I now have this blog as a place to write down what I think, I decided to use it. I picked this one on purpose. The post and both comments under it each had a clear side, and it looked like they had all done their research, but mostly to back up their own point. My first thought was: here we go again, everyone throwing numbers around and defending their own side. That made me curious about why it keeps happening, so I'm writing about it. I only read the post and these two comments, not the whole thread. I'm also not going to check every claim. This post is about how people talk to each other, not about who has the right numbers.",
+        " by chance while scrolling, and since I now have this blog as a place to write down what I think, I decided to use it. I picked this one on purpose. The post and both comments under it each had a clear side, and it looked like they had all done their research, but mostly to back up their own point. My first thought was: here we go again, everyone throwing numbers around and defending their own side. That made me curious about why it keeps happening, so I'm writing about it. I only read the post and these two comments, not the whole thread. I'm also not going to check every claim.",
       ],
       [
         "The post, by @seppedemeulder, reacts to a message from Prime Minister Bart De Wever on the anniversary of the Hamas attack on Israel. In the tweet, it can look as if the story starts on that day, and the post pushes back with a long list of Israeli attacks going back to the founding of Israel. Whether De Wever actually sees it that way, I honestly don't know. A tweet leaves a lot out, and I've never read his full view on the conflict. One commenter rejects the word genocide, says Israel also helped people in Gaza and warns readers not to believe the news. Another answers that he is the one who hasn't done his reading, blames Europe for the whole conflict and ends with a personal jab.",
@@ -350,12 +350,12 @@ export const BLOG_POSTS: BlogPost[] = [
     wide: true,
     body: [
       [
-        'I read an ',
+        "Is this still normal? Someone asked that while sharing a video of the riots in France, and it's where an ",
         { text: 'opinion piece', href: 'https://www.instagram.com/p/DeuA7_TjRX8/?img_index=4', kind: 'external' },
-        " by @seppedemeulder on Instagram about the unrest in France. It's a longer post than usual, because the piece needed the space.",
+        " by @seppedemeulder on Instagram starts. It's a longer post than usual, because the piece needed the space.",
       ],
       [
-        "It opens with someone sharing a video of the riots and asking if this is still normal. The author says no, but says that's where the thinking should start, not end. Most people either get involved somehow or look away, and only a small group turns to looting and arson. He writes that the public debate leaves almost no room for context, and that anger without a political outlet will only grow.",
+        "The author says no, but says that's where the thinking should start, not end. Most people either get involved somehow or look away, and only a small group turns to looting and arson. He writes that the public debate leaves almost no room for context, and that anger without a political outlet will only grow.",
       ],
       [
         'He asks readers to do two things at once: condemn the violence and ask why it happens. He also looks at what comes after, when politicians and commentators use the riots to label their opponents or entire groups of people. After that, a real conversation gets a lot harder.',
