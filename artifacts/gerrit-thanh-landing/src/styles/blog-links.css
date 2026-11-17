@@ -517,29 +517,6 @@ main.ed .blog-post-lang-note {
   text-shadow: 0 0 3px rgba(255, 255, 255, .35);
 }
 
-/* Older opinion pieces locked while they're being reworked, below the ones that are back. */
-main.ed .blog-opinion-locked {
-  margin-top: calc(32 * var(--ui-px));
-  padding-top: calc(14 * var(--ui-px));
-  border-top: 1px dotted #999;
-}
-main.ed .blog-opinion-locked-content {
-  max-height: calc(320 * var(--ui-px));
-  overflow: hidden;
-  filter: blur(5px);
-  opacity: .55;
-  pointer-events: none;
-  user-select: none;
-}
-main.ed .blog-opinion-locked-content .blog-post:first-child { margin-top: calc(12 * var(--ui-px)); }
-main.ed .blog-opinion-lock {
-  display: flex;
-  align-items: center;
-  gap: calc(8 * var(--ui-px));
-  color: #222;
-  font-family: var(--font-micro);
-  letter-spacing: .7px;
-}
 
 /* Laptop screens: the page still fits one screen, but the space is shared out better. The welcome text
    runs wider (two lines instead of three), the two rows get equal height so the guestbook isn't

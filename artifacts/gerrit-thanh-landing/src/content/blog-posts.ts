@@ -18,8 +18,6 @@ export interface BlogPost {
   body: PostBlock[];
   sources?: PostSource[];
   nl?: { body: PostBlock[]; sources?: PostSource[] };
-  /** Opinion piece that is done being reworked and shows without the lock. */
-  open?: boolean;
   wide?: boolean;
 }
 
@@ -103,7 +101,6 @@ export const BLOG_POSTS: BlogPost[] = [
     dateLabel: '17 November 2026, 17:30 CET',
     author: 'Thành Lambeets',
     wide: true,
-    open: true,
     body: [
       ['The question I keep coming back to: who pays the bill in Belgium, and is it shared fairly? It came up because of the budget talks of the De Wever government and an episode of De Afspraak with Bart Verhaeghe, the chairman of Club Brugge. Online I mostly saw angry reactions from both sides, so I wanted to find out for myself what is on the table.'],
       ["A note first: I don't follow politics closely. This blog is where I write down my thoughts, and sometimes I feel like reading up on something. With topics like this one, where the debate is so polarised, I mostly want to understand what's going on and put my thoughts on paper."],
