@@ -86,6 +86,8 @@ export const MEDIA_RATIOS: Record<string, number> = {
   "artwork/videos/07.mp4": 1.7778,
   "artwork/videos/08.mp4": 1.7778,
   "artwork/videos/09.mp4": 1.0,
+  "artwork/videos/10.mp4": 1.3142,
+  "artwork/videos/11.mp4": 1.3142,
   "visualisations/01.jpg": 0.6669,
   "visualisations/02.jpg": 0.75,
   "visualisations/03.jpg": 0.75,

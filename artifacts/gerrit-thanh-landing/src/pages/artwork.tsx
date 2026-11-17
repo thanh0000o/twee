@@ -91,6 +91,8 @@ import video6 from '@/assets/artwork/videos/06.mp4';
 import video7 from '@/assets/artwork/videos/07.mp4';
 import video8 from '@/assets/artwork/videos/08.mp4';
 import video9 from '@/assets/artwork/videos/09.mp4';
+import video10 from '@/assets/artwork/videos/10.mp4';
+import video11 from '@/assets/artwork/videos/11.mp4';
 
 const sourceArtwork = [
   img1, img2, img3, img4, img5, img6, img7, img8,
@@ -145,8 +147,12 @@ const orderedArtwork = [
   ),
 ];
 // Moved over from visualisations: one scroll down, at the start of the second row of pieces.
-const allArtwork = [...orderedArtwork.slice(0, 10), img77, ...orderedArtwork.slice(10)];
-const VIDEO_ARTWORK = new Set(videoArtwork);
+const allArtworkBase = [...orderedArtwork.slice(0, 10), img77, ...orderedArtwork.slice(10)];
+// Flowers: the black-background version sits in the first block, the purple one halfway down.
+const withFlowersTop = [...allArtworkBase.slice(0, 3), video10, ...allArtworkBase.slice(3)];
+const middle = Math.floor(withFlowersTop.length / 2);
+const allArtwork = [...withFlowersTop.slice(0, middle), video11, ...withFlowersTop.slice(middle)];
+const VIDEO_ARTWORK = new Set([...videoArtwork, video10, video11]);
 
 const CHUNK_SIZE = 10;
 const chunks: string[][] = [];
@@ -172,6 +178,7 @@ const LANDSCAPE_ARTWORK = new Set([
   img17, img19, img21, img23, img25, img27, img29, img31, img33, img35, img36,
   img44,
   video1, video2, video3, video4, video5, video6, video7, video8,
+  video10, video11,
 ]);
 
 const formatTime = (seconds: number) => {
