@@ -97,8 +97,8 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: 'a-fair-share',
     title: 'a fair share',
     category: 'opinion',
-    dateTime: '2026-11-17T17:30:00+01:00',
-    dateLabel: '17 November 2026, 17:30 CET',
+    dateTime: '2026-10-30T15:40:00+01:00',
+    dateLabel: '30 October 2026, 15:40 CET',
     author: 'Thành Lambeets',
     wide: true,
     body: [
