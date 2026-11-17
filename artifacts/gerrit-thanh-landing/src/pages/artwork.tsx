@@ -153,7 +153,7 @@ const withFlowersTop = [...allArtworkBase.slice(0, 3), video10, ...allArtworkBas
 const middle = Math.floor(withFlowersTop.length / 2);
 const allArtwork = [...withFlowersTop.slice(0, middle), video11, ...withFlowersTop.slice(middle)];
 const VIDEO_ARTWORK = new Set([...videoArtwork, video10, video11]);
-// Videos whose sound can be switched on in the gallery itself.
+// Videos that open in the viewer with (soft) sound and a volume control.
 const SOUND_ARTWORK = new Set([video10, video11]);
 
 const CHUNK_SIZE = 10;
@@ -189,11 +189,43 @@ const formatTime = (seconds: number) => {
   return `${minutes}:${Math.floor(seconds % 60).toString().padStart(2, '0')}`;
 };
 
-const ArtworkVideoPlayer: FC<{ src: string; index: number }> = ({ src, index }) => {
+const START_VOLUME = 0.25;
+
+const ArtworkVideoPlayer: FC<{ src: string; index: number; hasSound: boolean }> = ({ src, index, hasSound }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(START_VOLUME);
+  const [isMuted, setIsMuted] = useState(false);
+
+  // Start softly with sound; if the browser refuses autoplay with sound, fall back to muted.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    // Videos without a volume control keep playing as before, at full volume.
+    video.volume = hasSound ? START_VOLUME : 1;
+    video.muted = false;
+    setVolume(video.volume);
+    setIsMuted(false);
+    video.play().catch(() => {
+      video.muted = true;
+      setIsMuted(true);
+      void video.play().catch(() => undefined);
+    });
+  }, [src, hasSound]);
+
+  const toggleMute = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    const nextMuted = !video.muted;
+    video.muted = nextMuted;
+    if (!nextMuted && video.volume === 0) {
+      video.volume = START_VOLUME;
+      setVolume(START_VOLUME);
+    }
+    setIsMuted(nextMuted);
+  };
 
   const togglePlayback = () => {
     const video = videoRef.current;
@@ -213,7 +245,6 @@ const ArtworkVideoPlayer: FC<{ src: string; index: number }> = ({ src, index }) 
         ref={videoRef}
         src={src}
         className="viz-lightbox-image viz-lightbox-video"
-        autoPlay
         playsInline
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
@@ -248,6 +279,47 @@ const ArtworkVideoPlayer: FC<{ src: string; index: number }> = ({ src, index }) 
           }}
           aria-label="Video progress"
         />
+        {hasSound && (
+          <>
+            <button
+              type="button"
+              className="artwork-video-play artwork-video-mute"
+              onClick={toggleMute}
+              aria-label={isMuted ? 'Sound on' : 'Sound off'}
+            >
+              <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="#111" strokeWidth="1.3" strokeLinejoin="round" aria-hidden="true">
+                <path d="M2.5 6h2.5l3.5-3v10l-3.5-3h-2.5z" fill="#111" />
+                {isMuted || volume === 0 ? (
+                  <path d="m11 6 3.5 4m0-4L11 10" strokeLinecap="round" />
+                ) : (
+                  <>
+                    <path d="M10.8 6.2a2.6 2.6 0 0 1 0 3.6" strokeLinecap="round" />
+                    {volume > 0.5 && <path d="M12.6 4.6a5 5 0 0 1 0 6.8" strokeLinecap="round" />}
+                  </>
+                )}
+              </svg>
+            </button>
+            <input
+              className="artwork-video-progress artwork-video-volume"
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value={isMuted ? 0 : volume}
+              onChange={(event) => {
+                const nextVolume = Number(event.target.value);
+                const video = videoRef.current;
+                if (video) {
+                  video.volume = nextVolume;
+                  video.muted = nextVolume === 0;
+                }
+                setVolume(nextVolume);
+                setIsMuted(nextVolume === 0);
+              }}
+              aria-label="Volume"
+            />
+          </>
+        )}
       </div>
     </div>
   );
@@ -257,17 +329,6 @@ export const Artwork: FC = () => {
   const galleryRef = useRef<HTMLDivElement>(null);
   useFitLastSection(galleryRef);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  // Only one gallery video plays with sound at a time.
-  const [soundSrc, setSoundSrc] = useState<string | null>(null);
-  const gridVideos = useRef(new Map<string, HTMLVideoElement>());
-
-  useEffect(() => {
-    gridVideos.current.forEach((video, src) => {
-      const withSound = src === soundSrc && activeIndex === null;
-      video.muted = !withSound;
-      if (withSound && video.paused) void video.play();
-    });
-  }, [soundSrc, activeIndex]);
 
   useEffect(() => {
     const previousTitle = document.title;
@@ -333,10 +394,6 @@ export const Artwork: FC = () => {
                     <div className="viz-plate" aria-hidden="true" />
                     {VIDEO_ARTWORK.has(src) ? (
                       <video
-                        ref={(el) => {
-                          if (el) gridVideos.current.set(src, el);
-                          else gridVideos.current.delete(src);
-                        }}
                         src={src}
                         className="viz-img viz-video"
                         style={{ aspectRatio: mediaRatio(src) }}
@@ -357,18 +414,6 @@ export const Artwork: FC = () => {
                       />
                     )}
                   </button>
-                  {SOUND_ARTWORK.has(src) && (
-                    <button
-                      type="button"
-                      className="artwork-sound-toggle"
-                      style={{ '--scatter-x': `${scatter.x}px` } as React.CSSProperties}
-                      onClick={() => setSoundSrc((current) => current === src ? null : src)}
-                      aria-pressed={soundSrc === src}
-                      aria-label={soundSrc === src ? 'Mute video' : 'Play video with sound'}
-                    >
-                      <span>{soundSrc === src ? '{sound off}' : '{sound on}'}</span>
-                    </button>
-                  )}
                 </div>
               );
             })}
@@ -415,6 +460,7 @@ export const Artwork: FC = () => {
               <ArtworkVideoPlayer
                 src={allArtwork[activeIndex]}
                 index={activeIndex}
+                hasSound={SOUND_ARTWORK.has(allArtwork[activeIndex])}
               />
             ) : (
               <img
