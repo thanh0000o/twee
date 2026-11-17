@@ -39,6 +39,22 @@ const SRC = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: 'before-you-read',
+    title: 'before you read',
+    category: 'opinion',
+    dateTime: '2026-11-17T17:40:00+01:00',
+    dateLabel: '17 November 2026, 17:40 CET',
+    author: 'Thành Lambeets',
+    body: [
+      ['These are my first opinion pieces, so I want to say something about them first. I try to look at each topic from a neutral point of view, ask critical questions and add nuance where I can. More pieces are on the way, and I learn something new every day. I pick up things I see around me, and on a random day I can suddenly want to read up on something, ask my own questions about it and write it down. If you have a question or see something I could do better, leave a note in the ', guestbook('guestbook'), '. Thanks in advance, and enjoy reading.'],
+    ],
+    nl: {
+      body: [
+        ['Dit zijn mijn eerste opiniestukken, dus ik wil er eerst iets over zeggen. Ik probeer elk onderwerp vanuit een neutraal standpunt te bekijken, kritische vragen te stellen en te nuanceren waar ik kan. Er komen er nog, en ik leer elke dag bij. Ik pik dingen op die ik rondom me zie, en op een willekeurige dag kan ik plots zin krijgen om me ergens in te lezen, er mijn eigen vragen bij te stellen en het op te schrijven. Heb je een vraag of zie je iets wat ik beter kan doen, laat dan een berichtje achter in het ', guestbook('gastenboek'), '. Alvast bedankt, en veel leesplezier.'],
+      ],
+    },
+  },
+  {
     slug: 'mushrooms-and-a-dj-usb',
     title: 'mushrooms, a dj usb and a new app',
     category: 'site-update',
