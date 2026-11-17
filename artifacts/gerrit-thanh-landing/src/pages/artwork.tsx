@@ -153,6 +153,8 @@ const withFlowersTop = [...allArtworkBase.slice(0, 3), video10, ...allArtworkBas
 const middle = Math.floor(withFlowersTop.length / 2);
 const allArtwork = [...withFlowersTop.slice(0, middle), video11, ...withFlowersTop.slice(middle)];
 const VIDEO_ARTWORK = new Set([...videoArtwork, video10, video11]);
+// Videos whose sound can be switched on in the gallery itself.
+const SOUND_ARTWORK = new Set([video10, video11]);
 
 const CHUNK_SIZE = 10;
 const chunks: string[][] = [];
@@ -255,6 +257,17 @@ export const Artwork: FC = () => {
   const galleryRef = useRef<HTMLDivElement>(null);
   useFitLastSection(galleryRef);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  // Only one gallery video plays with sound at a time.
+  const [soundSrc, setSoundSrc] = useState<string | null>(null);
+  const gridVideos = useRef(new Map<string, HTMLVideoElement>());
+
+  useEffect(() => {
+    gridVideos.current.forEach((video, src) => {
+      const withSound = src === soundSrc && activeIndex === null;
+      video.muted = !withSound;
+      if (withSound && video.paused) void video.play();
+    });
+  }, [soundSrc, activeIndex]);
 
   useEffect(() => {
     const previousTitle = document.title;
@@ -320,6 +333,10 @@ export const Artwork: FC = () => {
                     <div className="viz-plate" aria-hidden="true" />
                     {VIDEO_ARTWORK.has(src) ? (
                       <video
+                        ref={(el) => {
+                          if (el) gridVideos.current.set(src, el);
+                          else gridVideos.current.delete(src);
+                        }}
                         src={src}
                         className="viz-img viz-video"
                         style={{ aspectRatio: mediaRatio(src) }}
@@ -340,6 +357,18 @@ export const Artwork: FC = () => {
                       />
                     )}
                   </button>
+                  {SOUND_ARTWORK.has(src) && (
+                    <button
+                      type="button"
+                      className="artwork-sound-toggle"
+                      style={{ '--scatter-x': `${scatter.x}px` } as React.CSSProperties}
+                      onClick={() => setSoundSrc((current) => current === src ? null : src)}
+                      aria-pressed={soundSrc === src}
+                      aria-label={soundSrc === src ? 'Mute video' : 'Play video with sound'}
+                    >
+                      <span>{soundSrc === src ? '{sound off}' : '{sound on}'}</span>
+                    </button>
+                  )}
                 </div>
               );
             })}
