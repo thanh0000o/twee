@@ -18,6 +18,8 @@ export interface BlogPost {
   body: PostBlock[];
   sources?: PostSource[];
   nl?: { body: PostBlock[]; sources?: PostSource[] };
+  /** Opinion pieces: how many blocks show before the {read more} button. Defaults to 1. */
+  intro?: number;
   wide?: boolean;
 }
 
@@ -46,6 +48,7 @@ export const BLOG_POSTS: BlogPost[] = [
     dateLabel: '17 November 2026, 18:40 CET',
     author: 'Thành Lambeets',
     wide: true,
+    intro: 2,
     body: [
       ["\"When will the rat race end, and when will we finally be satisfied with what we have?\""],
       ["I read that question under a ", ext("video by The Visual Philosopher", "https://www.youtube.com/watch?v=9-PbzIuo78s"), ", among the viewers' comments. It has stayed with me, and I bring a few of their thoughts into this piece. The video is about what people throughout history thought a life well spent looks like."],

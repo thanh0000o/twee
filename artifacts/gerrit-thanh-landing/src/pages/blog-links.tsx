@@ -178,10 +178,28 @@ const BlogPosts: FC<{ posts: BlogPost[] }> = ({ posts }) => {
     }
   };
 
+  const [openPosts, setOpenPosts] = useState<Set<string>>(() => new Set());
+  const togglePost = (slug: string) => {
+    const wasOpen = openPosts.has(slug);
+    setOpenPosts((prev) => {
+      const next = new Set(prev);
+      if (next.has(slug)) next.delete(slug); else next.add(slug);
+      return next;
+    });
+    if (wasOpen) {
+      requestAnimationFrame(() => document.getElementById(slug)?.scrollIntoView({ block: 'nearest' }));
+    }
+  };
+
   const renderPosts = (group: BlogPost[], language: Lang = 'en') => group.map((post) => {
     const translated = language === 'nl' ? post.nl : undefined;
-    const body = translated?.body ?? post.body;
-    const sources = translated?.sources ?? post.sources;
+    const fullBody = translated?.body ?? post.body;
+    const introCount = post.intro ?? 1;
+    const collapsible = post.category === 'opinion' && fullBody.length > introCount;
+    const isOpen = !collapsible || openPosts.has(post.slug);
+    const body = isOpen ? fullBody : fullBody.slice(0, introCount);
+    const sources = isOpen ? (translated?.sources ?? post.sources) : undefined;
+    const nlLabels = language === 'nl';
     return (
       <article key={post.slug} id={post.slug} className="blog-post" aria-labelledby={`title-${post.slug}`} data-testid={`blog-post-${post.slug}`} lang={translated ? 'nl' : 'en'}>
         <header>
@@ -196,6 +214,18 @@ const BlogPosts: FC<{ posts: BlogPost[] }> = ({ posts }) => {
             ? <Paragraph key={i} p={block} />
             : <h3 key={i} className="blog-post-subheading">{block.heading}</h3>
         ))}
+        {collapsible && (
+          <button
+            type="button"
+            className="blog-read-more"
+            aria-expanded={isOpen}
+            aria-controls={post.slug}
+            onClick={() => togglePost(post.slug)}
+            data-testid={`blog-read-more-${post.slug}`}
+          >
+            {isOpen ? (nlLabels ? 'lees minder' : 'read less') : (nlLabels ? 'lees verder' : 'read more')}
+          </button>
+        )}
         {sources && sources.length > 0 && (
           <ul className="blog-post-sources" aria-label={translated ? 'Bronnen' : 'Sources'}>
             {sources.map((source) => (

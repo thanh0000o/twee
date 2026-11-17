@@ -553,3 +553,27 @@ main.ed .blog-post-lang-note {
   :root body main.ed .gb-page.gb-embedded .gb-picker-row .gb-quick-strip { height: 26px; }
   :root body main.ed .gb-page.gb-embedded .gb-picker-row .gb-quick-emoji img { width: 21px; height: 21px; }
 }
+
+/* Opinion pieces show their opening first; the rest opens with {read more}. */
+main.ed .blog-read-more {
+  display: inline-block;
+  margin-top: calc(12 * var(--ui-px));
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--blog-link-color);
+  filter: var(--blog-link-filter);
+  font-family: var(--font-micro);
+  font-size: var(--ed-fs);
+  letter-spacing: .7px;
+  cursor: pointer;
+  transition: color 200ms ease-out, background-color 240ms ease-out, box-shadow 280ms ease-out;
+}
+main.ed .blog-read-more::before { content: '{'; }
+main.ed .blog-read-more::after { content: '}'; }
+main.ed .blog-read-more:is(:hover, :focus-visible) {
+  color: var(--home-nav-hover-ink, #000);
+  background-color: var(--home-nav-glow, var(--nav-blog-links-glow));
+  box-shadow: 0 0 4px var(--home-nav-glow, var(--nav-blog-links-glow));
+  outline: none;
+}
