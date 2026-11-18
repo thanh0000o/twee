@@ -592,3 +592,29 @@ main.ed .blog-post-pinned {
   line-height: 1.5;
   vertical-align: middle;
 }
+
+.blog-post-blur-wrap {
+  position: relative;
+}
+
+.blog-post-blurred {
+  filter: blur(5px);
+  opacity: 0.55;
+  pointer-events: none;
+  user-select: none;
+}
+
+.blog-post-blur-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font-family: var(--font-micro, inherit);
+  font-size: 0.8em;
+  color: var(--blog-link-color);
+}
+
+.blog-post-blur-label::before { content: '{'; }
+.blog-post-blur-label::after { content: '}'; }

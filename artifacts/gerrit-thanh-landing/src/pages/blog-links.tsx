@@ -196,10 +196,11 @@ const BlogPosts: FC<{ posts: BlogPost[] }> = ({ posts }) => {
     const translated = language === 'nl' ? post.nl : undefined;
     const fullBody = translated?.body ?? post.body;
     const introCount = post.intro ?? 1;
-    const collapsible = post.category === 'opinion' && fullBody.length > introCount;
+    const blurred = Boolean(post.blurred);
+    const collapsible = !blurred && post.category === 'opinion' && fullBody.length > introCount;
     const isOpen = !collapsible || openPosts.has(post.slug);
     const body = isOpen ? fullBody : fullBody.slice(0, introCount);
-    const sources = isOpen ? (translated?.sources ?? post.sources) : undefined;
+    const sources = isOpen && !blurred ? (translated?.sources ?? post.sources) : undefined;
     const nlLabels = language === 'nl';
     return (
       <article key={post.slug} id={post.slug} className="blog-post" aria-labelledby={`title-${post.slug}`} data-testid={`blog-post-${post.slug}`} lang={translated ? 'nl' : 'en'}>
@@ -215,7 +216,20 @@ const BlogPosts: FC<{ posts: BlogPost[] }> = ({ posts }) => {
         {language === 'nl' && !translated && (
           <p className="blog-post-lang-note">Dit stuk is (nog) alleen in het Engels.</p>
         )}
-        {body.map((block: PostBlock, i) => (
+        {blurred ? (
+          <div className="blog-post-blur-wrap">
+            <div className="blog-post-blurred" aria-hidden="true" inert>
+              {fullBody.slice(0, 2).map((block: PostBlock, i) => (
+                Array.isArray(block)
+                  ? <Paragraph key={i} p={block} />
+                  : <h3 key={i} className="blog-post-subheading">{block.heading}</h3>
+              ))}
+            </div>
+            <p className="blog-post-blur-label" data-testid={`blog-blurred-${post.slug}`}>
+              {nlLabels ? 'binnenkort te lezen' : 'coming soon'}
+            </p>
+          </div>
+        ) : body.map((block: PostBlock, i) => (
           Array.isArray(block)
             ? <Paragraph key={i} p={block} />
             : <h3 key={i} className="blog-post-subheading">{block.heading}</h3>
