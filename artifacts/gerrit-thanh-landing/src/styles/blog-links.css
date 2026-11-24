@@ -614,6 +614,7 @@ main.ed .blog-post-pinned {
   font-family: var(--font-micro, inherit);
   font-size: 0.8em;
   color: var(--blog-link-color);
+  filter: var(--blog-link-filter);
 }
 
 .blog-post-blur-label::before { content: '{'; }
@@ -626,4 +627,11 @@ main.ed .blog-topic-filter {
   gap: calc(4 * var(--ui-px)) calc(10 * var(--ui-px));
   margin: calc(-4 * var(--ui-px)) 0 calc(10 * var(--ui-px));
   font-size: var(--ed-fs);
+}
+
+/* Topic filter: the chosen topic takes the blog's link colour, with a soft glow. */
+main.ed .blog-topic-filter .blog-lang-option[aria-pressed="true"] {
+  color: var(--blog-link-color);
+  filter: var(--blog-link-filter);
+  text-shadow: 0 0 6px color-mix(in srgb, var(--blog-link-color) 45%, transparent);
 }
