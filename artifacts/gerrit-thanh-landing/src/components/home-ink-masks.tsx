@@ -20,6 +20,8 @@ const Ink: FC<{ id: string; cls: string; d: string; w: number }> = ({ id, cls, d
 export const InkDefs: FC = () => (
   <>
     <Ink id="ink-arc" cls="home-ink-arc" d={ARC} w={10} />
+    {/* Wider copy for the 3D tube, which is thicker than the ink line and has a shadow. */}
+    <Ink id="ink-tube" cls="home-ink-arc" d={ARC} w={40} />
     <mask id="ink-body" maskUnits="userSpaceOnUse" x="40" y="-20" width="840" height="540">
       <path className="home-ink-arc" d={ARC} pathLength={1} strokeDasharray="1" fill="none" stroke="#fff" strokeWidth={10} />
       <path className="home-ink-frame" d={FRAME} pathLength={1} strokeDasharray="1" fill="none" stroke="#fff" strokeWidth={8} strokeLinejoin="round" />

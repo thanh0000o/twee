@@ -9,6 +9,7 @@ import patternSphere from '../assets/patterns/sphere.webp';
 import { DepthDotPattern } from '../components/depth-dot-pattern';
 import { InkDefs } from '../components/home-ink-masks';
 import { BubbleReveal, EntryDefs } from '../components/home-entry-masks';
+import { CurveTube, CurveTubeDefs } from '../components/home-curve-tube';
 import { CopyParagraph } from '../components/copy-paragraph';
 import { VisitorCount } from '../components/visitor-count';
 import { PALETTES, getSavedPaletteIndex, savePaletteIndex, getPaletteLinkColor } from '../palette';
@@ -154,6 +155,7 @@ export const Home: FC = () => {
                 <stop offset=".5" stopColor="#e8f6ff" stopOpacity=".09" />
                 <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
               </linearGradient>
+              <CurveTubeDefs />
               {opening && <EntryDefs />}
               {opening && <InkDefs />}
               <linearGradient id="halftone-fade" x1="82" y1="0" x2="338" y2="0" gradientUnits="userSpaceOnUse">
@@ -407,6 +409,7 @@ export const Home: FC = () => {
               <path className="home-frame-reveal" pathLength="1" d="M451.59 131.38H80.58V444.56H451.59" />
               <path className="home-frame-reveal home-frame-return" pathLength="1" d="M451.59 131.38H822.6V444.56H451.59" />
             </g>
+            <CurveTube opening={opening} />
             {/* Embedded Dots with subtle glassy/vector highlights */}
              <ellipse className="home-marker-reveal home-marker-red" cx="334.81" cy="189.38" rx="7.16" ry="8.37" fill="var(--color-accent-red)" stroke="rgba(255,255,255,0.9)" strokeWidth="1" />
           </svg>
