@@ -58,7 +58,7 @@ export const BLOG_POSTS: BlogPost[] = [
     author: 'Thành Lambeets',
     body: [
       ["Locked in on TouchDesigner. I'm learning motion design and turning real-life nature into moving digital worlds."],
-      ["I'm also building a simple control panel for anyone who sees those TouchDesigner visuals online and thinks: I want to make that too."],
+      ["I'm also building a simple control panel, so you can skip the hard part and go straight to making the TouchDesigner visuals you see online."],
     ],
   },
   {
