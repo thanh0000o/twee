@@ -51,7 +51,7 @@ const SRC = {
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'locked-in',
-    title: 'locked in',
+    title: 'TD',
     category: 'site-update',
     dateTime: '2026-11-24T11:40:00+01:00',
     dateLabel: '24 November 2026, 11:40 CET',
