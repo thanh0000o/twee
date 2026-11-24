@@ -484,6 +484,7 @@ main.ed .blog-lang-option[aria-pressed="true"]::after {
 main.ed .blog-lang-option[aria-pressed="false"]:is(:hover, :focus-visible) {
   color: var(--blog-link-color);
   text-shadow: 0 0 6px var(--blog-link-color);
+  filter: var(--blog-link-filter);
   outline: none;
 }
 
