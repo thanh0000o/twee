@@ -47,9 +47,14 @@ export const CurveTubeDefs: FC = () => (
 
 export const CurveTube: FC<{ opening: boolean }> = ({ opening }) => (
   <g mask={opening ? 'url(#ink-tube)' : undefined} pointerEvents="none" aria-hidden="true">
+    {/* Drop shadow: the tube floats a little above the page and the panel.
+        The fade mask moves with the shadow, so it ends exactly where the tube ends. */}
+    <g transform="translate(6 7.5)">
+      <g mask="url(#tube-ends-mask)">
+        <path d={CURVE} fill="none" strokeLinecap="round" stroke="#04102e" strokeWidth="12" opacity=".38" filter="url(#tube-shadow)" />
+      </g>
+    </g>
     <g className="home-curve-tube" mask="url(#tube-ends-mask)" fill="none" strokeLinecap="round" strokeLinejoin="round">
-      {/* Drop shadow: the tube floats a little above the page and the panel. */}
-      <path d={CURVE} transform="translate(6 7.5)" stroke="#04102e" strokeWidth="12" opacity=".38" filter="url(#tube-shadow)" />
       {/* Gold edge on the outer side of the bend */}
       <g mask="url(#tube-gold-mask)">
         <path d={CURVE} transform="translate(-4.6 -3.6)" stroke="#3b2608" strokeWidth="7.4" opacity=".7" />
