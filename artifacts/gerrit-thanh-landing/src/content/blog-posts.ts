@@ -50,15 +50,15 @@ const SRC = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
-    slug: 'maxxing-touchdesigner',
-    title: 'maxxing touchdesigner',
+    slug: 'locked-in',
+    title: 'locked in',
     category: 'site-update',
     dateTime: '2026-11-24T11:40:00+01:00',
     dateLabel: '24 November 2026, 11:40 CET',
     author: 'Thành Lambeets',
     body: [
-      ["I'm maxxing TouchDesigner at the moment. Most of my free time goes into it, figuring out how to make the kind of moving visuals you see all over Instagram."],
-      ["I'm also building something with it for people who are just starting out. More about that later."],
+      ["Locked in on TouchDesigner. I'm learning motion design and turning real-life nature into moving digital worlds."],
+      ["I'm also building a simple control panel for lazy users, so anyone can make the TouchDesigner visuals they see online without starting from scratch."],
     ],
   },
   {
