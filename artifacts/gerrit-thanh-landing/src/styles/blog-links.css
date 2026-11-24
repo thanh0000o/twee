@@ -618,3 +618,12 @@ main.ed .blog-post-pinned {
 
 .blog-post-blur-label::before { content: '{'; }
 .blog-post-blur-label::after { content: '}'; }
+
+main.ed .blog-topic-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: calc(4 * var(--ui-px)) calc(10 * var(--ui-px));
+  margin: calc(-4 * var(--ui-px)) 0 calc(10 * var(--ui-px));
+  font-size: var(--ed-fs);
+}

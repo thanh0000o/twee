@@ -7,7 +7,7 @@ import { BlogFavourites } from '../components/blog-favourites';
 import { RecentlyAddedMusic } from '../components/recently-added-music';
 import { GuestbookChat } from '../components/guestbook-chat';
 import { VisitorCount } from '../components/visitor-count';
-import { sortedPosts, type BlogPost, type PostBlock, type PostParagraph } from '../content/blog-posts';
+import { sortedPosts, POST_TOPICS, type BlogPost, type PostBlock, type PostParagraph, type PostTopic } from '../content/blog-posts';
 import '../styles/editorial.css';
 import '../styles/music.css';
 import '../styles/blog-links.css';
@@ -110,6 +110,37 @@ const LangToggle: FC<{ lang: Lang; onChange: (lang: Lang) => void }> = ({ lang, 
   </div>
 );
 
+type TopicFilter = 'all' | PostTopic;
+
+const TopicFilterBar: FC<{ value: TopicFilter; onChange: (value: TopicFilter) => void }> = ({ value, onChange }) => (
+  <div className="blog-topic-filter" role="group" aria-label="Filter the opinion pieces by topic" lang="en">
+    {(['all', ...POST_TOPICS] as TopicFilter[]).map((topic) => (
+      <button
+        key={topic}
+        type="button"
+        className="blog-lang-option"
+        aria-pressed={value === topic}
+        onClick={() => onChange(topic)}
+        data-testid={`blog-topic-${topic.replace(/\W+/g, '-')}`}
+      >
+        {topic}
+      </button>
+    ))}
+  </div>
+);
+
+/** {philosophy 0001}: the topic plus its number, counted by date within that topic. */
+const topicTitles = (posts: BlogPost[]): Map<string, string> => {
+  const titles = new Map<string, string>();
+  for (const topic of POST_TOPICS) {
+    posts
+      .filter((post) => post.topic === topic)
+      .sort((a, b) => Date.parse(a.dateTime) - Date.parse(b.dateTime))
+      .forEach((post, i) => titles.set(post.slug, `${topic} ${String(i + 1).padStart(4, '0')}`));
+  }
+  return titles;
+};
+
 const Meta: FC<{ post: BlogPost }> = ({ post }) => (
   <p className="blog-post-meta" lang="en">
     <time dateTime={post.dateTime}>{post.dateLabel}</time> — by {post.author}
@@ -162,8 +193,11 @@ const BlogScrollPanel: FC<{
 
 const BlogPosts: FC<{ posts: BlogPost[] }> = ({ posts }) => {
   const siteUpdates = posts.filter((post) => post.category === 'site-update');
-  const opinions = posts.filter((post) => post.category === 'opinion')
+  const allOpinions = posts.filter((post) => post.category === 'opinion')
     .sort((a, b) => Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)));
+  const titles = topicTitles(allOpinions);
+  const [topicFilter, setTopicFilter] = useState<TopicFilter>('all');
+  const opinions = topicFilter === 'all' ? allOpinions : allOpinions.filter((post) => post.topic === topicFilter);
 
   const [lang, setLang] = useState<Lang>(readLang);
   const changeLang = (next: Lang) => {
@@ -206,7 +240,7 @@ const BlogPosts: FC<{ posts: BlogPost[] }> = ({ posts }) => {
       <article key={post.slug} id={post.slug} className="blog-post" aria-labelledby={`title-${post.slug}`} data-testid={`blog-post-${post.slug}`} lang={translated ? 'nl' : 'en'}>
         <header>
           <h2 id={`title-${post.slug}`} lang="en">
-            {`{${post.title}}`}
+            {`{${titles.get(post.slug) ?? post.title}}`}
             {post.pinned && (
               <span className="blog-post-pinned">pinned</span>
             )}
@@ -282,6 +316,7 @@ const BlogPosts: FC<{ posts: BlogPost[] }> = ({ posts }) => {
             <h2 id="opinion-pieces-heading">{'{opinion pieces}'}</h2>
             <LangToggle lang={lang} onChange={changeLang} />
           </div>
+          <TopicFilterBar value={topicFilter} onChange={setTopicFilter} />
           <BlogScrollPanel id="blog-opinion-stream" label="opinion pieces" testid="blog-opinion-pieces">
             {renderPosts(opinions, lang)}
           </BlogScrollPanel>

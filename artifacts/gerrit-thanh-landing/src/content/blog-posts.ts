@@ -8,10 +8,15 @@ export type PostHeading = { heading: string };
 export type PostBlock = PostParagraph | PostHeading;
 export interface PostSource { text: string; href: string }
 
+export type PostTopic = 'philosophy' | 'society' | 'politics & economy' | 'notes';
+export const POST_TOPICS: PostTopic[] = ['philosophy', 'society', 'politics & economy', 'notes'];
+
 export interface BlogPost {
   slug: string;
   title: string;
   category: 'site-update' | 'opinion';
+  /** Opinion pieces: shown as the title, e.g. {philosophy 0001}, numbered by date. */
+  topic?: PostTopic;
   dateTime: string;
   dateLabel: string;
   author: string;
@@ -48,6 +53,7 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: 'under-the-noise',
     title: 'under the noise',
     category: 'opinion',
+    topic: 'politics & economy',
     dateTime: '2026-11-18T17:05:00+01:00',
     dateLabel: '18 November 2026, 17:05 CET',
     author: 'Thành Lambeets',
@@ -154,6 +160,7 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: 'enough',
     title: 'enough',
     category: 'opinion',
+    topic: 'philosophy',
     dateTime: '2026-11-17T18:40:00+01:00',
     dateLabel: '17 November 2026, 18:40 CET',
     author: 'Thành Lambeets',
@@ -206,6 +213,7 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: 'before-you-read',
     title: 'before you read',
     category: 'opinion',
+    topic: 'notes',
     dateTime: '2026-11-17T17:40:00+01:00',
     dateLabel: '17 November 2026, 17:40 CET',
     author: 'Thành Lambeets',
@@ -282,6 +290,7 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: 'a-fair-share',
     title: 'a fair share',
     category: 'opinion',
+    topic: 'politics & economy',
     dateTime: '2026-10-30T15:40:00+01:00',
     dateLabel: '30 October 2026, 15:40 CET',
     author: 'Thành Lambeets',
@@ -387,6 +396,7 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: 'one-land-many-boxes',
     title: 'one land, many boxes',
     category: 'opinion',
+    topic: 'society',
     dateTime: '2026-10-29T14:30:00+01:00',
     dateLabel: '29 October 2026, 14:30 CET',
     author: 'Thành Lambeets',
@@ -432,6 +442,7 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: 'a-follow-up',
     title: 'a follow-up',
     category: 'opinion',
+    topic: 'society',
     dateTime: '2026-10-21T13:53:00+02:00',
     dateLabel: '21 October 2026, 13:53 CEST',
     author: 'Thành Lambeets',
@@ -445,6 +456,7 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: 'boxes-in-the-news',
     title: 'boxes in the news',
     category: 'opinion',
+    topic: 'society',
     dateTime: '2026-10-21T12:11:00+02:00',
     dateLabel: '21 October 2026, 12:11 CEST',
     author: 'Thành Lambeets',
