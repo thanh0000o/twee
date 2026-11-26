@@ -4,8 +4,13 @@ Persoonlijke website in early-2000s/Neocities-stijl. pnpm-monorepo (oorspronkeli
 
 ## Vaste regels
 
-- Werk altijd op een aparte branch, nooit rechtstreeks op `main`.
-- Push niets naar `main` zonder akkoord van Gerrit: `main` gaat live via Vercel.
+Werkwijze voor elke wijziging:
+
+1. Werk op een aparte branch, nooit rechtstreeks op `main`.
+2. Push de branch meteen naar GitHub.
+3. Geef Gerrit de Vercel preview-link en een korte lijst van wat er veranderd is.
+4. Merge pas naar `main` als Gerrit "zet live" zegt: `main` gaat live via Vercel.
+
 - Controleer visuele wijzigingen zelf met Playwright op desktop- en mobielformaat voordat je ze aan Gerrit toont.
 
 ## Hoe het in elkaar zit
