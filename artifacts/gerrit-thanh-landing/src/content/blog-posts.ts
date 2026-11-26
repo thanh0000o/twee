@@ -56,7 +56,10 @@ export const BLOG_POSTS: BlogPost[] = [
     dateTime: '2026-11-26T18:53:00+01:00',
     dateLabel: '26 November 2026, 18:53 CET',
     author: 'Thành Lambeets',
-    body: [["hi"]],
+    body: [
+      ["Hi. It was my girlfriend's birthday yesterday, so I got her flowers."],
+      ["Tune of the day: Bladee, IT Girl."],
+    ],
   },
   {
     slug: 'locked-in',
