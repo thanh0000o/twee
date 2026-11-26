@@ -50,6 +50,15 @@ const SRC = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: 'bladee-it-girl',
+    title: 'Bladee - IT Girl',
+    category: 'site-update',
+    dateTime: '2026-11-26T18:53:00+01:00',
+    dateLabel: '26 November 2026, 18:53 CET',
+    author: 'Thành Lambeets',
+    body: [["hi"]],
+  },
+  {
     slug: 'locked-in',
     title: 'TD',
     category: 'site-update',
